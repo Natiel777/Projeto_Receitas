@@ -32,7 +32,7 @@ Uma aplicação web onde os usuários podem criar uma conta, postar suas receita
 
 ## 🧩 Mapeamento Inicial das Camadas
 
-| Camada | Responsabilidades | Tecnologias sugeridas |
+| Camada | Responsabilidades | Tecnologias |
 |--------|-------------------|------------------------|
 | **Front-end** | Interface web para o usuário interagir (cadastro, busca, visualização e comentários). | React |
 | **Back-end** | Gerenciar regras de negócio, autenticação, endpoints REST e comunicação com o banco. | Node.js + Express |
