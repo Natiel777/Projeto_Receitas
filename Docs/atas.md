@@ -12,13 +12,12 @@
 
 # Decisões #
 - Usar GitHub para documentação do andamento do projeto.
-- Quadro do Trello configurado com colunas e cartões. (O professor deve ser adicionado ao quadro).
-- Requisitos funcionais e não funcionais definidos. Preencha o markdown e no trello.
-- Primeira Sprint planejada (tarefas atribuídas e priorizadas).
-- Envio de link do repositório.
+- Quadro do Trello configurado com colunas e cartões. 
+- Requisitos funcionais e não funcionais definidos. 
+- Primeira Sprint planejada.
 
 # Pendências #
-- (Denner) enviar link do Trello para o professor.
+- (Victor) enviar link do Trello para o professor.
 - Terminar o quadro Scrum.
 - Adicionar arquivos no Trello e GitHub.
 
