@@ -19,5 +19,6 @@
 
 # Pendências #
 - (Denner) enviar link do Trello para o professor.
-- Terminar o quadro Scrum.-
+- Terminar o quadro Scrum.
 - Adicionar arquivos no Trello e GitHub.
+
