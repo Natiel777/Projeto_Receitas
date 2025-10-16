@@ -1,4 +1,4 @@
-# Atas de Reuniões #
+# Atas de Reuniões
 
 # Reunião 01 - 10/10/2025
 * Participantes: Herbert, Natiel, Denner e Victor.
@@ -24,7 +24,7 @@
 
 
 # Reunião 02 - 14/10/2025
-* Participantes presentes: Herbert e Natiel. 
+* Participantes: Herbert e Natiel. 
 * Duração: 21h00 às 22h00.
 
 * Objetivo: Definir a estrutura inicial do back-end, o fluxo de trabalho com GitHub e a organização no Trello para início da Sprint 2.
