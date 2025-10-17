@@ -25,7 +25,7 @@
 
 # Reunião 02 - 14/10/2025
 * Participantes: Herbert e Natiel. 
-* Duração: 21h00 às 22h00.
+* Duração: 21:00h às 22:00h.
 
 * Objetivo: Definir a estrutura inicial do back-end, o fluxo de trabalho com GitHub e a organização no Trello para início da Sprint 2.
 
