@@ -11,7 +11,7 @@
 | Prioridade | Tarefa | Responsável | Status |
 |------------|--------|-------------|--------|
 | 🔴 Alta | Criar repositório no GitHub | Natiel | Feito |
-| 🔴 Alta | Definir requisitos funcionais e não funcionais | Denner | A fazer |
-| 🟠 Média | Montar quadro no Trello | Victor | A fazer |
+| 🔴 Alta | Definir requisitos funcionais e não funcionais | Denner |  Feito |
+| 🟠 Média | Montar quadro no Trello | Victor |  Feito |
 | 🔴 Alta | Configurar o ambiente (GitHub) | Herbert | Feito |
 
