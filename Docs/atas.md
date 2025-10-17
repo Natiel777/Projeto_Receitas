@@ -2,7 +2,7 @@
 
 # Reunião 01 - 10/10/2025
 * Participantes: Herbert, Natiel, Denner e Victor.
-* Duração: 01h:20 minutos
+* Duração: 21:00h às 22:00h
 * Objetivo: Organização dos arquivos e papéis de membros da equipe.
 
 # Tópicos Discutidos
