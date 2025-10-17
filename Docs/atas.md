@@ -31,32 +31,23 @@
 
 
 # Tópicos Discutidos
-Estrutura do projeto: pasta backend/ com subpastas routes/, controllers/, middlewares/
+- Estrutura do projeto: pasta backend/ com subpastas routes/, controllers/, middlewares/ mínimo de 2 rotas funcionais para entrega da semana.
 
-Mínimo de 2 rotas funcionais para entrega da semana.
+- Definição do fluxo de trabalho com branches individuais + Pull Requests no GitHub.
 
-Definição do fluxo de trabalho com branches individuais + Pull Requests no GitHub.
-
-Organização das tarefas no Trello com quadro Scrum (To Do → Doing → Code Review → Done).
+- Organização das tarefas no Trello com quadro Scrum (To Do → Doing → Code Review → Done).
 
 
 # Decisões
-Criar uma Sprint 2 chamada “Criação das rotas iniciais”.
-
-Cada integrante trabalhará em sua própria branch, com o formato:
-
+- Criar uma Sprint 2 chamada “Criação das rotas iniciais”.
+- Cada integrante trabalhará em sua própria branch, com o formato:
 feature/nome-da-funcionalidade-nome-do-dev
-
-Após finalizar uma tarefa, será obrigatório abrir Pull Request para revisão.
-
-Cada rota será criada como um cartão individual no Trello.
+- Após finalizar uma tarefa, será obrigatório abrir Pull Request para revisão.
+- Cada rota será criada como um cartão individual no Trello.
 
 
 # Pendências
-(Victor) enviar link do Trello para o professor.
-
-Terminar o quadro Scrum no Trello.
-
-Definir responsáveis por cada rota inicial.
-
-Iniciar desenvolvimento das rotas e criar as branches individuais.
+- (Victor) enviar link do Trello para o professor.
+- Terminar o quadro Scrum no Trello.
+- Definir responsáveis por cada rota inicial.
+- Iniciar desenvolvimento das rotas e criar as branches individuais.
