@@ -51,3 +51,28 @@ feature/nome-da-funcionalidade-nome-do-dev
 - Terminar o quadro Scrum no Trello.
 - Definir responsáveis por cada rota inicial.
 - Iniciar desenvolvimento das rotas e criar as branches individuais.
+
+
+# Reunião 03 - 17/10/2025
+* Participantes: Herbert, Natiel, Denner e Victor.
+* Duração: 21:00h às 22:00h.
+
+* Objetivo: Terminar tarefas pendentes da semana e elaborar o que cada membro deve fazer para realizar às atividades
+seguintes.
+
+# Tópicos Discutidos
+- Quadro Scrum do Trello
+- Sessão Planning Poker
+- Atividades pendentes
+- Atualização de arquivos no GitHub
+
+# Decisões
+- Iniciar Quadro Scrum no Trello.
+- Divisão de tarefas entre os membros para a semana.
+- Atualizações rápidas de ambiente no GitHub.
+
+# Pendências
+- Terminar o quadro Scrum no Trello.
+- Sessão de Planning Poker.
+- Atualização dos arquivos .md
+- Estimativa de esforço no Trello
