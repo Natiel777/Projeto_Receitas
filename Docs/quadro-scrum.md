@@ -11,3 +11,12 @@
 3. **Em andamento** 
 4. **Em revisão**
 5. **Concluído**
+
+## Regras de Trabalho 
+**Duração da Sprint**: **1 semana**
+**Duração de reuniões**: **média(1h)**
+**Ferramentas de comunicação**: **WhatsApp + GitHub + Trello**
+
+## Definição de Trabalho Concluído
+- Código testado e funcionando
+- Revisado por outro membro
