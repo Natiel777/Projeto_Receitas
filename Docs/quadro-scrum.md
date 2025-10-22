@@ -14,8 +14,8 @@
 
 ## Regras de Trabalho 
 - **Duração da Sprint**: **1 semana**
-- **Duração de reuniões**: **média(1h)**
-- **Ferramentas de comunicação**: **WhatsApp + GitHub + Trello**
+- **Duração de reuniões**: **1h média**
+- **Ferramentas de comunicação**: **WhatsApp + GitHub + Trello + Meet**
 
 ## Definição de Trabalho Concluído
 - Código testado e funcionando
