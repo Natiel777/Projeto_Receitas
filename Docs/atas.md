@@ -22,7 +22,7 @@
 - Adicionar arquivos no Trello e GitHub.
 
 
-
+---
 # Reunião 02 - 14/10/2025
 * Participantes: Herbert e Natiel. 
 * Duração: 21:00h às 22:00h.
@@ -52,7 +52,7 @@ feature/nome-da-funcionalidade-nome-do-dev
 - Definir responsáveis por cada rota inicial.
 - Iniciar desenvolvimento das rotas e criar as branches individuais.
 
-
+---
 # Reunião 03 - 17/10/2025
 * Participantes: Herbert, Natiel, Denner e Victor.
 * Duração: 21:00h às 22:00h.
@@ -76,3 +76,28 @@ seguintes.
 - Sessão de Planning Poker.
 - Atualização dos arquivos .md
 - Estimativa de esforço no Trello
+
+---
+# Reunião 04 - 21/10/2025
+* Participantes: Herbert, Natiel, Denner e Victor.  
+* Duração: 21:00h às 22:00h.
+
+* Objetivo: Realizar o fechamento das tarefas planejadas na última semana, verificar a conclusão das tarefas pendentes e alinhar o andamento das próximas etapas do projeto de forma organizada e colaborativa.
+
+# Tópicos Discutidos
+- Quadro Scrum no Trello  
+- Sessão de Planning Poker
+- Identificação e análise de riscos do projeto 
+- Tarefas pendentes  
+- Atualização e criação de arquivos no GitHub  
+
+# Decisões
+- Quadro Scrum no Trello atualizado.  
+- Sessão de Planning Poker realizada com definição das estimativas de esforço.
+- Principais riscos do projeto identificados. 
+- Divisão de tarefas entre os membros revisada e ajustada conforme progresso. 
+
+# Pendências
+- Atualizar o quadro Scrum no GitHub.  
+- Finalizar tarefas restantes do projeto.  
+
