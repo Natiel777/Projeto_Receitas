@@ -101,3 +101,28 @@ seguintes.
 - Atualizar o quadro Scrum no GitHub.  
 - Finalizar tarefas restantes do projeto.  
 
+---
+---
+# Reunião 05 - 24/10/2025
+* Participantes: Herbert, Natiel, Denner e Victor.  
+* Duração: 21:00h às 22:00h.  
+
+* Objetivo: Iniciar estrutura do front-end e atualizar as tarefas no Trello.
+
+# Tópicos Discutidos
+- Estruturação inicial do front-end.  
+- Organização das tarefas da semana no Trello.  
+- Verificação do andamento das tarefas da semana.  
+- Definição do layout do site.  
+
+# Decisões
+- Iniciar integração do back-end com o front-end.  
+- Atualizar o Trello diariamente.  
+- Utilizar o **Figma** para elaborar o esboço do layout do site.  
+
+# Pendências
+- Atualizar as tarefas e arquivos no Trello.  
+- Iniciar a estrutura inicial do front-end e implementar o primeiro fluxo completo.  
+- Criar o esboço do site no front-end a partir do Figma.  
+---
+
