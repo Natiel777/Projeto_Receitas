@@ -35,3 +35,22 @@
 | 🔴 Alta    | Revisão dos Pull Requests (PRs)     | Natiel, Victor   | ✅ Feito       |
 
 ---
+
+## 🏁 Sprint 03
+
+**Período:** 21/10/2025 - 28/10/2025  
+**Objetivo da Sprint:** Integrar o front-end ao back-end e renderizar dados reais de forma dinâmica.
+
+### ✅ Tarefas Planejadas
+
+| Prioridade | Tarefa                                                | Responsável     | Status       |
+|-------------|------------------------------------------------------|-----------------|--------------|
+| 🔴 Alta     | Criar estrutura inicial do front-end (HTML, CSS, JS) | Herbert          | ⏳ A Fazer    |
+| 🔴 Alta     | Implementar módulo `api.js` para comunicação com a API | Herbert         | ⏳ A Fazer    |
+| 🔴 Alta     | Implementar módulo `ui.js` para renderização dinâmica | Natiel          | ⏳ A Fazer    |
+| 🔴 Alta     | Implementar módulo `app.js` para integração geral     | Denner          | ⏳ A Fazer    |
+| 🔴 Alta     | Conectar front-end ao back-end usando `fetch` e `async/await` | Herbert, Victor | ⏳ A Fazer    |
+| 🟠 Média    | Implementar fluxo completo (GET + renderização de dados) | Denner          | ⏳ A Fazer    |
+| 🟠 Média    | Tratar erros com `try/catch` e exibir mensagens de feedback | Natiel        | ⏳ A Fazer    |
+| 🟢 Baixa    | revisar Pull Requests (PRs) no GitHub         | Victor, Natiel           | ⏳ A Fazer    |
+| 🟢 Baixa    | Atualizar quadro Trello com tarefas e progresso       | Todos           | ⏳ A Fazer    |
