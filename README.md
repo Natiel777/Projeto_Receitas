@@ -7,7 +7,7 @@
 - **Aluno 1:** Herbert  
 - **Aluno 2:** Natiel  
 - **Aluno 3:** Victor  
-- **Aluno 4:** Denner
+- **Aluno 4:** Denner  
 
 ---
 
@@ -19,7 +19,7 @@ Uma aplicação web onde os usuários podem criar uma conta, postar suas receita
 
 ---
 
-## ⚙ Funcionalidades Iniciais
+## ⚙️ Funcionalidades Iniciais
 
 | # | Funcionalidade | Descrição |
 |---|----------------|------------|
@@ -27,53 +27,51 @@ Uma aplicação web onde os usuários podem criar uma conta, postar suas receita
 | 2 | **Buscar receitas por nome ou ingrediente** | Usuário pode pesquisar receitas com base no nome da receita ou em um ingrediente específico. |
 | 3 | **Comentar ou avaliar receitas** | Usuário pode deixar comentários ou dar uma nota (ex: 1–5 estrelas) em receitas postadas por outros usuários. |
 
-
 ---
 
-## 🧩 Mapeamento Inicial das Camadas
+## 🧩 Mapeamento das Camadas
 
 | Camada | Responsabilidades | Tecnologias |
-|--------|-------------------|------------------------|
-| **Front-end** | Interface web para o usuário interagir (cadastro, busca, visualização e comentários). | React |
-| **Back-end** | Gerenciar regras de negócio, autenticação, endpoints REST e comunicação com o banco. | Node.js + Express |
-| **Banco de Dados** | Armazenar informações de usuários, receitas, comentários e avaliações. | SQL |
+|--------|-------------------|--------------|
+| **Front-end** | Interface web para cadastro, busca, visualização e interação com receitas. | React |
+| **Back-end** | Regras de negócio, autenticação, endpoints REST e integração com o banco. | Node.js + Express |
+| **Banco de Dados** | Armazenar usuários, receitas, comentários e avaliações. | MySQL / SQLite |
 
 ---
 
-## 🗺 Esboço Inicial da Arquitetura
-```plaintext
-          ┌────────────────────────────────┐
-          │           FRONT-END            │
-          │            (React)             │
-          │────────────────────────────────│
-          │ - Página de cadastro/login     │   ← (1) Criar conta
-          │ - Formulário de receita        │   ← (1) Postar receita
-          │ - Campo de busca               │   ← (2) Buscar receitas
-          │ - Tela de receita + comentários│   ← (3) Avaliar/Comentar
-          └──────────────┬─────────────────┘
-                         │  Requisições HTTP (JSON via API REST)
-                         ▼
-          ┌──────────────────────────────────┐
-          │             BACK-END             │
-          │       (Node.js + Express)        │
-          │──────────────────────────────────│
-          │ - Rotas /api/usuarios            │ ← (1) Cadastro/Login
-          │ - Rotas /api/receitas            │ ← (1) Postar receita
-          │ - Rotas /api/busca               │ ← (2) Buscar por nome/ingrediente
-          │ - Rotas /api/comentarios         │ ← (3) Comentários/Avaliações
-          │ - Regras de negócio e validações |
-          └──────────────┬───────────────────┘
-                         │  Consultas SQL
-                         ▼
-          ┌───────────────────────────────────────┐
-          │            BANCO DE DADOS             │
-          │            (MySQL / SQLite)           │
-          │───────────────────────────────────────│
-          │ Tabelas:                              │
-          │  • usuarios (id, nome, senha)         │ ← (1)
-          │  • receitas (id, titulo, ingredientes,│ ← (1)(2)
-          │     modo, foto, autor_id)             │
-          │  • comentarios (id, texto, nota,      │ ← (3)
-          │     usuario_id, receita_id)           │
-          └───────────────────────────────────────┘
+## 🗺 Arquitetura do Sistema
 
+```plaintext
+┌───────────────────────────────┐
+│           FRONT-END           │
+│            (React)            │
+│───────────────────────────────│
+│ • Cadastro / Login            │ ← (1)
+│ • Postar Receita              │ ← (1)
+│ • Buscar Receitas             │ ← (2)
+│ • Visualizar + Comentar       │ ← (3)
+└──────────────┬────────────────┘
+               │  HTTP (JSON via REST API)
+               ▼
+┌───────────────────────────────┐
+│           BACK-END            │
+│       (Node.js + Express)     │
+│───────────────────────────────│
+│ • /api/usuarios      → (1)    │
+│ • /api/receitas      → (1)(2) │
+│ • /api/busca         → (2)    │
+│ • /api/comentarios   → (3)    │
+│ • Validações e Regras de Negócio │
+└──────────────┬────────────────┘
+               │  SQL Queries
+               ▼
+┌───────────────────────────────┐
+│          DATABASE             │
+│       (MySQL / SQLite)        │
+│───────────────────────────────│
+│ • usuarios(id, nome, senha)             │ ← (1)
+│ • receitas(id, titulo, ingredientes,    │ ← (1)(2)
+│   modo, foto, autor_id)                 │
+│ • comentarios(id, texto, nota,          │ ← (3)
+│   usuario_id, receita_id)               │
+└───────────────────────────────┘
