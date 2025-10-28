@@ -45,12 +45,12 @@
 
 | Prioridade | Tarefa                                                | Responsável     | Status       |
 |-------------|------------------------------------------------------|-----------------|--------------|
-| 🔴 Alta     | Criar estrutura inicial do front-end (HTML, CSS, JS) | Herbert          | ⏳ A Fazer    |
-| 🔴 Alta     | Implementar módulo `api.js` para comunicação com a API | Denner        | ⏳ A Fazer    |
-| 🔴 Alta     | Implementar módulo `ui.js` para renderização dinâmica | Natiel          | ⏳ A Fazer    |
-| 🔴 Alta     | Implementar módulo `app.js` para integração geral     | Herbert         | ⏳ A Fazer    |
-| 🔴 Alta     | Conectar front-end ao back-end usando `fetch` e `async/await` | Herbert, Victor | ⏳ A Fazer    |
-| 🟠 Média    | Implementar fluxo completo (GET + renderização de dados) | Denner          | ⏳ A Fazer    |
-| 🟠 Média    | Tratar erros com `try/catch` e exibir mensagens de feedback | Natiel        | ⏳ A Fazer    |
-| 🟢 Baixa    | revisar Pull Requests (PRs) no GitHub         | Victor, Natiel           | ⏳ A Fazer    |
+| 🔴 Alta     | Criar estrutura inicial do front-end (HTML, CSS, JS) | Herbert          |  ✅ Feito    |
+| 🔴 Alta     | Implementar módulo `api.js` para comunicação com a API | Denner        |  ✅ Feito   |
+| 🔴 Alta     | Implementar módulo `ui.js` para renderização dinâmica | Natiel          |  ✅ Feito    |
+| 🔴 Alta     | Implementar módulo `app.js` para integração geral     | Herbert         |  ✅ Feito   |
+| 🔴 Alta     | Conectar front-end ao back-end usando `fetch` e `async/await` | Herbert, Victor |  ✅ Feito    |
+| 🟠 Média    | Implementar fluxo completo (GET + renderização de dados) | Denner          |  ✅ Feito    |
+| 🟠 Média    | Tratar erros com `try/catch` e exibir mensagens de feedback | Natiel        |  ✅ Feito    |
+| 🟢 Baixa    | revisar Pull Requests (PRs) no GitHub         | Victor, Natiel           |  ✅ Feito    |
 | 🟢 Baixa    | Atualizar quadro Trello com tarefas e progresso       | Todos           | ⏳ A Fazer    |
