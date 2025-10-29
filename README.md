@@ -33,7 +33,7 @@ Uma aplicação web onde os usuários podem criar uma conta, postar suas receita
 
 | Camada | Responsabilidades | Tecnologias |
 |--------|-------------------|--------------|
-| **Front-end** | Interface web para cadastro, busca, visualização e interação com receitas. | React |
+| **Front-end** | Interface web para cadastro, busca, visualização e interação com receitas. | React / HTML |
 | **Back-end** | Regras de negócio, autenticação, endpoints REST e integração com o banco. | Node.js + Express |
 | **Banco de Dados** | Armazenar usuários, receitas, comentários e avaliações. | MySQL / SQLite |
 
@@ -44,7 +44,7 @@ Uma aplicação web onde os usuários podem criar uma conta, postar suas receita
 ```plaintext
 ┌───────────────────────────────┐
 │           FRONT-END           │
-│            (React)            │
+│            (React / HTML)            │
 │───────────────────────────────│
 │ • Cadastro / Login            │ ← (1)
 │ • Postar Receita              │ ← (1)
