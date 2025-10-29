@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import usuariosRouter from "./Routes/usuariosRoute.js";
+import usuariosRouter from "./Routes/usuarioRoutes.js";
 import { logger } from "./Middlewares/logger.js";
 import { tratarErros } from "./Middlewares/tratarErros.js";
 
