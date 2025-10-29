@@ -1,19 +1,24 @@
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
-import usuariosRouter from "./Routes/usuarioRoutes.js";
-import { logger } from "./Middlewares/logger.js";
+import receitaRoutes from "./Routes/receitaRoutes.js";
+import usuarioRoutes from "./Routes/usuarioRoutes.js";
 import { tratarErros } from "./Middlewares/tratarErros.js";
+import { logger } from "./Middlewares/logger.js";
 
-dotenv.config();
 const app = express();
+const PORT = process.env.PORT || 3001;
+
 app.use(cors());
 app.use(express.json());
 app.use(logger);
 
-app.use("/api/usuarios", usuariosRouter);
+app.get("/", (req, res) => res.send("API Receitas Online funcionando!"));
+
+app.use("/api/receitas", receitaRoutes);
+app.use("/api/usuarios", usuarioRoutes);
 
 app.use(tratarErros);
 
-const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`✅ Servidor rodando na porta ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
+});
