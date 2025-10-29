@@ -1,9 +1,9 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import usuariosRouter from "./routes/usuarios.js";
-import { logger } from "./middlewares/logger.js";
-import { tratarErros } from "./middlewares/tratarErros.js";
+import usuariosRouter from "./Routes/usuariosRoute.js";
+import { logger } from "./Middlewares/logger.js";
+import { tratarErros } from "./Middlewares/tratarErros.js";
 
 dotenv.config();
 const app = express();
