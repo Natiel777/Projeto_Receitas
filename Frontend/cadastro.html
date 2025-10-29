@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastro - Receitas Online</title>
+  <link rel="stylesheet" href="styles/style.css" />
+</head>
+<body>
+  <main>
+    <h1>Cadastro</h1>
+    <form id="formCadastro">
+      <input type="text" name="nome" placeholder="Nome completo" required />
+      <input type="email" name="email" placeholder="E-mail" required />
+      <input type="password" name="senha" placeholder="Senha" required />
+      <button type="submit">Cadastrar</button>
+    </form>
+    <p>Já tem conta? <a href="login.html">Fazer login</a></p>
+  </main>
+
+  <script type="module">
+    import { cadastrarUsuario } from "./scripts/api.js";
+
+    const form = document.getElementById("formCadastro");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const dados = Object.fromEntries(new FormData(form));
+
+      try {
+        const resposta = await cadastrarUsuario(dados);
+        if (resposta.erro) {
+          alert(resposta.erro);
+        } else {
+          alert("Cadastro realizado com sucesso!");
+          window.location.href = "login.html";
+        }
+      } catch {
+        alert("Erro ao conectar ao servidor");
+      }
+    });
+  </script>
+</body>
+</html>
