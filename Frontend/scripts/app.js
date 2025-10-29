@@ -1,4 +1,12 @@
-import { listarUsuarios } from "./api.js";
-import { renderUsuarios } from "./ui.js";
+import { getReceitas } from "./api.js";
+import { renderReceitas, mostrarErro } from "./ui.js";
 
-listarUsuarios().then(renderUsuarios);
+export async function carregarReceitas() {
+  try {
+    const receitas = await getReceitas();
+    renderReceitas(receitas);
+  } catch (erro) {
+    console.error(erro);
+    mostrarErro("Erro ao carregar as receitas!");
+  }
+}
