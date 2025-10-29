@@ -1,11 +1,9 @@
-import { Router } from "express";
-import { listarUsuarios, criarUsuario, login } from "../controllers/usuariosController.js";
-import { validarUsuario } from "../middlewares/validarUsuario.js";
+import express from "express";
+import { cadastrarUsuario, loginUsuario } from "../Controllers/usuarioController.js";
 
-const router = Router();
+const router = express.Router();
 
-router.get("/", listarUsuarios);
-router.post("/", validarUsuario, criarUsuario);
-router.post("/login", login);
+router.post("/", cadastrarUsuario);
+router.post("/login", loginUsuario);
 
 export default router;
