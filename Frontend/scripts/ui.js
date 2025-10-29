@@ -1,4 +1,23 @@
-export const renderUsuarios = (usuarios) => {
-  const container = document.getElementById("app");
-  container.innerHTML = "<h2>Usuários</h2>" + usuarios.map(u => `<p>${u.nome} (${u.email})</p>`).join("");
-};
+export function renderReceitas(receitas) {
+  const container = document.getElementById("receitas");
+  if (!receitas.length) {
+    container.innerHTML = "<p>Nenhuma receita cadastrada ainda 🍽️</p>";
+    return;
+  }
+
+  container.innerHTML = receitas.map(r => `
+    <div class="card">
+      <img src="${r.imagem || 'https://placehold.co/600x400?text=Receita'}" alt="${r.nome}">
+      <div class="info">
+        <h3>${r.nome}</h3>
+        <p>${r.descricao || "Sem descrição disponível."}</p>
+        <p><strong>Autor:</strong> ${r.autor || "Anônimo"}</p>
+      </div>
+    </div>
+  `).join("");
+}
+
+export function mostrarErro(mensagem) {
+  const container = document.getElementById("receitas");
+  container.innerHTML = `<p class="erro">${mensagem}</p>`;
+}
