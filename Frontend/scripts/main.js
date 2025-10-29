@@ -5,7 +5,7 @@ import { cadastrarUsuario, loginUsuario } from "./api.js";
 window.addEventListener("DOMContentLoaded", () => {
   carregarReceitas();
 
-  // Formulário de cadastro
+// Formulário de cadastro
   const formCadastro = document.getElementById("formCadastro");
   if (formCadastro) {
     formCadastro.addEventListener("submit", async (e) => {
@@ -25,7 +25,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Formulário de login
+// Formulário de login
   const formLogin = document.getElementById("formLogin");
   if (formLogin) {
     formLogin.addEventListener("submit", async (e) => {
