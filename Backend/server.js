@@ -1,18 +1,19 @@
 import express from "express";
 import cors from "cors";
-import logger from "./middlewares/logger.js";
-import usuarioRoutes from "./routes/usuarioRoutes.js";
+import dotenv from "dotenv";
+import usuariosRouter from "./routes/usuarios.js";
+import { logger } from "./middlewares/logger.js";
+import { tratarErros } from "./middlewares/tratarErros.js";
 
+dotenv.config();
 const app = express();
-const PORT = 5000;
-
-// Middleware
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 app.use(logger);
 
-// Rotas
-app.use("/api/usuarios", usuarioRoutes);
+app.use("/api/usuarios", usuariosRouter);
 
-// Inicia o servidor
-app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
+app.use(tratarErros);
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`✅ Servidor rodando na porta ${PORT}`));
