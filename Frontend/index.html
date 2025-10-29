@@ -3,12 +3,32 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Projeto Receitas</title>
+  <title>Receitas Online</title>
   <link rel="stylesheet" href="styles/style.css" />
 </head>
 <body>
-  <h1>Receitas</h1>
-  <div id="app"></div>
-  <script src="scripts/app.js" type="module"></script>
+  <header>
+    <h1>🍴 Receitas Online</h1>
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="login.html">Login</a>
+      <a href="cadastro.html">Cadastro</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h2>Compartilhe e descubra receitas únicas feitas por pessoas reais</h2>
+      <p>Explore novos sabores todos os dias!</p>
+    </section>
+
+    <section id="receitas" class="grid"></section>
+  </main>
+
+  <footer>
+    <p>© 2025 Receitas Online — Todos os direitos reservados</p>
+  </footer>
+
+  <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
