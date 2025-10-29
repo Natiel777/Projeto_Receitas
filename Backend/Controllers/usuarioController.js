@@ -1,28 +1,24 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+const usuarios = [];
 
-let usuarios = [];
-
-export const listarUsuarios = (req, res) => {
-  res.json(usuarios);
-};
-
-export const criarUsuario = async (req, res) => {
+export const cadastrarUsuario = (req, res) => {
   const { nome, email, senha } = req.body;
-  const hash = await bcrypt.hash(senha, 10);
-  const novo = { id: Date.now(), nome, email, senha: hash };
-  usuarios.push(novo);
-  res.status(201).json({ mensagem: "Usuário criado", usuario: novo });
+  if (!nome || !email || !senha)
+    return res.status(400).json({ erro: "Preencha todos os campos" });
+
+  const existe = usuarios.find(u => u.email === email);
+  if (existe) return res.status(400).json({ erro: "Usuário já cadastrado" });
+
+  const novoUsuario = { id: Date.now(), nome, email, senha };
+  usuarios.push(novoUsuario);
+  res.status(201).json({ mensagem: "Usuário cadastrado com sucesso" });
 };
 
-export const login = async (req, res) => {
+export const loginUsuario = (req, res) => {
   const { email, senha } = req.body;
-  const user = usuarios.find(u => u.email === email);
-  if (!user) return res.status(401).json({ erro: "Usuário não encontrado" });
+  const usuario = usuarios.find(u => u.email === email && u.senha === senha);
+  if (!usuario) return res.status(401).json({ erro: "Credenciais inválidas" });
 
-  const valido = await bcrypt.compare(senha, user.senha);
-  if (!valido) return res.status(401).json({ erro: "Senha inválida" });
-
-  const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+  // Simulação de token JWT simples
+  const token = `${usuario.id}-${Date.now()}`;
   res.json({ mensagem: "Login realizado", token });
 };
