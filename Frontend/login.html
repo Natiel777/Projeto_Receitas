@@ -17,26 +17,6 @@
     <p>Não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
   </main>
 
-  <script type="module">
-    import { loginUsuario } from "./scripts/api.js";
-
-    const form = document.getElementById("formLogin");
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const dados = Object.fromEntries(new FormData(form));
-      try {
-        const resposta = await loginUsuario(dados);
-        if (resposta.token) {
-          localStorage.setItem("token", resposta.token);
-          alert("Login realizado com sucesso!");
-          window.location.href = "index.html";
-        } else {
-          alert(resposta.erro || "Falha ao fazer login");
-        }
-      } catch {
-        alert("Erro ao conectar ao servidor");
-      }
-    });
-  </script>
+  <script type="module" src="./scripts/main.js"></script>
 </body>
 </html>
