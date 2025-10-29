@@ -1,41 +1,28 @@
-// "Banco de dados" em memória
-const usuarios = [];
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-// Cadastrar usuário
-export const cadastrarUsuario = (req, res) => {
-  const { nome, senha } = req.body;
-  if (!nome || !senha) {
-    return res.status(400).json({ mensagem: "Nome e senha são obrigatórios" });
-  }
+let usuarios = [];
 
-  const existe = usuarios.find(u => u.nome === nome);
-  if (existe) {
-    return res.status(400).json({ mensagem: "Usuário já existe" });
-  }
-
-  const novoUsuario = { id: usuarios.length + 1, nome, senha };
-  usuarios.push(novoUsuario);
-
-  res.status(201).json({ mensagem: "Usuário cadastrado com sucesso!", usuario: { id: novoUsuario.id, nome: novoUsuario.nome } });
-};
-
-// Listar usuários (sem senha)
 export const listarUsuarios = (req, res) => {
-  const lista = usuarios.map(u => ({ id: u.id, nome: u.nome }));
-  res.json(lista);
+  res.json(usuarios);
 };
 
-// Autenticar usuário (login)
-export const autenticarUsuario = (req, res) => {
-  const { nome, senha } = req.body;
-  if (!nome || !senha) {
-    return res.status(400).json({ mensagem: "Nome e senha são obrigatórios" });
-  }
+export const criarUsuario = async (req, res) => {
+  const { nome, email, senha } = req.body;
+  const hash = await bcrypt.hash(senha, 10);
+  const novo = { id: Date.now(), nome, email, senha: hash };
+  usuarios.push(novo);
+  res.status(201).json({ mensagem: "Usuário criado", usuario: novo });
+};
 
-  const usuario = usuarios.find(u => u.nome === nome && u.senha === senha);
-  if (!usuario) {
-    return res.status(401).json({ mensagem: "Usuário ou senha inválidos" });
-  }
+export const login = async (req, res) => {
+  const { email, senha } = req.body;
+  const user = usuarios.find(u => u.email === email);
+  if (!user) return res.status(401).json({ erro: "Usuário não encontrado" });
 
-  res.json({ mensagem: "Login realizado com sucesso!", usuario: { id: usuario.id, nome: usuario.nome } });
+  const valido = await bcrypt.compare(senha, user.senha);
+  if (!valido) return res.status(401).json({ erro: "Senha inválida" });
+
+  const token = jwt.sign({ id: user.id, email: user.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
+  res.json({ mensagem: "Login realizado", token });
 };
