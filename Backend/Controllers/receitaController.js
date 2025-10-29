@@ -1,16 +1,25 @@
-import receitas from "../data/receitas.js";
+import fs from "fs";
+import path from "path";
 
-export const listarReceitas = (req, res) => {
+const dataPath = path.resolve("Backend/data/receitas.json");
+
+export const getReceitas = (req, res) => {
+  try {
+    const receitas = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
     res.json(receitas);
+  } catch (error) {
+    res.status(500).json({ erro: "Erro ao carregar receitas" });
+  }
 };
 
-export const obterReceitaPorId = (req, res) => {
-    const id = parseInt(req.params.id);
-    const receita = receitas.find(r => r.id === id);
-
-    if (!receita) {
-        return res.status(404).json({ mensagem: "Receita não encontrada" });
-    }
-
-    res.json(receita);
+export const addReceita = (req, res) => {
+  try {
+    const receitas = JSON.parse(fs.readFileSync(dataPath, "utf-8"));
+    const novaReceita = { id: Date.now(), ...req.body };
+    receitas.push(novaReceita);
+    fs.writeFileSync(dataPath, JSON.stringify(receitas, null, 2));
+    res.status(201).json(novaReceita);
+  } catch (error) {
+    res.status(500).json({ erro: "Erro ao adicionar receita" });
+  }
 };
