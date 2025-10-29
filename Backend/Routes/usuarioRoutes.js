@@ -1,11 +1,11 @@
-import express from "express";
-import { cadastrarUsuario, listarUsuarios, autenticarUsuario } from "../controllers/usuarioController.js";
+import { Router } from "express";
+import { listarUsuarios, criarUsuario, login } from "../controllers/usuariosController.js";
+import { validarUsuario } from "../middlewares/validarUsuario.js";
 
-const router = express.Router();
+const router = Router();
 
-// Rotas de usuário
-router.post("/", cadastrarUsuario);        // POST /api/usuarios -> cadastrar usuário
-router.get("/", listarUsuarios);           // GET /api/usuarios  -> listar usuários
-router.post("/login", autenticarUsuario);  // POST /api/usuarios/login -> login
+router.get("/", listarUsuarios);
+router.post("/", validarUsuario, criarUsuario);
+router.post("/login", login);
 
 export default router;
