@@ -1,24 +1,18 @@
-import { useEffect, useState } from "react";
-import Formulario from "./components/Formulario";
-import Lista from "./components/Lista";
-import "./App.css";
+import React, { useState } from "react";
+import Home from "./Home";
+import Login from "./Login";
+import Signup from "./Cadastro";
 
 function App() {
-  const [usuarios, setUsuarios] = useState([]);
+  const [page, setPage] = useState("home"); // "home", "login", "cadastro"
 
-  useEffect(() => {
-    fetch("http://localhost:3001/api/usuarios")
-      .then(res => res.json())
-      .then(setUsuarios);
-  }, []);
+  const renderPage = () => {
+    if (page === "Login") return <Login goHome={() => setPage("home")} goCadastro={() => setPage("Cadastro")} />;
+    if (page === "Cadastro") return <Cadastro goLogin={() => setPage("Login")} />;
+    return <Home goLogin={() => setPage("Login")} goCadastro={() => setPage("Cadastro")} />;
+  };
 
-  return (
-    <div className="container">
-      <h1>Receitas - React</h1>
-      <Formulario setUsuarios={setUsuarios} />
-      <Lista usuarios={usuarios} />
-    </div>
-  );
+  return <div>{renderPage()}</div>;
 }
 
 export default App;
