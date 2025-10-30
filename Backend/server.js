@@ -26,8 +26,8 @@ app.use(tratarErros);
 (async () => {
   try {
     const db = await abrirConexao();
-    console.log("✅ Conectado ao banco SQLite");
-    app.locals.db = db; // disponibiliza o db globalmente nas rotas
+    console.log("✅ Conectado ao banco de dados");
+    app.locals.db = db;
 
     app.listen(PORT, () => {
       console.log(`🚀 Servidor rodando em http://localhost:${PORT}`);
