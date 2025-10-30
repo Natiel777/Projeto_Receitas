@@ -15,15 +15,17 @@ router.get("/", async (req, res) => {
 // Criar nova receita
 router.post("/", async (req, res) => {
   const db = req.app.locals.db;
-  const { titulo, descricao, ingredientes, preparo, usuario_id } = req.body;
+  const { nome, descricao, autor, imagem, usuario_id } = req.body;
+
+  if (!nome) return res.status(400).json({ erro: "Campo 'nome' é obrigatório" });
 
   try {
     const result = await db.run(
-      `INSERT INTO receitas (titulo, descricao, ingredientes, preparo, usuario_id)
+      `INSERT INTO receitas (nome, descricao, autor, imagem, usuario_id)
        VALUES (?, ?, ?, ?, ?)`,
-      [titulo, descricao, ingredientes, preparo, usuario_id]
+      [nome, descricao ?? null, autor ?? null, imagem ?? null, usuario_id ?? null]
     );
-    res.status(201).json({ id: result.lastID, titulo, descricao });
+    res.status(201).json({ id: result.lastID, nome, descricao, autor, imagem });
   } catch (err) {
     res.status(500).json({ erro: err.message });
   }
