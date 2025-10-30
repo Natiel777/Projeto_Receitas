@@ -6,17 +6,19 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// banco no diretório database
 const dbFile = path.join(__dirname, "receitas.db");
+// seed no diretório data na raiz do Backend
 const seedFile = path.join(__dirname, "..", "data", "receitas.json");
 
-// Abre o banco de dados SQLite (modo async/await)
 export async function abrirConexao() {
   const db = await open({
     filename: dbFile,
     driver: sqlite3.Database,
   });
 
-  // Cria tabelas se não existirem
+  // Cria tabelas
   await db.exec(`
     CREATE TABLE IF NOT EXISTS usuarios (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -38,6 +40,7 @@ export async function abrirConexao() {
     );
   `);
 
+  // Seed inicial (somente se tabela vazia)
   try {
     const row = await db.get("SELECT COUNT(*) as c FROM receitas");
     if (!row || row.c === 0) {
