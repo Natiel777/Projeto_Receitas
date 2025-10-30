@@ -1,4 +1,4 @@
-export const tratarErros = (err, req, res, next) => {
-  console.error("Erro no servidor:", err);
-  res.status(500).json({ erro: "Erro interno no servidor" });
-};
+export function tratarErros(err, req, res, next) {
+  console.error(err);
+  res.status(err.status || 500).json({ erro: err.message || "Erro interno do servidor" });
+}
