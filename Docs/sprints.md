@@ -28,10 +28,10 @@
 |------------|-------------------------------------|------------------|--------------|
 | 🔴 Alta    | Criar a Estrutura Inicial do Projeto (Backend) | Herbert          | ✅ Feito       |
 | 🔴 Alta    | Criar Rota de Cadastro de Usuário   | Herbert          | ✅ Feito       |
-| 🔴 Alta    | Criar Rota de Exibição de Receitas  | Denner           | ⏳ A Fazer     |
+| 🔴 Alta    | Criar Rota de Exibição de Receitas  | Denner           |  ✅ Feito     |
 | 🔴 Alta    | Criar Rota de Autenticação          | Natiel           |  ✅ Feito          |
 | 🔴 Alta    | Criar Middleware de Logger          | Herbert          | ✅ Feito       |
-| 🔴 Alta    | Criar Rota de Publicação de Receitas| Victor           | ⏳ A Fazer     |
+| 🔴 Alta    | Criar Rota de Publicação de Receitas| Victor           |  ✅ Feito     |
 | 🔴 Alta    | Revisão dos Pull Requests (PRs)     | Natiel, Victor   | ✅ Feito       |
 
 ---
