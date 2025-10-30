@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Login({ goHome, goSignup }) {
+function Login({ goHome, goCadastro }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
@@ -18,7 +18,7 @@ function Login({ goHome, goSignup }) {
         <input type="password" placeholder="Senha" value={senha} onChange={(e) => setSenha(e.target.value)} required />
         <button type="submit">Entrar</button>
       </form>
-      <button onClick={goSignup}>Ir para Cadastro</button>
+      <button onClick={goCadastro}>Ir para Cadastro</button>
     </main>
   );
 }
