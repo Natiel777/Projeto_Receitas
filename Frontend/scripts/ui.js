@@ -1,6 +1,8 @@
 export function renderReceitas(receitas) {
   const container = document.getElementById("receitas");
-  if (!receitas.length) {
+  if (!container) return;
+
+  if (!receitas || !receitas.length) {
     container.innerHTML = "<p>Nenhuma receita cadastrada ainda 🍽️</p>";
     return;
   }
@@ -19,5 +21,6 @@ export function renderReceitas(receitas) {
 
 export function mostrarErro(mensagem) {
   const container = document.getElementById("receitas");
+  if (!container) return;
   container.innerHTML = `<p class="erro">${mensagem}</p>`;
 }
