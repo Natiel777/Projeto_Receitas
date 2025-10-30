@@ -1,47 +1,50 @@
 import express from "express";
 const router = express.Router();
 
-// Listar todos os usuários
+// Listar usuários
 router.get("/", async (req, res) => {
   const db = req.app.locals.db;
   try {
-    const usuarios = await db.all("SELECT id, nome, email FROM usuarios");
-    res.json(usuarios);
+    const users = await db.all("SELECT id, nome, email FROM usuarios");
+    res.json(users);
   } catch (err) {
     res.status(500).json({ erro: err.message });
   }
 });
 
-// Criar novo usuário
+// Criar usuário
 router.post("/", async (req, res) => {
   const db = req.app.locals.db;
   const { nome, email, senha } = req.body;
+  if (!nome || !email || !senha)
+    return res.status(400).json({ erro: "Campos obrigatórios ausentes" });
 
   try {
     const result = await db.run(
-      "INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)",
+      `INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)`,
       [nome, email, senha]
     );
     res.status(201).json({ id: result.lastID, nome, email });
   } catch (err) {
-    if (err.message.includes("UNIQUE")) {
-      res.status(400).json({ erro: "Email já cadastrado" });
-    } else {
-      res.status(500).json({ erro: err.message });
+    // captura erro de chave única no email
+    if (err && err.message && err.message.includes("UNIQUE constraint failed")) {
+      return res.status(409).json({ erro: "Email já cadastrado" });
     }
+    res.status(500).json({ erro: err.message });
   }
 });
 
-// Buscar usuário por e-mail
-router.get("/:email", async (req, res) => {
+// Buscar usuário por ID
+router.get("/:id", async (req, res) => {
   const db = req.app.locals.db;
-  const { email } = req.params;
+  const { id } = req.params;
   try {
-    const usuario = await db.get("SELECT * FROM usuarios WHERE email = ?", [
-      email,
-    ]);
-    if (!usuario) return res.status(404).json({ erro: "Usuário não encontrado" });
-    res.json(usuario);
+    const user = await db.get(
+      "SELECT id, nome, email FROM usuarios WHERE id = ?",
+      [id]
+    );
+    if (!user) return res.status(404).json({ erro: "Usuário não encontrado" });
+    res.json(user);
   } catch (err) {
     res.status(500).json({ erro: err.message });
   }
