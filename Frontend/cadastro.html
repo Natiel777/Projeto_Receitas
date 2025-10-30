@@ -7,17 +7,25 @@
   <link rel="stylesheet" href="styles/style.css" />
 </head>
 <body>
-  <main>
+  <main class="container">
     <h1>Cadastro</h1>
     <form id="formCadastro">
-      <input type="text" name="nome" placeholder="Nome completo" required />
-      <input type="email" name="email" placeholder="E-mail" required />
-      <input type="password" name="senha" placeholder="Senha" required />
+      <label for="nome">Nome completo</label>
+      <input id="nome" type="text" name="nome" placeholder="Seu nome" required />
+
+      <label for="email">E-mail</label>
+      <input id="email" type="email" name="email" placeholder="exemplo@email.com" required />
+
+      <label for="senha">Senha</label>
+      <input id="senha" type="password" name="senha" placeholder="Senha" required />
+
       <button type="submit">Cadastrar</button>
     </form>
+
     <p>Já tem conta? <a href="login.html">Fazer login</a></p>
+    <div id="msgCadastro" class="msg"></div>
   </main>
 
-  <script type="module" src="./scripts/main.js"></script>
+  <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
