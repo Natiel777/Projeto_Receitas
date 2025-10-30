@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RecipeCard from "./RecipeCard";
 
-function Home({ goLogin, goSignup }) {
+function IndexPage({ goLogin, goCadastro }) {
   const [receitas] = useState([
     { id: 1, nome: "Bolo de Chocolate", descricao: "Delicioso e fofinho" },
     { id: 2, nome: "Salada Caesar", descricao: "Refrescante e saudável" },
@@ -12,7 +12,7 @@ function Home({ goLogin, goSignup }) {
     <main>
       <h1>Receitas Online</h1>
       <button onClick={goLogin}>Login</button>
-      <button onClick={goSignup}>Cadastro</button>
+      <button onClick={goCadastro}>Cadastro</button>
       <div className="recipe-list">
         {receitas.map((r) => (
           <RecipeCard key={r.id} receita={r} />
@@ -22,4 +22,4 @@ function Home({ goLogin, goSignup }) {
   );
 }
 
-export default Home;
+export default IndexPage;
