@@ -46,3 +46,68 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+
+// Publicar receita
+import { publicarReceita, obterUsuarioSessao, limparSessao } from "scripts/api.js";
+import { carregarReceitas } from "scripts/app.js";
+  document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("publicar-form");
+
+// Validar sessão
+  const usuario = obterUsuarioSessao();
+  if (!usuario) {
+    // não logado -> redireciona para cadastro
+    window.location.href = "cadastro.html";
+    return;
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const receita = {
+      nome: (fd.get("nome") || "").toString().trim(),
+      descricao: (fd.get("descricao") || "").toString().trim(),
+      imagem: (fd.get("imagem") || "").toString().trim(),
+      autor: (fd.get("autor") || usuario.nome).toString().trim(),
+      usuario_id: usuario.id
+    };
+
+    try {
+      await publicarReceita(receita);
+// Redireciona para página inicial
+      window.location.href = "index.html";
+    } catch (err) {
+      alert(err.message || "Erro ao publicar receita");
+// Se credenciais expiradas/usuário inválido, limpar sessão e redirecionar
+      if (err.message && err.message.toLowerCase().includes("usuario_id inválido")) {
+        limparSessao();
+        window.location.href = "login.html";
+      }
+    }
+  });
+
+  document.getElementById("btn-cancel").addEventListener("click", () => {
+    window.location.href = "index.html";
+  });
+});
+
+// Função para publicar receita
+export async function publicarReceita(receita) {
+  const res = await fetch("/api/receitas", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(receita),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ erro: "Erro ao publicar" }));
+    throw new Error(err.erro || "Falha ao publicar receita");
+  }
+  return res.json();
+}
+
+// Obter receitas do usuário
+export async function obterMinhasReceitas(usuario_id) {
+  const res = await fetch(`/api/receitas/mine?usuario_id=${encodeURIComponent(usuario_id)}`);
+  if (!res.ok) throw new Error("Erro ao buscar receitas do usuário");
+  return res.json();
+}
