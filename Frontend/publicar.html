@@ -1,35 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Publicar Receita - Receitas Online</title>
+  <title>Publicar Receita</title>
   <link rel="stylesheet" href="styles/style.css" />
 </head>
 <body>
-  <main class="container">
-    <h1>Publicar Receita</h1>
+  <h1>Publicar receita</h1>
 
-    <form id="formPublicar">
-      <label for="nome">Nome da receita</label>
-      <input id="nome" name="nome" type="text" required />
+  <form id="publicar-form" enctype="multipart/form-data">
+    <label for="nome">Nome</label>
+    <input id="nome" name="nome" type="text" required />
 
-      <label for="descricao">Descrição</label>
-      <textarea id="descricao" name="descricao" rows="6" required></textarea>
+    <label for="descricao">Descrição</label>
+    <textarea id="descricao" name="descricao" rows="6"></textarea>
 
-      <label for="imagem">URL da imagem (opcional)</label>
-      <input id="imagem" name="imagem" type="text" />
+    <label for="imagem">Imagem</label>
+    <input id="imagem" name="imagem" type="file" accept="image/*" />
 
-      <label for="autor">Autor (opcional)</label>
-      <input id="autor" name="autor" type="text" />
+    <label for="autor">Autor (opcional)</label>
+    <input id="autor" name="autor" type="text" />
 
-      <button type="submit">Publicar</button>
-      <button type="button" id="btnCancelar">Cancelar</button>
-    </form>
+    <button type="submit">Publicar</button>
+    <button type="button" id="btn-cancel">Cancelar</button>
+  </form>
 
-    <div id="msgPublicar" class="msg"></div>
-  </main>
-
-  <script type="module" src="scripts/main.js"></script>
+  <script type="module" src="./scripts/main.js"></script>
 </body>
 </html>
