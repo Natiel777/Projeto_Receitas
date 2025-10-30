@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import Home from "./Home";
 import Login from "./Login";
-import Signup from "./Cadastro";
+import Signup from "./Signup";
 
 function App() {
-  const [page, setPage] = useState("home"); // "home", "login", "cadastro"
+  const [page, setPage] = useState("home"); // "home", "login", "signup"
 
   const renderPage = () => {
-    if (page === "Login") return <Login goHome={() => setPage("home")} goCadastro={() => setPage("Cadastro")} />;
-    if (page === "Cadastro") return <Cadastro goLogin={() => setPage("Login")} />;
-    return <Home goLogin={() => setPage("Login")} goCadastro={() => setPage("Cadastro")} />;
+    if (page === "login") return <Login goHome={() => setPage("home")} goSignup={() => setPage("signup")} />;
+    if (page === "signup") return <Signup goLogin={() => setPage("login")} />;
+    return <Home goLogin={() => setPage("login")} goSignup={() => setPage("signup")} />;
   };
 
   return <div>{renderPage()}</div>;
