@@ -35,7 +35,7 @@ Uma aplicação web onde os usuários podem criar uma conta, postar suas receita
 |--------|-------------------|--------------|
 | **Front-end** | Interface web para cadastro, busca, visualização e interação com receitas. | React / HTML |
 | **Back-end** | Regras de negócio, autenticação, endpoints REST e integração com o banco. | Node.js + Express |
-| **Banco de Dados** | Armazenar usuários, receitas, comentários e avaliações. | MySQL / SQLite |
+| **Banco de Dados** | Armazenar usuários, receitas, comentários e avaliações. | SQLite |
 
 ---
 
@@ -67,7 +67,7 @@ Uma aplicação web onde os usuários podem criar uma conta, postar suas receita
                ▼
 ┌───────────────────────────────┐
 │          DATABASE             │
-│       (MySQL / SQLite)        │
+│       (SQLite)        │
 │───────────────────────────────│
 │ • usuarios(id, nome, senha)             │ ← (1)
 │ • receitas(id, titulo, ingredientes,    │ ← (1)(2)
