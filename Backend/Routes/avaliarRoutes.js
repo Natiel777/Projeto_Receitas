@@ -1,7 +1,21 @@
 import express from "express";
-import { verificarToken } from "../Middlewares/auth.js";
-
+import jwt from "jsonwebtoken";
 const router = express.Router();
+
+// Middleware simples para verificar token
+export function verificarToken(req, res, next) {
+  const auth = req.headers.authorization;
+  if (!auth) return res.status(401).json({ erro: "Token ausente" });
+
+  const token = auth.split(" ")[1];
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    req.usuario = payload;
+    next();
+  } catch {
+    return res.status(401).json({ erro: "Token inválido" });
+  }
+}
 
 // Criar/atualizar avaliação
 router.post("/", verificarToken, async (req, res) => {
@@ -9,12 +23,10 @@ router.post("/", verificarToken, async (req, res) => {
   const usuario = req.usuario;
   const { receita_id, nota, comentario } = req.body;
 
-  if (!receita_id || !nota || nota < 1 || nota > 5) {
+  if (!receita_id || !nota || nota < 1 || nota > 5)
     return res.status(400).json({ erro: "Dados inválidos" });
-  }
 
   try {
-    // Tenta atualizar se já existe
     const exist = await db.get(
       "SELECT * FROM avaliacoes WHERE receita_id = ? AND usuario_id = ?",
       [receita_id, usuario.id]
@@ -28,7 +40,6 @@ router.post("/", verificarToken, async (req, res) => {
       return res.json({ mensagem: "Avaliação atualizada" });
     }
 
-    // Caso não exista, cria nova avaliação
     const result = await db.run(
       "INSERT INTO avaliacoes (receita_id, usuario_id, nota, comentario) VALUES (?, ?, ?, ?)",
       [receita_id, usuario.id, nota, comentario ?? null]
