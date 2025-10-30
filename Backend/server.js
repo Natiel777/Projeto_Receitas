@@ -5,6 +5,7 @@ import usuarioRoutes from "./Routes/usuarioRoutes.js";
 import { tratarErros } from "./Middlewares/tratarErros.js";
 import { logger } from "./Middlewares/logger.js";
 import { abrirConexao } from "./database/db.js";
+import path from "path";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
