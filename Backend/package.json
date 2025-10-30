@@ -1,5 +1,5 @@
 {
-  "name": "receitas-online",
+  "name": "backend-receitas",
   "version": "1.0.0",
   "description": "API do Projeto Receitas Online usando Node.js + SQLite",
   "type": "module",
