@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Signup({ goLogin }) {
+function Cadastro({ goLogin }) {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
@@ -24,4 +24,4 @@ function Signup({ goLogin }) {
   );
 }
 
-export default Signup;
+export default Cadastro;
