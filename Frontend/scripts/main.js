@@ -1,63 +1,87 @@
-// Página inicial
 import { carregarReceitas } from "./app.js";
-import { cadastrarUsuario, loginUsuario } from "./api.js";
+import {
+  cadastrarUsuario,
+  loginUsuario,
+  publicarReceita,
+  obterUsuarioSessao,
+  limparSessao,
+} from "./api.js";
 
+// Página Inicial
 window.addEventListener("DOMContentLoaded", () => {
-  carregarReceitas();
+  const path = window.location.pathname;
 
-// Formulário de cadastro
-  const formCadastro = document.getElementById("formCadastro");
-  if (formCadastro) {
-    formCadastro.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const dados = Object.fromEntries(new FormData(formCadastro));
-      try {
-        const resposta = await cadastrarUsuario(dados);
-        if (resposta.erro) {
-          alert(resposta.erro);
-        } else {
-          alert("Cadastro realizado com sucesso!");
-          window.location.href = "login.html";
-        }
-      } catch {
-        alert("Erro ao conectar ao servidor");
-      }
-    });
+  if (path.includes("index.html") || path === "/" || path === "") {
+    carregarReceitas();
+    configurarMenu();
   }
 
-// Formulário de login
-  const formLogin = document.getElementById("formLogin");
-  if (formLogin) {
-    formLogin.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const dados = Object.fromEntries(new FormData(formLogin));
-      try {
-        const resposta = await loginUsuario(dados);
-        if (resposta.token) {
-          localStorage.setItem("token", resposta.token);
-          alert("Login realizado com sucesso!");
-          window.location.href = "index.html";
-        } else {
-          alert(resposta.erro || "Falha ao fazer login");
-        }
-      } catch {
-        alert("Erro ao conectar ao servidor");
-      }
-    });
-  }
+  if (path.includes("cadastro.html")) configurarCadastro();
+  if (path.includes("login.html")) configurarLogin();
+  if (path.includes("publicar.html")) configurarPublicar();
 });
 
-// Publicar receita
-import { publicarReceita, obterUsuarioSessao, limparSessao } from "scripts/api.js";
-import { carregarReceitas } from "scripts/app.js";
-  document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("publicar-form");
+// Funções de Configuração
+function configurarCadastro() {
+  const form = document.getElementById("formCadastro");
+  const msg = document.getElementById("msgCadastro");
 
-// Validar sessão
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const dados = Object.fromEntries(new FormData(form));
+
+    try {
+      const resposta = await cadastrarUsuario(dados);
+      if (resposta.erro) {
+        msg.textContent = resposta.erro;
+        msg.className = "msg erro";
+      } else {
+        msg.textContent = "Cadastro realizado com sucesso!";
+        msg.className = "msg sucesso";
+        setTimeout(() => (window.location.href = "login.html"), 1500);
+      }
+    } catch {
+      msg.textContent = "Erro ao conectar ao servidor.";
+      msg.className = "msg erro";
+    }
+  });
+}
+
+function configurarLogin() {
+  const form = document.getElementById("formLogin");
+  const msg = document.getElementById("msgLogin");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const dados = Object.fromEntries(new FormData(form));
+
+    try {
+      const resposta = await loginUsuario(dados);
+      if (resposta.token) {
+        localStorage.setItem("token", resposta.token);
+        msg.textContent = "Login realizado com sucesso!";
+        msg.className = "msg sucesso";
+        setTimeout(() => (window.location.href = "index.html"), 1000);
+      } else {
+        msg.textContent = resposta.erro || "Falha ao fazer login";
+        msg.className = "msg erro";
+      }
+    } catch {
+      msg.textContent = "Erro ao conectar ao servidor.";
+      msg.className = "msg erro";
+    }
+  });
+}
+
+function configurarPublicar() {
+  const form = document.getElementById("formPublicar");
+  const btnCancelar = document.getElementById("btnCancelar");
+  const msg = document.getElementById("msgPublicar");
+
   const usuario = obterUsuarioSessao();
   if (!usuario) {
-    // não logado -> redireciona para cadastro
-    window.location.href = "cadastro.html";
+    alert("Você precisa estar logado para publicar uma receita.");
+    window.location.href = "login.html";
     return;
   }
 
@@ -65,49 +89,54 @@ import { carregarReceitas } from "scripts/app.js";
     e.preventDefault();
     const fd = new FormData(form);
     const receita = {
-      nome: (fd.get("nome") || "").toString().trim(),
-      descricao: (fd.get("descricao") || "").toString().trim(),
-      imagem: (fd.get("imagem") || "").toString().trim(),
-      autor: (fd.get("autor") || usuario.nome).toString().trim(),
-      usuario_id: usuario.id
+      nome: fd.get("nome"),
+      descricao: fd.get("descricao"),
+      imagem: fd.get("imagem"),
+      autor: fd.get("autor") || usuario.nome,
     };
 
     try {
       await publicarReceita(receita);
-// Redireciona para página inicial
-      window.location.href = "index.html";
+      msg.textContent = "Receita publicada com sucesso!";
+      msg.className = "msg sucesso";
+      setTimeout(() => (window.location.href = "index.html"), 1500);
     } catch (err) {
-      alert(err.message || "Erro ao publicar receita");
-// Se credenciais expiradas/usuário inválido, limpar sessão e redirecionar
-      if (err.message && err.message.toLowerCase().includes("usuario_id inválido")) {
+      msg.textContent = err.message || "Erro ao publicar receita.";
+      msg.className = "msg erro";
+      if (err.message.toLowerCase().includes("usuário inválido")) {
         limparSessao();
         window.location.href = "login.html";
       }
     }
   });
 
-  document.getElementById("btn-cancel").addEventListener("click", () => {
+  btnCancelar.addEventListener("click", () => {
     window.location.href = "index.html";
   });
-});
-
-// Função para publicar receita
-export async function publicarReceita(receita) {
-  const res = await fetch("/api/receitas", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(receita),
-  });
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ erro: "Erro ao publicar" }));
-    throw new Error(err.erro || "Falha ao publicar receita");
-  }
-  return res.json();
 }
 
-// Obter receitas do usuário
-export async function obterMinhasReceitas(usuario_id) {
-  const res = await fetch(`/api/receitas/mine?usuario_id=${encodeURIComponent(usuario_id)}`);
-  if (!res.ok) throw new Error("Erro ao buscar receitas do usuário");
-  return res.json();
+function configurarMenu() {
+  const btnLogout = document.getElementById("btnLogout");
+  const linkLogin = document.getElementById("linkLogin");
+  const linkCadastro = document.getElementById("linkCadastro");
+  const linkPublicar = document.getElementById("linkPublicar");
+
+  const usuario = obterUsuarioSessao();
+
+  if (usuario) {
+    linkLogin.classList.add("hidden");
+    linkCadastro.classList.add("hidden");
+    btnLogout.classList.remove("hidden");
+    linkPublicar.classList.remove("hidden");
+  } else {
+    linkLogin.classList.remove("hidden");
+    linkCadastro.classList.remove("hidden");
+    btnLogout.classList.add("hidden");
+    linkPublicar.classList.add("hidden");
+  }
+
+  btnLogout.addEventListener("click", () => {
+    limparSessao();
+    window.location.reload();
+  });
 }
