@@ -7,16 +7,22 @@
   <link rel="stylesheet" href="styles/style.css" />
 </head>
 <body>
-  <main>
+  <main class="container">
     <h1>Login</h1>
     <form id="formLogin">
-      <input type="email" name="email" placeholder="E-mail" required />
-      <input type="password" name="senha" placeholder="Senha" required />
+      <label for="email">E-mail</label>
+      <input id="email" type="email" name="email" placeholder="E-mail" required />
+
+      <label for="senha">Senha</label>
+      <input id="senha" type="password" name="senha" placeholder="Senha" required />
+
       <button type="submit">Entrar</button>
     </form>
+
     <p>Não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+    <div id="msgLogin" class="msg"></div>
   </main>
 
-  <script type="module" src="./scripts/main.js"></script>
+  <script type="module" src="scripts/main.js"></script>
 </body>
 </html>
