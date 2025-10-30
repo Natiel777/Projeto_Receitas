@@ -6,10 +6,7 @@ import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
-// banco no diretório database
 const dbFile = path.join(__dirname, "receitas.db");
-// seed no diretório data na raiz do Backend
 const seedFile = path.join(__dirname, "..", "data", "receitas.json");
 
 export async function abrirConexao() {
@@ -18,7 +15,7 @@ export async function abrirConexao() {
     driver: sqlite3.Database,
   });
 
-  // Cria tabelas
+  // Tabelas
   await db.exec(`
     CREATE TABLE IF NOT EXISTS usuarios (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -40,7 +37,20 @@ export async function abrirConexao() {
     );
   `);
 
-  // Seed inicial (somente se tabela vazia)
+  await db.exec(`
+    CREATE TABLE IF NOT EXISTS avaliacoes (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      receita_id INTEGER NOT NULL,
+      usuario_id INTEGER NOT NULL,
+      nota INTEGER NOT NULL CHECK(nota >= 1 AND nota <= 5),
+      comentario TEXT,
+      FOREIGN KEY(receita_id) REFERENCES receitas(id),
+      FOREIGN KEY(usuario_id) REFERENCES usuarios(id),
+      UNIQUE(receita_id, usuario_id)
+    );
+  `);
+
+  // Seed receitas
   try {
     const row = await db.get("SELECT COUNT(*) as c FROM receitas");
     if (!row || row.c === 0) {
@@ -57,13 +67,11 @@ export async function abrirConexao() {
             [nome, descricao, autor, imagem]
           );
         }
-        console.log("✅ Seed de receitas inserido a partir de Backend/data/receitas.json");
-      } else {
-        console.log("ℹ️ Arquivo de seed não encontrado em Backend/data/receitas.json");
+        console.log("✅ Seed de receitas inserido");
       }
     }
   } catch (err) {
-    console.error("Erro ao semear receitas:", err);
+    console.error("Erro ao exibir receitas:", err);
   }
 
   return db;
