@@ -1,16 +1,14 @@
 [
   {
-    "id": 1,
     "nome": "Bolo de Chocolate",
     "descricao": "Delicioso bolo com cobertura cremosa.",
     "autor": "Natiel Silva",
-    "imagem": "https://placehold.co/600x400?text=Bolo+de+Chocolate"
+    "imagem": "https://images.unsplash.com/photo-1601972599720-bc60b9d9c994?w=800"
   },
   {
-    "id": 2,
     "nome": "Lasanha Caseira",
     "descricao": "Feita com molho de carne e queijo derretido.",
     "autor": "Herbert Pereira",
-    "imagem": "https://placehold.co/600x400?text=Lasanha+Caseira"
+    "imagem": "https://images.unsplash.com/photo-1603133872878-684f8a9e1d3b?w=800"
   }
 ]
