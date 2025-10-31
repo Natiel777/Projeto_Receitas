@@ -2,34 +2,28 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Receitas Online</title>
-  <link rel="stylesheet" href="styles/style.css" />
+  <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
   <header>
-    <h1>🍴 Receitas Online</h1>
+    <h1>Receitas Online</h1>
     <nav>
       <a href="index.html">Início</a>
-      <a href="publicar.html" id="linkPublicar">Publicar</a>
-      <a href="login.html" id="linkLogin">Login</a>
-      <a href="cadastro.html" id="linkCadastro">Cadastro</a>
-      <button id="btnLogout" class="hidden">Sair</button>
+      <a href="publicar.html" id="btn-publicar">Publicar</a>
+      <span id="user-info"></span>
+      <button id="btn-logout" class="hidden">Sair</button>
+      <a href="login.html" id="btn-login">Login</a>
+      <a href="cadastro.html" id="btn-cadastro">Cadastro</a>
     </nav>
   </header>
 
   <main>
-    <section class="hero">
-      <h2>Compartilhe e descubra receitas únicas feitas por pessoas reais</h2>
-      <p>Explore novos sabores todos os dias!</p>
-    </section>
-
-    <section id="receitas" class="grid"></section>
+    <div id="msg"></div>
+    <h2>Receitas Recentes</h2>
+    <div id="receitas"></div>
   </main>
-
-  <footer>
-    <p>© 2025 Receitas Online — Todos os direitos reservados</p>
-  </footer>
 
   <script type="module" src="scripts/main.js"></script>
 </body>
