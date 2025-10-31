@@ -1,5 +1,6 @@
 import { carregarReceitas } from "./app.js";
-import { obterCookie, apagarCookie, mostrarErro } from "./ui.js";
+import { obterCookie, apagarCookie, definirCookie, mostrarErro } from "./ui.js";
+import { login, cadastrar } from "./api.js";
 
 const token = obterCookie("token");
 const usuarioNome = obterCookie("usuarioNome");
@@ -12,9 +13,9 @@ window.addEventListener("DOMContentLoaded", () => {
   const btnLogin = document.getElementById("btn-login");
   const btnCadastro = document.getElementById("btn-cadastro");
 
-  // Menu Exibição
+  // Cabeçalho
   if (usuario) {
-    userInfo.textContent = `Olá!, ${usuario.nome}`;
+    userInfo.textContent = `👋 Olá, ${usuario.nome}`;
     btnLogout?.classList.remove("hidden");
     btnLogin?.classList.add("hidden");
     btnCadastro?.classList.add("hidden");
@@ -28,23 +29,63 @@ window.addEventListener("DOMContentLoaded", () => {
   });
 
   // Página Inicial
-  if (document.body.contains(document.getElementById("receitas"))) {
+  if (document.getElementById("receitas")) {
     carregarReceitas(usuario);
   }
 
+  // Página Login
+  const formLogin = document.getElementById("form-login");
+  if (formLogin) {
+    formLogin.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+
+      try {
+        const data = await login(email, senha);
+        definirCookie("token", data.token);
+        definirCookie("usuarioNome", data.nome);
+        definirCookie("usuarioId", data.id);
+        alert("Login realizado com sucesso!");
+        window.location.href = "index.html";
+      } catch {
+        mostrarErro("Erro ao fazer login. Verifique suas credenciais.");
+      }
+    });
+  }
+
+  // Página Cadastro
+  const formCadastro = document.getElementById("form-cadastro");
+  if (formCadastro) {
+    formCadastro.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const nome = document.getElementById("nome").value;
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+
+      try {
+        await cadastrar(nome, email, senha);
+        alert("Cadastro realizado com sucesso!");
+        window.location.href = "login.html";
+      } catch {
+        mostrarErro("Erro ao cadastrar usuário.");
+      }
+    });
+  }
+
   // Página Publicar
-  if (document.body.contains(document.getElementById("form-receita"))) {
+  const formReceita = document.getElementById("form-receita");
+  if (formReceita) {
     if (!token) {
       alert("Você precisa estar logado para publicar uma receita.");
       window.location.href = "login.html";
       return;
     }
 
-    const form = document.getElementById("form-receita");
-    form.addEventListener("submit", async (e) => {
+    formReceita.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const dados = new FormData(form);
+      const dados = new FormData(formReceita);
       try {
         const res = await fetch("http://localhost:3001/api/receitas", {
           method: "POST",
