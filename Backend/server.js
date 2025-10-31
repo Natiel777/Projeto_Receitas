@@ -1,12 +1,5 @@
 // Configuração de ambiente segura
 try {
-  // Importar dotenv opcional
-  const dotenv = await import('dotenv');
-  dotenv.config();
-  console.log("Variáveis de ambiente carregadas com dotenv");
-} catch {
-  console.log("'dotenv' não encontrado — usando valores padrão");
-}
 
 // Importações principais
 import express from "express";
