@@ -15,7 +15,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Cabeçalho
   if (usuario) {
-    userInfo.textContent = `👋 Olá, ${usuario.nome}`;
+    userInfo.textContent = `Olá!, ${usuario.nome}`;
     btnLogout?.classList.remove("hidden");
     btnLogin?.classList.add("hidden");
     btnCadastro?.classList.add("hidden");
