@@ -1,48 +1,63 @@
 import { carregarReceitas } from "./app.js";
-import { renderReceitas } from "./ui.js";
+import { obterCookie, apagarCookie, mostrarErro } from "./ui.js";
+
+const token = obterCookie("token");
+const usuarioNome = obterCookie("usuarioNome");
+const usuarioId = obterCookie("usuarioId");
+const usuario = token ? { id: Number(usuarioId), nome: usuarioNome } : null;
 
 window.addEventListener("DOMContentLoaded", () => {
-  const token = localStorage.getItem("token");
-  let usuario = null;
-  if (token) {
-    // decodificar payload simples do JWT
-    const payload = JSON.parse(atob(token.split(".")[1]));
-    usuario = payload;
+  const btnLogout = document.getElementById("btn-logout");
+  const userInfo = document.getElementById("user-info");
+  const btnLogin = document.getElementById("btn-login");
+  const btnCadastro = document.getElementById("btn-cadastro");
+
+  // Menu Exibição
+  if (usuario) {
+    userInfo.textContent = `👋 Olá, ${usuario.nome}`;
+    btnLogout?.classList.remove("hidden");
+    btnLogin?.classList.add("hidden");
+    btnCadastro?.classList.add("hidden");
   }
 
-  carregarReceitas(usuario);
+  btnLogout?.addEventListener("click", () => {
+    apagarCookie("token");
+    apagarCookie("usuarioNome");
+    apagarCookie("usuarioId");
+    window.location.href = "index.html";
+  });
 
-  // Publicar receita
-  const form = document.getElementById("publicar-form");
-  if (form) {
-    form.addEventListener("submit", async e => {
+  // Página Inicial
+  if (document.body.contains(document.getElementById("receitas"))) {
+    carregarReceitas(usuario);
+  }
+
+  // Página Publicar
+  if (document.body.contains(document.getElementById("form-receita"))) {
+    if (!token) {
+      alert("Você precisa estar logado para publicar uma receita.");
+      window.location.href = "login.html";
+      return;
+    }
+
+    const form = document.getElementById("form-receita");
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const formData = new FormData(form);
 
-      if (!usuario) {
-        window.location.href = "login.html";
-        return;
-      }
-
-      formData.set("autor", formData.get("autor") || usuario.nome);
-
+      const dados = new FormData(form);
       try {
-        const res = await fetch("/api/receitas", {
+        const res = await fetch("http://localhost:3001/api/receitas", {
           method: "POST",
           headers: { "Authorization": `Bearer ${token}` },
-          body: formData
+          body: dados,
         });
 
         if (!res.ok) throw new Error("Erro ao publicar receita");
         alert("Receita publicada com sucesso!");
         window.location.href = "index.html";
       } catch (err) {
-        alert(err.message);
+        mostrarErro(err.message);
       }
     });
   }
-
-  document.getElementById("btn-cancel")?.addEventListener("click", () => {
-    window.location.href = "index.html";
-  });
 });
