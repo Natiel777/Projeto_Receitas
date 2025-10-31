@@ -40,7 +40,7 @@ Uma aplicação web onde os usuários podem:
 
 | Camada | Responsabilidades | Tecnologias |
 |--------|------------------|--------------|
-| **Front-end** | Interface web para cadastro, busca, visualização e interação com receitas. | React / HTML / CSS |
+| **Front-end** | Interface web para cadastro, busca, visualização e interação com receitas. | HTML / JS / CSS |
 | **Back-end** | Regras de negócio, autenticação, endpoints REST e integração com o banco. | Node.js + Express |
 | **Banco de Dados** | Armazenar usuários, receitas, comentários e avaliações. | SQLite |
 
@@ -53,7 +53,7 @@ Uma aplicação web onde os usuários podem:
 ```text
 ┌───────────────────────────────┐
 │           FRONT-END           │
-│         (React / HTML)        │
+│         (HTML + JS + CSS)        │
 │───────────────────────────────│
 │ • Cadastro / Login            │ ← (1)
 │ • Postar Receita              │ ← (1)
@@ -84,24 +84,6 @@ Uma aplicação web onde os usuários podem:
 │ • comentarios(id, texto, nota,             │ ← (3)
 │   usuario_id, receita_id)                  │
 └───────────────────────────────┘
-
-
----
-
-
-🚀 Tecnologias Utilizadas
-
-Node.js – Ambiente de execução do servidor
-
-Express.js – Framework para rotas REST
-
-SQLite – Banco de dados leve e local
-
-React.js – Interface web dinâmica
-
-Nodemon – Reinicialização automática do servidor
-
-CORS – Controle de acesso entre front-end e back-end
 
 
 ---
