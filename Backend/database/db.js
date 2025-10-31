@@ -67,7 +67,7 @@ export async function abrirConexao() {
             [nome, descricao, autor, imagem]
           );
         }
-        console.log("✅ Seed de receitas inserido");
+        console.log("Seed de receitas inserido");
       }
     }
   } catch (err) {
