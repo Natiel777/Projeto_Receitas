@@ -1,19 +1,8 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import { gerarToken } from "../Middlewares/auth.js";
 
 const router = express.Router();
-
-// Listar usuários
-router.get("/", async (req, res) => {
-  const db = req.app.locals.db;
-  try {
-    const users = await db.all("SELECT id, nome, email FROM usuarios");
-    res.json(users);
-  } catch (err) {
-    res.status(500).json({ erro: err.message });
-  }
-});
 
 // Cadastro
 router.post("/", async (req, res) => {
@@ -31,9 +20,8 @@ router.post("/", async (req, res) => {
     );
     res.status(201).json({ id: result.lastID, nome, email });
   } catch (err) {
-    if (err.message.includes("UNIQUE constraint failed")) {
+    if (err.message.includes("UNIQUE"))
       return res.status(409).json({ erro: "Email já cadastrado" });
-    }
     res.status(500).json({ erro: err.message });
   }
 });
@@ -47,15 +35,10 @@ router.post("/login", async (req, res) => {
     const user = await db.get("SELECT * FROM usuarios WHERE email = ?", [email]);
     if (!user) return res.status(401).json({ erro: "Usuário não encontrado" });
 
-    const senhaValida = await bcrypt.compare(senha, user.senha);
-    if (!senhaValida) return res.status(401).json({ erro: "Senha incorreta" });
+    const senhaOk = await bcrypt.compare(senha, user.senha);
+    if (!senhaOk) return res.status(401).json({ erro: "Senha incorreta" });
 
-    const token = jwt.sign(
-      { id: user.id, nome: user.nome, email: user.email },
-      process.env.JWT_SECRET,
-      { expiresIn: "2h" }
-    );
-
+    const token = gerarToken({ id: user.id, nome: user.nome, email: user.email });
     res.json({ token, nome: user.nome, id: user.id });
   } catch (err) {
     res.status(500).json({ erro: err.message });
