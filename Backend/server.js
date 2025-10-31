@@ -1,56 +1,49 @@
-// Configuração de ambiente segura
-import 'dotenv/config'; // Importa e carrega automaticamente variáveis do .env
-
-// Importações principais
 import express from "express";
 import cors from "cors";
-import receitaRoutes from "./Routes/receitaRoutes.js";
-import usuarioRoutes from "./Routes/usuarioRoutes.js";
-import { tratarErros } from "./Middlewares/tratarErros.js";
-import { logger } from "./Middlewares/logger.js";
-import { abrirConexao } from "./database/db.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import { abrirConexao } from "./database/db.js";
+import { logger } from "./Middlewares/logger.js";
+import { tratarErros } from "./Middlewares/tratarErros.js";
+import receitaRoutes from "./Routes/receitaRoutes.js";
+import usuarioRoutes from "./Routes/usuarioRoutes.js";
+import avaliarRoutes from "./Routes/avaliarRoutes.js";
 
-// Configurações iniciais
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = process.env.PORT || 3001;
+const PORT = 3001;
 
 // Middlewares globais
-app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(logger);
 
-// Publicar arquivos de imagem (uploads)
+// Servir uploads
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// Rota de teste
-app.get("/", (req, res) => {
-  res.send("API Receitas Online funcionando!");
-});
-
 // Rotas principais
+app.get("/", (req, res) => res.send("API Receitas Online funcionando!"));
 app.use("/api/receitas", receitaRoutes);
 app.use("/api/usuarios", usuarioRoutes);
+app.use("/api/avaliacoes", avaliarRoutes);
 
-// Middleware de tratamento de erros
+// Erros
 app.use(tratarErros);
 
-// Inicialização do servidor
+// Inicialização
 (async () => {
   try {
     const db = await abrirConexao();
-    console.log("Conectado ao banco de dados");
     app.locals.db = db;
+    console.log("Banco de dados conectado!");
 
-    app.listen(PORT, "0.0.0.0", () => {
-      console.log(`Servidor rodando em http://localhost:${PORT}`);
-    });
+    app.listen(PORT, "0.0.0.0", () =>
+      console.log(`Servidor rodando em http://localhost:${PORT}`)
+    );
   } catch (err) {
-    console.error("Erro ao conectar ao banco:", err);
+    console.error("Erro ao iniciar servidor:", err);
     process.exit(1);
   }
 })();
