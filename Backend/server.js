@@ -1,5 +1,5 @@
 // Configuração de ambiente segura
-try {
+import 'dotenv/config'; // Importa e carrega automaticamente variáveis do .env
 
 // Importações principais
 import express from "express";
@@ -24,7 +24,7 @@ app.use(cors());
 app.use(express.json());
 app.use(logger);
 
-// Servir arquivos de imagem (uploads)
+// Publicar arquivos de imagem (uploads)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Rota de teste
