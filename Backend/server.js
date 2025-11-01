@@ -12,6 +12,7 @@ import avaliarRoutes from "./Routes/avaliarRoutes.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Cria app Express
 const app = express();
 const PORT = 3001;
 
@@ -20,30 +21,34 @@ app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(logger);
 
-// Servir uploads
+// Servir imagens
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Rotas principais
-app.get("/", (req, res) => res.send("API Receitas Online funcionando!"));
+app.get("/", (req, res) => {
+  res.send("API Receitas Online funcionando!");
+});
+
 app.use("/api/receitas", receitaRoutes);
 app.use("/api/usuarios", usuarioRoutes);
 app.use("/api/avaliacoes", avaliarRoutes);
 
-// Erros
+// Tratamento de erros globais
 app.use(tratarErros);
 
-// Inicialização
+// Inicialização do servidor e banco de dados
 (async () => {
   try {
+    console.log("Iniciando conexão com o banco de dados...");
     const db = await abrirConexao();
     app.locals.db = db;
-    console.log("Banco de dados conectado!");
+    console.log("Banco de dados conectado com sucesso!");
 
-    app.listen(PORT, "0.0.0.0", () =>
-      console.log(`Servidor rodando em http://localhost:${PORT}`)
-    );
+    app.listen(PORT, () => {
+      console.log(`Servidor rodando em: http://localhost:${PORT}`);
+    });
   } catch (err) {
-    console.error("Erro ao iniciar servidor:", err);
+    console.error("Erro ao iniciar servidor:", err.message);
     process.exit(1);
   }
 })();
