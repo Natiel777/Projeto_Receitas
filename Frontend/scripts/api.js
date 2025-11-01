@@ -6,6 +6,12 @@ export async function getReceitas() {
   return res.json();
 }
 
+export async function buscarReceitas(q) {
+  const res = await fetch(`${BASE_URL}/receitas?q=${encodeURIComponent(q)}`);
+  if (!res.ok) throw new Error("Erro ao buscar receitas");
+  return res.json();
+}
+
 export async function login(email, senha) {
   const res = await fetch(`${BASE_URL}/usuarios/login`, {
     method: "POST",
