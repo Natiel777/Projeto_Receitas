@@ -9,6 +9,7 @@ import receitaRoutes from "./Routes/receitaRoutes.js";
 import usuarioRoutes from "./Routes/usuarioRoutes.js";
 import avaliarRoutes from "./Routes/avaliarRoutes.js";
 
+// Configuração do __dirname para ES Modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -44,7 +45,7 @@ app.use(tratarErros);
     app.locals.db = db;
     console.log("Banco de dados conectado com sucesso!");
 
-    app.listen(PORT, () => {
+    app.listen(PORT, "0.0.0.0", () => {
       console.log(`Servidor rodando em: http://localhost:${PORT}`);
     });
   } catch (err) {
