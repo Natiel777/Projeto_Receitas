@@ -1,5 +1,5 @@
 import { open } from "sqlite";
-import Database from "better-sqlite3";
+import sqlite3 from "sqlite3";
 import path from "path";
 import fs from "fs";
 
@@ -14,7 +14,7 @@ if (!fs.existsSync(dir)) {
 export async function abrirConexao() {
   const db = await open({
     filename: dbPath,
-    driver: Database
+    driver: sqlite3.Database
   });
 
   // Cria as tabelas, caso não existam
