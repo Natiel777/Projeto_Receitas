@@ -1,17 +1,22 @@
 import { carregarReceitas } from "./app.js";
 import { obterCookie, apagarCookie, definirCookie, mostrarErro } from "./ui.js";
-import { login, cadastrar } from "./api.js";
+import { login, cadastrar, buscarReceitas } from "./api.js";
 
 const token = obterCookie("token");
 const usuarioNome = obterCookie("usuarioNome");
 const usuarioId = obterCookie("usuarioId");
 const usuario = token ? { id: Number(usuarioId), nome: usuarioNome } : null;
 
+let searchTimeout = null;
+const SEARCH_DEBOUNCE_MS = 400;
+
 window.addEventListener("DOMContentLoaded", () => {
   const btnLogout = document.getElementById("btn-logout");
   const userInfo = document.getElementById("user-info");
   const btnLogin = document.getElementById("btn-login");
   const btnCadastro = document.getElementById("btn-cadastro");
+  const searchInput = document.getElementById("search-input");
+  const searchClear = document.getElementById("search-clear");
 
   // Cabeçalho
   if (usuario) {
@@ -31,6 +36,37 @@ window.addEventListener("DOMContentLoaded", () => {
   // Página Inicial
   if (document.getElementById("receitas")) {
     carregarReceitas(usuario);
+  }
+
+  // Busca de receitas
+  if (searchInput) {
+    const realizarBusca = async (query) => {
+      const termo = query.trim();
+      if (!termo) {
+        await carregarReceitas(usuario);
+        return;
+      }
+      try {
+        const resultados = await buscarReceitas(termo);
+        import("./ui.js").then(({ renderReceitas }) =>
+          renderReceitas(resultados, usuario)
+        );
+      } catch (err) {
+        mostrarErro("Erro ao buscar receitas");
+      }
+    };
+
+    searchInput.addEventListener("input", (e) => {
+      const q = e.target.value;
+      if (searchTimeout) clearTimeout(searchTimeout);
+      searchTimeout = setTimeout(() => realizarBusca(q), SEARCH_DEBOUNCE_MS);
+    });
+
+    searchClear?.addEventListener("click", () => {
+      searchInput.value = "";
+      carregarReceitas(usuario);
+      searchInput.focus();
+    });
   }
 
   // Página Login
