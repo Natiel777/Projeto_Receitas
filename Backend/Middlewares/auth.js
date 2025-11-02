@@ -1,20 +1,10 @@
-import jwt from "jsonwebtoken";
+const cookieParser = require('cookie-parser');
 
-const JWT_SECRET = "chave_receitas_2025";
-export function verificarToken(req, res, next) {
-  const auth = req.headers.authorization;
-  if (!auth) return res.status(401).json({ erro: "Token ausente" });
-
-  const token = auth.replace("Bearer ", "");
-  try {
-    const payload = jwt.verify(token, JWT_SECRET);
-    req.usuario = payload;
-    next();
-  } catch {
-    return res.status(401).json({ erro: "Token inválido ou expirado" });
-  }
+function auth(req, res, next) {
+  const usuarioId = req.cookies['usuarioId'] || req.headers['x-usuario-id'];
+  if(!usuarioId) return res.status(401).json({ erro:'Não autorizado' });
+  req.usuario = { id: parseInt(usuarioId) };
+  next();
 }
 
-export function gerarToken(dados) {
-  return jwt.sign(dados, JWT_SECRET, { expiresIn: "2h" });
-}
+module.exports = { auth, cookieParser };
