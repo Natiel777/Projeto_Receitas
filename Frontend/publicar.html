@@ -2,22 +2,22 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Publicar Receita - Receitas Online</title>
+  <title>Publicar Receita</title>
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-  <h1>Nova Receita</h1>
-  <form id="form-publicar" enctype="multipart/form-data">
-    <input type="text" name="titulo" placeholder="Título da receita" required>
-    <textarea name="ingredientes" placeholder="Ingredientes" required></textarea>
-    <textarea name="modo_preparo" placeholder="Modo de preparo" required></textarea>
-    <input type="file" name="imagem" accept="image/*">
-    <button type="submit">Publicar</button>
-  </form>
-
-  <a href="index.html">⬅ Voltar</a>
-
+  <header><h1>Publicar Receita</h1><nav id="nav-links"></nav></header>
+  <main class="card">
+    <form id="form-publicar" enctype="multipart/form-data">
+      <input type="text" name="titulo" placeholder="Título" required>
+      <textarea name="ingredientes" placeholder="Ingredientes" required></textarea>
+      <textarea name="modo_preparo" placeholder="Modo de preparo"></textarea>
+      <input type="file" name="imagem" accept="image/*" required>
+      <button type="submit">Publicar</button>
+    </form>
+  </main>
   <script type="module" src="scripts/api.js"></script>
+  <script type="module" src="scripts/ui.js"></script>
   <script type="module" src="scripts/app.js"></script>
 </body>
 </html>
