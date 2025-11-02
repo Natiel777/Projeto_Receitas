@@ -54,3 +54,23 @@
 | 🟠 Média    | Tratar erros com `try/catch` e exibir mensagens de feedback | Natiel        |  ✅ Feito    |
 | 🟢 Baixa    | revisar Pull Requests (PRs) no GitHub         | Victor, Natiel           |  ✅ Feito    |
 | 🟢 Baixa    | Atualizar quadro Trello com tarefas e progresso       | Todos           | ⏳ A Fazer    |
+
+
+## 🏁 Sprint 04 — Migração para React 
+
+**Período:** 28/10/2025 - 04/11/2025  
+**Objetivo da Sprint:** Migrar parte da interface atual do projeto para **React**, compreendendo o modelo de componentes e a reatividade, mantendo o fluxo Scrum integrado ao GitHub e Trello.
+
+---
+
+### ✅ Tarefas Planejadas
+
+| Prioridade | Tarefa                                                                 | Responsável        | Status          |
+|-------------|------------------------------------------------------------------------|--------------------|-----------------|
+| 🔴 Alta     | Criar nova pasta `frontend-react/` no repositório                     | Herbert            | ✅ Feito         |
+| 🔴 Alta     | Recriar uma tela existente do sistema em React puro                    | Natiel             |  🕐 A Fazer |
+| 🔴 Alta     | Implementar renderização dinâmica com `.map()`                         | Denner             | 🕐 A Fazer       |
+| 🟠 Média    | Implementar formulário controlado (`useState`, `onSubmit`)             | Herbert            | 🕐 A Fazer       |
+| 🟠 Média    | Implementar exclusão de itens com botão (`onClick`)                    | Victor             | 🕐 A Fazer       |
+| 🟢 Baixa    | Revisar PRs e realizar merge na `main`                                 | Victor, Denner     | 🕐 A Fazer       |
+| 🟢 Baixa    | Atualizar quadro Trello com cards, checklists e progresso da sprint    | Todos              | 🕐 A Fazer       |
