@@ -81,7 +81,7 @@ Uma aplicação web onde os usuários podem:
 │ • usuarios(id, nome, email, senha)         │ ← (1)
 │ • receitas(id, titulo, ingredientes, modo, │ ← (1)(2)
 │   imagem, usuario_id)                        │
-│ • avaliação(id,nota,             │ ← (3)
+│ • avaliação(id,nota,                       │ ← (3)
 │   usuario_id, receita_id)                  │
 └───────────────────────────────┘
 
