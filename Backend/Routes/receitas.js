@@ -1,41 +1,39 @@
-const express = require('express');
+import express from 'express';
+import db from '../db.js';
+import { auth } from '../Middlewares/auth.js';
+import { upload } from '../Middlewares/upload.js';
+
 const router = express.Router();
-const db = require('../db');
-const { auth } = require('../Middlewares/auth');
-const { upload } = require('../Middlewares/upload');
 
-// Publicar
-router.post('/publicar', auth, upload.single('imagem'), (req,res,next)=>{
+router.get('/', async (_, res) => {
+  const receitas = await db.all(`
+    SELECT r.*, u.nome AS autor
+    FROM receitas r LEFT JOIN usuarios u ON r.autor_id = u.id
+    ORDER BY r.id DESC
+  `);
+  res.json(receitas);
+});
+
+router.post('/publicar', auth, upload.single('imagem'), async (req, res) => {
   const { titulo, ingredientes, modo_preparo } = req.body;
-  const autor_id = req.usuario.id;
-  const imagem = req.file ? req.file.filename : null;
-  db.run(`INSERT INTO receitas (titulo,ingredientes,modo_preparo,imagem,autor_id) VALUES (?,?,?,?,?)`,
-    [titulo,ingredientes,modo_preparo,imagem,autor_id],
-    function(err){ if(err) return next(err); res.json({ id:this.lastID, titulo, ingredientes, modo_preparo, imagem }); });
+  if (!titulo || !ingredientes || !req.file) return res.status(400).json({ erro: 'Campos obrigatórios' });
+  const { lastID } = await db.run('INSERT INTO receitas (titulo, ingredientes, modo_preparo, imagem, autor_id) VALUES (?, ?, ?, ?, ?)', [titulo, ingredientes, modo_preparo, req.file.filename, req.user.id]);
+  res.json({ id: lastID });
 });
 
-// Editar
-router.put('/:id', auth, upload.single('imagem'), (req,res,next)=>{
+router.put('/:id', auth, async (req, res) => {
   const { titulo, ingredientes, modo_preparo } = req.body;
-  const imagem = req.file ? req.file.filename : null;
-  db.run(`UPDATE receitas SET titulo=?, ingredientes=?, modo_preparo=?, imagem=? WHERE id=? AND autor_id=?`,
-    [titulo,ingredientes,modo_preparo,imagem,req.params.id,req.usuario.id], function(err){
-      if(err) return next(err); res.json({ id:req.params.id, titulo, ingredientes, modo_preparo, imagem });
-    });
+  const receita = await db.get('SELECT * FROM receitas WHERE id=?', [req.params.id]);
+  if (!receita || receita.autor_id !== req.user.id) return res.status(403).json({ erro: 'Sem permissão' });
+  await db.run('UPDATE receitas SET titulo=?, ingredientes=?, modo_preparo=? WHERE id=?', [titulo, ingredientes, modo_preparo, req.params.id]);
+  res.json({ msg: 'Atualizada' });
 });
 
-// Excluir
-router.delete('/:id', auth, (req,res,next)=>{
-  db.run(`DELETE FROM receitas WHERE id=? AND autor_id=?`, [req.params.id, req.usuario.id], function(err){
-    if(err) return next(err); res.json({ msg:'Receita excluída' });
-  });
+router.delete('/:id', auth, async (req, res) => {
+  const receita = await db.get('SELECT * FROM receitas WHERE id=?', [req.params.id]);
+  if (!receita || receita.autor_id !== req.user.id) return res.status(403).json({ erro: 'Sem permissão' });
+  await db.run('DELETE FROM receitas WHERE id=?', [req.params.id]);
+  res.json({ msg: 'Excluída' });
 });
 
-// Listar
-router.get('/', (req,res,next)=>{
-  db.all(`SELECT r.*, u.nome as autor FROM receitas r JOIN usuarios u ON r.autor_id = u.id`, [], (err,rows)=>{
-    if(err) return next(err); res.json(rows);
-  });
-});
-
-module.exports = router;
+export default router;
