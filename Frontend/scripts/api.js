@@ -1,6 +1,6 @@
 // Detecta URL do Backend
 const BASE_URL = window.location.origin.includes("localhost")
-  ? "http://localhost:3001/api"  // backend local
+  ? "http://localhost:3001/api"
   : `${window.location.origin}/api`;
 
 // Função para buscar receitas
