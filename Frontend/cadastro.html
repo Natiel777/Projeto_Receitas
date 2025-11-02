@@ -6,17 +6,18 @@
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-  <h1>Crie sua conta</h1>
-  <form id="form-cadastro">
-    <input type="text" name="nome" placeholder="Nome completo" required>
-    <input type="email" name="email" placeholder="E-mail" required>
-    <input type="password" name="senha" placeholder="Senha" required>
-    <button type="submit">Cadastrar</button>
-  </form>
-
-  <p>Já tem conta? <a href="login.html">Entre aqui</a></p>
-
+  <header><h1>Cadastro</h1></header>
+  <main class="card">
+    <form id="form-cadastro">
+      <input type="text" name="nome" placeholder="Nome" required>
+      <input type="email" name="email" placeholder="E-mail" required>
+      <input type="password" name="senha" placeholder="Senha" required>
+      <button type="submit">Cadastrar</button>
+    </form>
+  </main>
+  <a href="login.html">Já tem conta? Entrar</a>
   <script type="module" src="scripts/api.js"></script>
+  <script type="module" src="scripts/ui.js"></script>
   <script type="module" src="scripts/app.js"></script>
 </body>
 </html>
