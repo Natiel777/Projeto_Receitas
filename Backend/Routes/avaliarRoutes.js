@@ -2,7 +2,7 @@ import express from "express";
 import jwt from "jsonwebtoken";
 
 const router = express.Router();
-const JWT_SECRET = "minha_chave_secreta_segura_receitas_2025";
+const JWT_SECRET = "chave_receitas_2025";
 
 // Middleware
 function verificarToken(req, res, next) {
