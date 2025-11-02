@@ -1,5 +1,9 @@
-const BASE_URL = "http://localhost:3001/api";
+// Detecta URL do Backend
+const BASE_URL = window.location.origin.includes("localhost")
+  ? "http://localhost:3001/api"  // backend local
+  : `${window.location.origin}/api`;
 
+// Função para buscar receitas
 export async function getReceitas() {
   const res = await fetch(`${BASE_URL}/receitas`);
   if (!res.ok) throw new Error("Erro ao buscar receitas");
@@ -12,6 +16,7 @@ export async function buscarReceitas(q) {
   return res.json();
 }
 
+// Função login
 export async function login(email, senha) {
   const res = await fetch(`${BASE_URL}/usuarios/login`, {
     method: "POST",
@@ -22,6 +27,7 @@ export async function login(email, senha) {
   return res.json();
 }
 
+// Função cadastro
 export async function cadastrar(nome, email, senha) {
   const res = await fetch(`${BASE_URL}/usuarios`, {
     method: "POST",
