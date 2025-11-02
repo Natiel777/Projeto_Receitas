@@ -1,39 +1,37 @@
-// Detecta URL do Backend
-const BASE_URL = window.location.origin.includes("localhost")
-  ? "http://localhost:3001/api"
-  : `${window.location.origin}/api`;
+export const API_BASE = 'http://localhost:3000';
 
-// Função para buscar receitas
-export async function getReceitas() {
-  const res = await fetch(`${BASE_URL}/receitas`);
-  if (!res.ok) throw new Error("Erro ao buscar receitas");
-  return res.json();
-}
-
-export async function buscarReceitas(q) {
-  const res = await fetch(`${BASE_URL}/receitas?q=${encodeURIComponent(q)}`);
-  if (!res.ok) throw new Error("Erro ao buscar receitas");
-  return res.json();
-}
-
-// Função login
-export async function login(email, senha) {
-  const res = await fetch(`${BASE_URL}/usuarios/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, senha })
+export async function apiGet(path) {
+  const res = await fetch(`${API_BASE}${path}`, {
+    credentials: 'include'
   });
-  if (!res.ok) throw new Error("Login inválido");
   return res.json();
 }
 
-// Função cadastro
-export async function cadastrar(nome, email, senha) {
-  const res = await fetch(`${BASE_URL}/usuarios`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ nome, email, senha })
+export async function apiPost(path, data, isForm = false) {
+  const options = {
+    method: 'POST',
+    credentials: 'include',
+    headers: isForm ? {} : { 'Content-Type': 'application/json' },
+    body: isForm ? data : JSON.stringify(data)
+  };
+  const res = await fetch(`${API_BASE}${path}`, options);
+  return res.json();
+}
+
+export async function apiPut(path, data) {
+  const res = await fetch(`${API_BASE}${path}`, {
+    method: 'PUT',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
   });
-  if (!res.ok) throw new Error("Erro ao cadastrar");
+  return res.json();
+}
+
+export async function apiDelete(path) {
+  const res = await fetch(`${API_BASE}${path}`, {
+    method: 'DELETE',
+    credentials: 'include'
+  });
   return res.json();
 }
