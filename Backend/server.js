@@ -45,7 +45,7 @@ app.use(tratarErros);
     app.locals.db = db;
     console.log("Banco de dados conectado com sucesso!");
 
-    app.listen(PORT, "0.0.0.0", () => {
+    app.listen(PORT, () => {
       console.log(`Servidor rodando em: http://localhost:${PORT}`);
     });
   } catch (err) {
