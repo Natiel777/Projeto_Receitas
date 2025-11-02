@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Receitas Online</title>
+  <meta charset="UTF-8">
+  <title>Receitas Online- Home</title>
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
@@ -11,26 +10,19 @@
     <h1>Receitas Online</h1>
     <nav>
       <a href="index.html">Início</a>
-      <a href="publicar.html" id="btn-publicar">Publicar</a>
-      <span id="user-info"></span>
-      <button id="btn-logout" class="hidden">Sair</button>
-      <a href="login.html" id="btn-login">Login</a>
-      <a href="cadastro.html" id="btn-cadastro">Cadastro</a>
+      <a href="publicar.html">Publicar</a>
+      <a href="perfil.html">Perfil</a>
+      <button id="logout-btn">Sair</button>
     </nav>
   </header>
 
   <main>
-    <div id="msg"></div>
-
-    <section class="search-wrap">
-      <input id="search-input" type="search" placeholder="Buscar receitas por nome, descrição ou autor...">
-      <button id="search-clear" title="Limpar busca">X</button>
-    </section>
-
-    <h2>Receitas Recentes</h2>
-    <div id="receitas"></div>
+    <h2>Receitas Publicadas</h2>
+    <div id="receitas-lista"></div>
   </main>
 
-  <script type="module" src="scripts/main.js"></script>
+  <script type="module" src="scripts/api.js"></script>
+  <script type="module" src="scripts/ui.js"></script>
+  <script type="module" src="scripts/app.js"></script>
 </body>
 </html>
