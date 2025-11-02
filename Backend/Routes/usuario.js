@@ -1,49 +1,62 @@
-const express = require('express');
+import express from 'express';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import db from '../db.js';
+import { auth } from '../Middlewares/auth.js';
+import { validarUsuario } from '../Middlewares/validarUsuario.js';
+
 const router = express.Router();
-const db = require('../db');
-const { validarUsuario } = require('../Middlewares/validarUsuario');
-const { auth } = require('../Middlewares/auth');
 
 // Cadastro
-router.post('/cadastrar', validarUsuario, (req,res,next)=>{
-  const { nome,email,senha } = req.body;
-  db.run(`INSERT INTO usuarios (nome,email,senha) VALUES (?,?,?)`, [nome,email,senha], function(err){
-    if(err) return next(err);
-    res.cookie('usuarioId', this.lastID, { httpOnly:true });
-    res.json({ id:this.lastID, nome, email });
-  });
+router.post('/cadastrar', validarUsuario, async (req, res) => {
+  const { nome, email, senha } = req.body;
+  const hash = await bcrypt.hash(senha, 10);
+  try {
+    const { lastID } = await db.run('INSERT INTO usuarios (nome, email, senha) VALUES (?, ?, ?)', [nome, email, hash]);
+    res.json({ id: lastID, nome, email });
+  } catch {
+    res.status(400).json({ erro: 'E-mail já cadastrado' });
+  }
 });
 
 // Login
-router.post('/login',(req,res,next)=>{
+router.post('/login', async (req, res) => {
   const { email, senha } = req.body;
-  db.get(`SELECT * FROM usuarios WHERE email=? AND senha=?`,[email,senha],(err,row)=>{
-    if(err) return next(err);
-    if(!row) return res.status(401).json({ erro:'Usuário ou senha inválidos' });
-    res.cookie('usuarioId', row.id, { httpOnly:true });
-    res.json({ id:row.id, nome:row.nome, email:row.email });
-  });
+  const user = await db.get('SELECT * FROM usuarios WHERE email = ?', [email]);
+  if (!user || !(await bcrypt.compare(senha, user.senha))) return res.status(401).json({ erro: 'Credenciais inválidas' });
+  const token = jwt.sign({ id: user.id, nome: user.nome, email: user.email }, 'segredo', { expiresIn: '1d' });
+  res.cookie('token', token, { httpOnly: true, sameSite: 'lax', secure: false });
+  res.json({ id: user.id, nome: user.nome, email: user.email });
 });
 
 // Logout
-router.post('/logout', auth, (req,res)=>{ res.clearCookie('usuarioId'); res.json({ msg:'Logout efetuado' }); });
+router.post('/logout', (req, res) => {
+  res.clearCookie('token');
+  res.json({ msg: 'Logout efetuado' });
+});
+
+// Usuário logado
+router.get('/logado', auth, async (req, res) => {
+  const u = await db.get('SELECT id, nome, email FROM usuarios WHERE id = ?', [req.user.id]);
+  if (!u) return res.status(404).json({ erro: 'Usuário não encontrado' });
+  res.json(u);
+});
 
 // Editar
-router.put('/editar', auth, (req,res,next)=>{
-  const { nome,email,senha } = req.body;
-  db.run(`UPDATE usuarios SET nome=?, email=?, senha=? WHERE id=?`, [nome,email,senha,req.usuario.id], function(err){
-    if(err) return next(err);
-    res.json({ id:req.usuario.id, nome, email });
-  });
+router.put('/editar', auth, async (req, res) => {
+  const { nome, email, senha } = req.body;
+  const user = await db.get('SELECT * FROM usuarios WHERE id = ?', [req.user.id]);
+  if (!user) return res.status(404).json({ erro: 'Usuário não encontrado' });
+  const novoHash = senha ? await bcrypt.hash(senha, 10) : user.senha;
+  await db.run('UPDATE usuarios SET nome=?, email=?, senha=? WHERE id=?', [nome || user.nome, email || user.email, novoHash, req.user.id]);
+  res.json({ id: req.user.id, nome: nome || user.nome, email: email || user.email });
 });
 
-// Excluir usuário
-router.delete('/excluir', auth, (req,res,next)=>{
-  db.run(`DELETE FROM usuarios WHERE id=?`, [req.usuario.id], function(err){
-    if(err) return next(err);
-    res.clearCookie('usuarioId');
-    res.json({ msg:'Usuário excluído' });
-  });
+// Excluir
+router.delete('/excluir', auth, async (req, res) => {
+  await db.run('DELETE FROM usuarios WHERE id=?', [req.user.id]);
+  res.clearCookie('token');
+  res.json({ msg: 'Usuário excluído' });
 });
 
-module.exports = router;
+export default router;
