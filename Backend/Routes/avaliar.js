@@ -1,15 +1,14 @@
-const express = require('express');
+import express from 'express';
+import db from '../db.js';
+import { auth } from '../Middlewares/auth.js';
 const router = express.Router();
-const db = require('../db');
-const { auth } = require('../Middlewares/auth');
 
-router.post('/:id', auth, (req,res,next)=>{
-  const receita_id = req.params.id;
-  const usuario_id = req.usuario.id;
+router.post('/:id', auth, async (req, res) => {
   const { nota } = req.body;
-  db.run(`INSERT INTO avaliacoes (receita_id,usuario_id,nota) VALUES (?,?,?)`, [receita_id,usuario_id,nota], function(err){
-    if(err) return next(err); res.json({ id:this.lastID, receita_id, usuario_id, nota });
-  });
+  const receita = await db.get('SELECT id FROM receitas WHERE id=?', [req.params.id]);
+  if (!receita) return res.status(404).json({ erro: 'Receita não encontrada' });
+  await db.run('INSERT INTO avaliacoes (receita_id, usuario_id, nota) VALUES (?, ?, ?)', [req.params.id, req.user.id, nota]);
+  res.json({ msg: 'Avaliação registrada' });
 });
 
-module.exports = router;
+export default router;
