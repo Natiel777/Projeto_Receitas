@@ -38,6 +38,7 @@ export async function carregarMinhasReceitas() {
           ${r.imagem ? `<img src="http://localhost:3000/uploads/${r.imagem}">` : ''}
           <p><b>Ingredientes:</b> ${r.ingredientes}</p>
           <p><b>Modo:</b> ${r.modo_preparo}</p>
+          <p>Média: ${(r.media_avaliacao || 0).toFixed(1)} ⭐</p>
           <div>
             <button class="editar" data-id="${r.id}">Editar</button>
             <button class="excluir" data-id="${r.id}">Excluir</button>
@@ -75,6 +76,8 @@ export async function carregarMinhasReceitas() {
 }
 
 function cardHTML(r) {
+  const media = r.media_avaliacao || 0;
+  const estrelasCheias = Math.round(media);
   return `
     <div class="receita-card" data-id="${r.id}">
       <h3>${r.titulo}</h3>
@@ -82,6 +85,10 @@ function cardHTML(r) {
       <p><b>Ingredientes:</b> ${r.ingredientes}</p>
       <p><b>Modo:</b> ${r.modo_preparo}</p>
       <p><i>Autor: ${r.autor}</i></p>
+      <div class="media-avaliacao">
+        Média: ${media.toFixed(1)} ⭐
+        ${[1,2,3,4,5].map(n => n <= estrelasCheias ? '★' : '☆').join('')}
+      </div>
       <div class="stars" data-id="${r.id}">
         ${[1,2,3,4,5].map(n => `<span class="star" data-value="${n}">★</span>`).join('')}
       </div>
@@ -96,7 +103,10 @@ function initStars() {
       s.addEventListener('click', async () => {
         const nota = s.dataset.value;
         const res = await apiPost(`/avaliar/${id}`, { nota });
-        if (res.msg) alert(`Avaliou com ${nota}⭐`);
+        if (res.msg) {
+          alert(`Avaliou com ${nota}⭐`);
+          carregarReceitas();
+        }
       });
       s.addEventListener('mouseover', () => {
         stars.forEach(st => st.classList.remove('selected'));
