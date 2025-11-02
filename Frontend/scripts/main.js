@@ -33,6 +33,10 @@ window.addEventListener("DOMContentLoaded", () => {
     window.location.href = "index.html";
   });
 
+  window.addEventListener("acaoConcluida", () => {
+    carregarReceitas(usuario);
+  });
+
   // Página Inicial
   if (document.getElementById("receitas")) {
     carregarReceitas(usuario);
@@ -93,6 +97,12 @@ window.addEventListener("DOMContentLoaded", () => {
   // Página Cadastro
   const formCadastro = document.getElementById("form-cadastro");
   if (formCadastro) {
+    if (token) {
+      const nomeInput = document.getElementById("nome");
+      const emailInput = document.getElementById("email");
+      nomeInput.value = usuarioNome || "";
+    }
+
     formCadastro.addEventListener("submit", async (e) => {
       e.preventDefault();
       const nome = document.getElementById("nome").value;
@@ -100,11 +110,31 @@ window.addEventListener("DOMContentLoaded", () => {
       const senha = document.getElementById("senha").value;
 
       try {
-        await cadastrar(nome, email, senha);
-        alert("Cadastro realizado com sucesso!");
-        window.location.href = "login.html";
-      } catch {
-        mostrarErro("Erro ao cadastrar usuário.");
+        if (!token) {
+          await cadastrar(nome, email, senha);
+          alert("Cadastro realizado com sucesso!");
+          window.location.href = "login.html";
+        } else {
+          // editar usuário logado
+          const res = await fetch(`http://localhost:3001/api/usuarios/${usuarioId}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({ nome, email, senha: senha || undefined })
+          });
+          if (!res.ok) {
+            const json = await res.json().catch(()=>({ erro: "Erro ao editar" }));
+            throw new Error(json.erro || "Erro ao editar usuário");
+          }
+          alert("Dados atualizados com sucesso!");
+          // atualizar cookie com novo nome
+          definirCookie("usuarioNome", nome);
+          window.location.href = "index.html";
+        }
+      } catch (err) {
+        mostrarErro(err.message || "Erro ao cadastrar/editar usuário.");
       }
     });
   }
@@ -129,7 +159,10 @@ window.addEventListener("DOMContentLoaded", () => {
           body: dados,
         });
 
-        if (!res.ok) throw new Error("Erro ao publicar receita");
+        if (!res.ok) {
+          const json = await res.json().catch(()=>({ erro: "Erro ao publicar receita" }));
+          throw new Error(json.erro || "Erro ao publicar receita");
+        }
         alert("Receita publicada com sucesso!");
         window.location.href = "index.html";
       } catch (err) {
