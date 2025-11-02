@@ -1,55 +1,24 @@
-import express from "express";
-import cors from "cors";
-import path from "path";
-import { fileURLToPath } from "url";
-import { abrirConexao } from "./database/db.js";
-import { logger } from "./Middlewares/logger.js";
-import { tratarErros } from "./Middlewares/tratarErros.js";
-import receitaRoutes from "./Routes/receitaRoutes.js";
-import usuarioRoutes from "./Routes/usuarioRoutes.js";
-import avaliarRoutes from "./Routes/avaliarRoutes.js";
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const { logger } = require('./Middlewares/logger');
+const { tratarErros } = require('./Middlewares/tratarErros');
+const { cookieParser } = require('./Middlewares/auth');
 
-// Configuração do __dirname para ES Modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const usuarioRoutes = require('./Routes/usuario');
+const receitasRoutes = require('./Routes/receitas');
+const avaliarRoutes = require('./Routes/avaliar');
 
-// Cria app Express
 const app = express();
-const PORT = 3001;
-
-// Middlewares globais
-app.use(cors({ origin: true, credentials: true }));
-app.use(express.json());
+app.use(cors({ origin:true, credentials:true }));
+app.use(bodyParser.json());
 app.use(logger);
+app.use(cookieParser());
 
-// Servir imagens
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use('/usuario', usuarioRoutes);
+app.use('/receitas', receitasRoutes);
+app.use('/avaliar', avaliarRoutes);
 
-// Rotas principais
-app.get("/", (req, res) => {
-  res.send("API Receitas Online funcionando!");
-});
-
-app.use("/api/receitas", receitaRoutes);
-app.use("/api/usuarios", usuarioRoutes);
-app.use("/api/avaliacoes", avaliarRoutes);
-
-// Tratamento de erros globais
 app.use(tratarErros);
 
-// Inicialização do servidor e banco de dados
-(async () => {
-  try {
-    console.log("Iniciando conexão com o banco de dados...");
-    const db = await abrirConexao();
-    app.locals.db = db;
-    console.log("Banco de dados conectado com sucesso!");
-
-    app.listen(PORT, () => {
-      console.log(`Servidor rodando em: http://localhost:${PORT}`);
-    });
-  } catch (err) {
-    console.error("Erro ao iniciar servidor:", err.message);
-    process.exit(1);
-  }
-})();
+app.listen(3000, ()=>console.log('Servidor rodando na porta 3000'));
