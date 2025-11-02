@@ -1,10 +1,61 @@
-body { font-family: Arial, sans-serif; margin: 0; background: #f9f9f9; }
-header { background: #ff6f61; color: white; padding: 1em; display: flex; justify-content: space-between; align-items: center; }
-nav a, nav button { margin: 0 8px; color: white; text-decoration: none; }
-.card { background: white; margin: 1em auto; padding: 1em; max-width: 700px; border-radius: 10px; box-shadow: 0 2px 4px #ccc; }
-.receita-card img { width: 100%; border-radius: 8px; }
-.star { cursor: pointer; color: #ccc; font-size: 20px; }
-.star.selected { color: gold; }
-button { padding: 6px 10px; border: none; border-radius: 6px; cursor: pointer; }
-button.danger { background: #e74c3c; color: white; }
-.perfil-actions button { margin-right: 8px; }
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #f9f9f9;
+}
+
+header {
+    background: #ff6f61;
+    color: white;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a,
+nav button {
+    margin: 0 8px;
+    color: white;
+    text-decoration: none;
+}
+
+.card {
+    background: white;
+    margin: 1em auto;
+    padding: 1em;
+    max-width: 700px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px #ccc;
+}
+
+.receita-card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+.star {
+    cursor: pointer;
+    color: #ccc;
+    font-size: 20px;
+}
+
+.star.selected {
+    color: gold;
+}
+
+button {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button.danger {
+    background: #e74c3c;
+    color: white;
+}
+
+.perfil-actions button {
+    margin-right: 8px;
+}
