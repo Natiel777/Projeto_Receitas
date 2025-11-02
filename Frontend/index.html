@@ -2,25 +2,20 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Receitas Online- Home</title>
+  <title>Receitas Online</title>
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
   <header>
     <h1>Receitas Online</h1>
-    <nav>
-      <a href="index.html">Início</a>
-      <a href="publicar.html">Publicar</a>
-      <a href="perfil.html">Perfil</a>
-      <button id="logout-btn">Sair</button>
-    </nav>
+    <nav id="nav-links"></nav>
   </header>
-
   <main>
-    <h2>Receitas Publicadas</h2>
-    <div id="receitas-lista"></div>
+    <section id="receitas" class="card">
+      <h2>Receitas</h2>
+      <div id="receitas-lista"></div>
+    </section>
   </main>
-
   <script type="module" src="scripts/api.js"></script>
   <script type="module" src="scripts/ui.js"></script>
   <script type="module" src="scripts/app.js"></script>
