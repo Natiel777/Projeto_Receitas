@@ -6,29 +6,17 @@
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-  <header>
-    <h1>Cadastro</h1>
-    <a href="index.html">← Voltar</a>
-  </header>
+  <h1>Crie sua conta</h1>
+  <form id="form-cadastro">
+    <input type="text" name="nome" placeholder="Nome completo" required>
+    <input type="email" name="email" placeholder="E-mail" required>
+    <input type="password" name="senha" placeholder="Senha" required>
+    <button type="submit">Cadastrar</button>
+  </form>
 
-  <main>
-    <form id="form-cadastro">
-      <label>Nome</label>
-      <input type="text" id="nome" required>
+  <p>Já tem conta? <a href="login.html">Entre aqui</a></p>
 
-      <label>Email</label>
-      <input type="email" id="email" required>
-
-      <label>Senha</label>
-      <input type="password" id="senha" required>
-
-      <button type="submit">Cadastrar</button>
-      <p>Já tem conta? <a href="login.html">Entrar</a></p>
-    </form>
-
-    <div id="msg"></div>
-  </main>
-
-  <script type="module" src="scripts/main.js"></script>
+  <script type="module" src="scripts/api.js"></script>
+  <script type="module" src="scripts/app.js"></script>
 </body>
 </html>
