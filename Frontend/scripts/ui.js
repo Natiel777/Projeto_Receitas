@@ -52,7 +52,6 @@ export function mostrarErro(msg) {
 export function definirCookie(nome, valor, dias = 1) {
   const data = new Date();
   data.setTime(data.getTime() + dias * 24 * 60 * 60 * 1000);
-  // NOTE: removido Secure para ambiente de desenvolvimento HTTP
   document.cookie = `${nome}=${valor}; expires=${data.toUTCString()}; path=/; SameSite=Strict`;
 }
 
