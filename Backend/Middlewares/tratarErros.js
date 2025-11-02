@@ -1,6 +1,4 @@
-function tratarErros(err, req, res, next){
-  console.error(err);
-  res.status(500).json({ erro: err.message });
+export function tratarErros(err, req, res, next) {
+  console.error('Erro:', err);
+  res.status(500).json({ erro: 'Erro interno' });
 }
-
-module.exports = { tratarErros };
