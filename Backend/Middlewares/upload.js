@@ -1,17 +1,10 @@
-import multer from "multer";
-import path from "path";
-import fs from "fs";
+const multer = require('multer');
+const path = require('path');
 
-const uploadDir = path.resolve("Backend/uploads");
-if (!fs.existsSync(uploadDir)) fs.mkdirSync(uploadDir, { recursive: true });
-
-export const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadDir),
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    const nome = `${Date.now()}-${Math.round(Math.random() * 1E9)}${ext}`;
-    cb(null, nome);
-  }
+const storage = multer.diskStorage({
+  destination: (req,file,cb) => cb(null,'uploads/'),
+  filename: (req,file,cb) => cb(null, Date.now()+path.extname(file.originalname))
 });
 
-export const upload = multer({ storage });
+const upload = multer({ storage });
+module.exports = { upload };
