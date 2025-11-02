@@ -1,10 +1,11 @@
-const cookieParser = require('cookie-parser');
-
-function auth(req, res, next) {
-  const usuarioId = req.cookies['usuarioId'] || req.headers['x-usuario-id'];
-  if(!usuarioId) return res.status(401).json({ erro:'Não autorizado' });
-  req.usuario = { id: parseInt(usuarioId) };
-  next();
+import jwt from 'jsonwebtoken';
+export function auth(req, res, next) {
+  const token = req.cookies?.token;
+  if (!token) return res.status(401).json({ erro: 'Não autenticado' });
+  try {
+    req.user = jwt.verify(token, 'segredo');
+    next();
+  } catch {
+    res.status(401).json({ erro: 'Token inválido' });
+  }
 }
-
-module.exports = { auth, cookieParser };
