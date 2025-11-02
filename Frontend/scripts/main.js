@@ -20,29 +20,32 @@ window.addEventListener("DOMContentLoaded", () => {
 
   // Cabeçalho
   if (usuario) {
-    userInfo.textContent = `Olá!, ${usuario.nome}`;
+    userInfo.textContent = `Olá, ${usuario.nome}`;
     btnLogout?.classList.remove("hidden");
     btnLogin?.classList.add("hidden");
     btnCadastro?.classList.add("hidden");
   }
 
+  // Logout
   btnLogout?.addEventListener("click", () => {
     apagarCookie("token");
     apagarCookie("usuarioNome");
     apagarCookie("usuarioId");
+    alert("Logout realizado com sucesso!");
     window.location.href = "index.html";
   });
 
+  // Atualiza receitas
   window.addEventListener("acaoConcluida", () => {
     carregarReceitas(usuario);
   });
 
-  // Página Inicial
+  // Página inicial
   if (document.getElementById("receitas")) {
     carregarReceitas(usuario);
   }
 
-  // Busca de receitas
+  // Busca
   if (searchInput) {
     const realizarBusca = async (query) => {
       const termo = query.trim();
@@ -55,8 +58,8 @@ window.addEventListener("DOMContentLoaded", () => {
         import("./ui.js").then(({ renderReceitas }) =>
           renderReceitas(resultados, usuario)
         );
-      } catch (err) {
-        mostrarErro("Erro ao buscar receitas");
+      } catch {
+        mostrarErro("Erro ao buscar receitas.");
       }
     };
 
@@ -73,13 +76,13 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Página Login
+  // Login
   const formLogin = document.getElementById("form-login");
   if (formLogin) {
     formLogin.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const email = document.getElementById("email").value;
-      const senha = document.getElementById("senha").value;
+      const email = document.getElementById("email").value.trim();
+      const senha = document.getElementById("senha").value.trim();
 
       try {
         const data = await login(email, senha);
@@ -94,20 +97,21 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Página Cadastro
+  // Cadastro / Edição
   const formCadastro = document.getElementById("form-cadastro");
   if (formCadastro) {
     if (token) {
       const nomeInput = document.getElementById("nome");
       const emailInput = document.getElementById("email");
       nomeInput.value = usuarioNome || "";
+      emailInput.value = "";
     }
 
     formCadastro.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const nome = document.getElementById("nome").value;
-      const email = document.getElementById("email").value;
-      const senha = document.getElementById("senha").value;
+      const nome = document.getElementById("nome").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const senha = document.getElementById("senha").value.trim();
 
       try {
         if (!token) {
@@ -115,7 +119,6 @@ window.addEventListener("DOMContentLoaded", () => {
           alert("Cadastro realizado com sucesso!");
           window.location.href = "login.html";
         } else {
-          // editar usuário logado
           const res = await fetch(`http://localhost:3001/api/usuarios/${usuarioId}`, {
             method: "PUT",
             headers: {
@@ -124,13 +127,13 @@ window.addEventListener("DOMContentLoaded", () => {
             },
             body: JSON.stringify({ nome, email, senha: senha || undefined })
           });
-          if (!res.ok) {
-            const json = await res.json().catch(()=>({ erro: "Erro ao editar" }));
-            throw new Error(json.erro || "Erro ao editar usuário");
-          }
+
+          const json = await res.json();
+          if (!res.ok) throw new Error(json.erro || "Erro ao editar usuário");
+
           alert("Dados atualizados com sucesso!");
-          // atualizar cookie com novo nome
-          definirCookie("usuarioNome", nome);
+          definirCookie("usuarioNome", json.nome);
+          if (json.token) definirCookie("token", json.token);
           window.location.href = "index.html";
         }
       } catch (err) {
@@ -139,7 +142,7 @@ window.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Página Publicar
+  // Publicar receita
   const formReceita = document.getElementById("form-receita");
   if (formReceita) {
     if (!token) {
@@ -150,8 +153,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
     formReceita.addEventListener("submit", async (e) => {
       e.preventDefault();
-
       const dados = new FormData(formReceita);
+
       try {
         const res = await fetch("http://localhost:3001/api/receitas", {
           method: "POST",
@@ -159,14 +162,13 @@ window.addEventListener("DOMContentLoaded", () => {
           body: dados,
         });
 
-        if (!res.ok) {
-          const json = await res.json().catch(()=>({ erro: "Erro ao publicar receita" }));
-          throw new Error(json.erro || "Erro ao publicar receita");
-        }
+        const json = await res.json();
+        if (!res.ok) throw new Error(json.erro || "Erro ao publicar receita");
+
         alert("Receita publicada com sucesso!");
         window.location.href = "index.html";
       } catch (err) {
-        mostrarErro(err.message);
+        mostrarErro(err.message || "Erro ao publicar receita.");
       }
     });
   }
