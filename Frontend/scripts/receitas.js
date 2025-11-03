@@ -1,27 +1,41 @@
-const grid = document.getElementById("receitasGrid");
+// Excluir receita
+async function excluirReceita(id) {
+  const token = localStorage.getItem("token");
+  if (!confirm("Deseja realmente excluir esta receita?")) return;
 
-async function carregarReceitas() {
-  const res = await fetch("http://localhost:3000/receitas");
-  const receitas = await res.json();
-
-  grid.innerHTML = "";
-  receitas.forEach(r => {
-    const card = document.createElement("div");
-    card.classList.add("card");
-    card.innerHTML = `
-      <img src="${r.imagem}" alt="${r.titulo}">
-      <h3>${r.titulo}</h3>
-      <p>${r.descricao}</p>
-      <p>Média de Avaliações: ${r.media} ⭐</p>
-      <button onclick="abrirDetalhe('${r._id}')">Ver detalhes</button>
-    `;
-    grid.appendChild(card);
+  const res = await fetch(`http://localhost:3000/receitas/${id}`, {
+    method: "DELETE",
+    headers: { Authorization: `Bearer ${token}` },
   });
+
+  if (res.ok) {
+    alert("Receita excluída!");
+    window.location.href = "index.html";
+  } else {
+    const data = await res.json();
+    alert(data.error || "Erro ao excluir receita");
+  }
 }
 
-function abrirDetalhe(id) {
-  localStorage.setItem("receitaIdAtual", id);
-  window.location.href = "detalheReceita.html";
-}
+// Editar receita
+async function editarReceita(id, titulo, descricao, imagemFile) {
+  const token = localStorage.getItem("token");
+  const formData = new FormData();
+  formData.append("titulo", titulo);
+  formData.append("descricao", descricao);
+  if (imagemFile) formData.append("imagem", imagemFile);
 
-window.addEventListener("DOMContentLoaded", carregarReceitas);
+  const res = await fetch(`http://localhost:3000/receitas/${id}`, {
+    method: "PUT",
+    headers: { Authorization: `Bearer ${token}` },
+    body: formData,
+  });
+
+  if (res.ok) {
+    alert("Receita atualizada!");
+    window.location.reload();
+  } else {
+    const data = await res.json();
+    alert(data.error || "Erro ao atualizar receita");
+  }
+}
