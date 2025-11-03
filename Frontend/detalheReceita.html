@@ -9,28 +9,28 @@
 <body>
   <header>
     <h1>Detalhe da Receita</h1>
-    <nav>
-      <a href="index.html">Início</a> |
-      <a href="perfil.html">Perfil</a>
-    </nav>
   </header>
 
   <main>
-    <section id="detalheReceita">
+    <section id="receita">
       <h2 id="tituloReceita"></h2>
-      <img id="imagemReceita" src="" alt="">
+      <img id="imagemReceita" src="" alt="Imagem da Receita">
       <p id="descricaoReceita"></p>
-      <p>Média de Avaliações: <span id="mediaAvaliacao">0</span> ⭐</p>
+      <p>Média de Avaliações: <span id="mediaAvaliacoes">0</span> ⭐</p>
+      <button id="editarReceita">Editar Receita</button>
+      <button id="excluirReceita">Excluir Receita</button>
     </section>
 
     <section id="comentarios">
       <h3>Comentários</h3>
       <div id="listaComentarios"></div>
-      <textarea id="novoComentario"></textarea>
+      <textarea id="novoComentario" placeholder="Escreva seu comentário"></textarea>
       <button id="btnComentar">Comentar</button>
     </section>
   </main>
 
+  <script src="scripts/detalheReceita.js"></script>
   <script src="scripts/comentarios.js"></script>
+  <script src="scripts/cookie.js"></script>
 </body>
 </html>
