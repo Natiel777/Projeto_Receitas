@@ -2,22 +2,25 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Receitas Online</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Receitas - Início</title>
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
   <header>
-    <h1>Receitas Online</h1>
-    <nav id="nav-links"></nav>
+    <h1>Bem-vindo ao Receitas!</h1>
+    <nav>
+      <a href="login.html">Login</a> |
+      <a href="cadastro.html">Cadastro</a> |
+      <a href="perfil.html">Perfil</a>
+    </nav>
   </header>
+
   <main>
-    <section id="receitas" class="card">
-      <h2>Receitas</h2>
-      <div id="receitas-lista"></div>
-    </section>
+    <section id="receitasGrid" class="grid-container"></section>
   </main>
-  <script type="module" src="scripts/api.js"></script>
-  <script type="module" src="scripts/ui.js"></script>
-  <script type="module" src="scripts/app.js"></script>
+
+  <script src="scripts/receitas.js"></script>
+  <script src="scripts/cookie.js"></script>
 </body>
 </html>
