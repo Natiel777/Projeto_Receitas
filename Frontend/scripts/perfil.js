@@ -1,47 +1,49 @@
-const form = document.getElementById("editarPerfilForm");
-const excluirBtn = document.getElementById("excluirConta");
-
-async function carregarPerfil() {
-  const token = localStorage.getItem("token");
-  if (!token) return;
-
-  const res = await fetch("http://localhost:3000/profile/me", {
-    headers: { Authorization: `Bearer ${token}` }
-  });
-  const user = await res.json();
-  document.getElementById("nome").value = user.nome;
+if (!localStorage.getItem("token")) {
+  alert("Faça login para acessar esta página!");
+  window.location.href = "login.html";
 }
 
+const form = document.getElementById("editarPerfilForm");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const token = localStorage.getItem("token");
+
+  const nome = document.getElementById("nome").value;
+  const imagemFile = document.getElementById("profilePicture").files[0];
+
   const formData = new FormData();
-  formData.append("nome", document.getElementById("nome").value);
-  const fileInput = document.getElementById("profilePicture");
-  if (fileInput.files[0]) formData.append("profilePicture", fileInput.files[0]);
+  formData.append("nome", nome);
+  if (imagemFile) formData.append("profilePicture", imagemFile);
 
   const res = await fetch("http://localhost:3000/profile/editar", {
     method: "PUT",
     headers: { Authorization: `Bearer ${token}` },
-    body: formData
+    body: formData,
   });
 
-  const data = await res.json();
-  alert("Perfil atualizado com sucesso!");
+  if (res.ok) {
+    alert("Perfil atualizado!");
+    window.location.reload();
+  } else {
+    const data = await res.json();
+    alert(data.error || "Erro ao atualizar perfil");
+  }
 });
 
-excluirBtn.addEventListener("click", async () => {
+document.getElementById("excluirConta").addEventListener("click", async () => {
+  if (!confirm("Deseja realmente excluir sua conta?")) return;
   const token = localStorage.getItem("token");
-  if (!confirm("Tem certeza que deseja excluir sua conta?")) return;
-
-  await fetch("http://localhost:3000/profile/excluir", {
+  const res = await fetch("http://localhost:3000/profile/excluir", {
     method: "DELETE",
-    headers: { Authorization: `Bearer ${token}` }
+    headers: { Authorization: `Bearer ${token}` },
   });
 
-  alert("Conta excluída!");
-  localStorage.removeItem("token");
-  window.location.href = "index.html";
+  if (res.ok) {
+    alert("Conta excluída!");
+    localStorage.removeItem("token");
+    window.location.href = "index.html";
+  } else {
+    const data = await res.json();
+    alert(data.error || "Erro ao excluir conta");
+  }
 });
-
-window.addEventListener("DOMContentLoaded", carregarPerfil);
