@@ -1,22 +1,31 @@
-import express from 'express';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
-import { logger } from './Middlewares/logger.js';
-import { tratarErros } from './Middlewares/tratarErros.js';
-import usuarioRoutes from './Routes/usuario.js';
-import receitasRoutes from './Routes/receitas.js';
-import avaliarRoutes from './Routes/avaliar.js';
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import rateLimit from "express-rate-limit";
+import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
 
+import usuarioRoutes from "./Routes/usuario.js";
+import perfilRoutes from "./Routes/perfil.js";
+import receitaRoutes from "./Routes/receitas.js";
+import comentarioRoutes from "./Routes/comentarios.js";
+
+dotenv.config();
 const app = express();
-app.use(cors({ origin: true, credentials: true }));
+
+app.use(helmet());
+app.use(cors({ origin: "http://localhost:5500", credentials: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(logger);
-app.use('/uploads', express.static('uploads'));
 
-app.use('/usuario', usuarioRoutes);
-app.use('/receitas', receitasRoutes);
-app.use('/avaliar', avaliarRoutes);
-app.use(tratarErros);
+const limiter = rateLimit({ windowMs: 60 * 1000, max: 60 });
+app.use(limiter);
 
-app.listen(3000, () => console.log('Servidor rodando em http://localhost:3000'));
+app.use("/user", usuarioRoutes);
+app.use("/profile", perfilRoutes);
+app.use("/receitas", receitaRoutes);
+app.use("/comentarios", comentarioRoutes);
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
