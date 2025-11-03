@@ -2,30 +2,28 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Meu Perfil - Receitas Online</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil do Usuário</title>
   <link rel="stylesheet" href="styles/style.css">
 </head>
 <body>
-  <h1>Meu Perfil</h1>
+  <header>
+    <h1>Editar Perfil</h1>
+    <nav>
+      <a href="index.html">Início</a> |
+      <a href="login.html">Login</a>
+    </nav>
+  </header>
 
-  <section id="editar">
-    <h2>Editar Dados</h2>
-    <form id="form-editar">
-      <input type="text" name="nome" placeholder="Novo nome">
-      <input type="email" name="email" placeholder="Novo e-mail">
-      <input type="password" name="senha" placeholder="Nova senha">
-      <button type="submit">Salvar Alterações</button>
+  <main>
+    <form id="editarPerfilForm">
+      <input type="text" id="nome" name="nome" placeholder="Seu nome">
+      <input type="file" id="profilePicture" name="profilePicture" accept="image/*">
+      <button type="submit">Salvar</button>
     </form>
-  </section>
+    <button id="excluirConta">Excluir Conta</button>
+  </main>
 
-  <section id="excluir">
-    <h2>Excluir Conta</h2>
-    <button id="btn-excluir-conta">Excluir minha conta</button>
-  </section>
-
-  <a href="index.html">⬅ Voltar</a>
-
-  <script type="module" src="scripts/api.js"></script>
-  <script type="module" src="scripts/app.js"></script>
+  <script src="scripts/perfil.js"></script>
 </body>
 </html>
