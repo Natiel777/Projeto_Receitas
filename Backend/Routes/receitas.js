@@ -23,7 +23,10 @@ router.post("/", auth, upload.single("imagem"), async (req, res) => {
     let imageUrl = "";
     if (req.file) {
       const uploadResult = await new Promise((resolve, reject) => {
-        const stream = cloudinary.v2.uploader.upload_stream({ folder: "receitas" }, (err, result) => err ? reject(err) : resolve(result));
+        const stream = cloudinary.v2.uploader.upload_stream(
+          { folder: "receitas" },
+          (err, result) => (err ? reject(err) : resolve(result))
+        );
         streamifier.createReadStream(req.file.buffer).pipe(stream);
       });
       imageUrl = uploadResult.secure_url;
@@ -33,7 +36,7 @@ router.post("/", auth, upload.single("imagem"), async (req, res) => {
       titulo: req.body.titulo,
       descricao: req.body.descricao,
       imagem: imageUrl,
-      autorId: req.user.id
+      autorId: req.user.id,
     });
 
     res.json(receita);
@@ -47,11 +50,16 @@ router.post("/", auth, upload.single("imagem"), async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const receitas = await Receita.find().populate("autorId", "nome profile_picture");
-    const results = await Promise.all(receitas.map(async r => {
-      const avaliacoes = await Avaliacao.find({ receita_id: r._id });
-      const media = avaliacoes.length > 0 ? (avaliacoes.reduce((a,b)=>a+b.nota,0)/avaliacoes.length).toFixed(1) : 0;
-      return { ...r.toObject(), media };
-    }));
+    const results = await Promise.all(
+      receitas.map(async (r) => {
+        const avaliacoes = await Avaliacao.find({ receita_id: r._id });
+        const media =
+          avaliacoes.length > 0
+            ? (avaliacoes.reduce((a, b) => a + b.nota, 0) / avaliacoes.length).toFixed(1)
+            : 0;
+        return { ...r.toObject(), media };
+      })
+    );
     res.json(results);
   } catch (err) {
     console.error(err);
@@ -68,12 +76,62 @@ router.post("/:id/avaliar", auth, async (req, res) => {
       avaliacao.nota = nota;
       await avaliacao.save();
     } else {
-      avaliacao = await Avaliacao.create({ receita_id: req.params.id, usuario_id: req.user.id, nota });
+      avaliacao = await Avaliacao.create({
+        receita_id: req.params.id,
+        usuario_id: req.user.id,
+        nota,
+      });
     }
     res.json(avaliacao);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Erro ao avaliar receita" });
+  }
+});
+
+// Editar receita
+router.put("/:id", auth, upload.single("imagem"), async (req, res) => {
+  try {
+    const receita = await Receita.findById(req.params.id);
+    if (!receita) return res.status(404).json({ error: "Receita não encontrada" });
+    if (receita.autorId.toString() !== req.user.id) return res.status(403).json({ error: "Não autorizado" });
+
+    let imageUrl = receita.imagem;
+    if (req.file) {
+      const uploadResult = await new Promise((resolve, reject) => {
+        const stream = cloudinary.v2.uploader.upload_stream(
+          { folder: "receitas" },
+          (err, result) => (err ? reject(err) : resolve(result))
+        );
+        streamifier.createReadStream(req.file.buffer).pipe(stream);
+      });
+      imageUrl = uploadResult.secure_url;
+    }
+
+    receita.titulo = req.body.titulo || receita.titulo;
+    receita.descricao = req.body.descricao || receita.descricao;
+    receita.imagem = imageUrl;
+
+    await receita.save();
+    res.json(receita);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erro ao editar receita" });
+  }
+});
+
+// Excluir receita
+router.delete("/:id", auth, async (req, res) => {
+  try {
+    const receita = await Receita.findById(req.params.id);
+    if (!receita) return res.status(404).json({ error: "Receita não encontrada" });
+    if (receita.autorId.toString() !== req.user.id) return res.status(403).json({ error: "Não autorizado" });
+
+    await receita.remove();
+    res.json({ message: "Receita excluída com sucesso" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erro ao excluir receita" });
   }
 });
 
