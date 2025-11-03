@@ -1,11 +1,16 @@
-import jwt from 'jsonwebtoken';
-export function auth(req, res, next) {
-  const token = req.cookies?.token;
-  if (!token) return res.status(401).json({ erro: 'Não autenticado' });
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
+
+export default function auth(req, res, next) {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) return res.status(401).json({ error: "Token não fornecido" });
+
   try {
-    req.user = jwt.verify(token, 'segredo');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = decoded;
     next();
   } catch {
-    res.status(401).json({ erro: 'Token inválido' });
+    return res.status(401).json({ error: "Token inválido" });
   }
 }
