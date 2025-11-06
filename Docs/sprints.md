@@ -61,7 +61,6 @@
 **Período:** 28/10/2025 - 04/11/2025  
 **Objetivo da Sprint:** Migrar parte da interface atual do projeto para **React**, compreendendo o modelo de componentes e a reatividade, mantendo o fluxo Scrum integrado ao GitHub e Trello.
 
----
 
 ### ✅ Tarefas Planejadas
 
@@ -74,3 +73,23 @@
 | 🟠 Média    | Implementar exclusão de itens com botão (`onClick`)                    | Victor             | 🕐 A Fazer       |
 | 🟢 Baixa    | Revisar PRs e realizar merge na `main`                                 | Victor, Denner     | 🕐 A Fazer       |
 | 🟢 Baixa    | Atualizar quadro Trello com cards, checklists e progresso da sprint    | Todos              | 🕐 A Fazer       |
+
+
+## 🏁 Sprint 05 - Manutenibilidade e Qualidade de Código
+
+**Período:** 03/11/2025 - 09/11/2025  
+**Objetivo da Sprint:** Elevar a qualidade do código base através da padronização, eliminação de débito técnico e implementação de um processo de Code Review eficaz, garantindo a aderência às melhores práticas.
+
+
+## ✅ Tarefas Planejadas
+
+| Prioridade | Tarefa | Responsável | Status |
+|-----------|--------|-------------|--------|
+| 🔴 Alta | Revisão e Padronização de Nomenclaturas (Variáveis, Funções, Arquivos) | Natiel | 🕐 A Fazer |
+| 🔴 Alta | Eliminação de Duplicidade e Refatoração de Funções Grandes | Victor | 🕐 A Fazer |
+| 🔴 Alta | Implementação e Aplicação do Prettier/ESLint (Mínimo 1 Módulo) | Herbert | 🕐 A Fazer |
+| 🟠 Média | Abertura de PRs Individuais (seguindo padrão de branching) | Todos | 🕐 A Fazer |
+| 🟢 Baixa | Revisão Cruzada de Código (Code Review): Cada aluno revisa 1 PR | Todos | 🕐 A Fazer |
+| 🟢 Baixa | Finalização e Merge: Aprovar e realizar o merge dos PRs na main/develop | Denner, Victor | 🕐 A Fazer |
+
+---
