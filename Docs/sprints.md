@@ -67,12 +67,12 @@
 | Prioridade | Tarefa                                                                 | Responsável        | Status          |
 |-------------|------------------------------------------------------------------------|--------------------|-----------------|
 | 🔴 Alta     | Criar nova pasta `frontend-react/` no repositório                     | Herbert            | ✅ Feito         |
-| 🔴 Alta     | Recriar uma tela existente do sistema em React puro                    | Natiel             |  🕐 A Fazer |
-| 🔴 Alta     | Implementar renderização dinâmica com `.map()`                         | Denner             | 🕐 A Fazer       |
-| 🟠 Média    | Implementar formulário controlado (`useState`, `onSubmit`)             | Herbert            | 🕐 A Fazer       |
-| 🟠 Média    | Implementar exclusão de itens com botão (`onClick`)                    | Victor             | 🕐 A Fazer       |
-| 🟢 Baixa    | Revisar PRs e realizar merge na `main`                                 | Victor, Denner     | 🕐 A Fazer       |
-| 🟢 Baixa    | Atualizar quadro Trello com cards, checklists e progresso da sprint    | Todos              | 🕐 A Fazer       |
+| 🔴 Alta     | Recriar uma tela existente do sistema em React puro                    | Natiel             |  ✅ Feito  |
+| 🔴 Alta     | Implementar renderização dinâmica com `.map()`                         | Denner             | ✅ Feito        |
+| 🟠 Média    | Implementar formulário controlado (`useState`, `onSubmit`)             | Herbert            | ✅ Feito        |
+| 🟠 Média    | Implementar exclusão de itens com botão (`onClick`)                    | Victor             |✅ Feito      |
+| 🟢 Baixa    | Revisar PRs e realizar merge na `main`                                 | Victor, Denner     | ✅ Feito       |
+| 🟢 Baixa    | Atualizar quadro Trello com cards, checklists e progresso da sprint    | Todos              | ✅ Feito        |
 
 
 ## 🏁 Sprint 05 - Manutenibilidade e Qualidade de Código
