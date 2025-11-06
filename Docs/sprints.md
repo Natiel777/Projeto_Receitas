@@ -89,7 +89,7 @@
 | 🔴 Alta | Eliminação de Duplicidade e Refatoração de Funções Grandes | Victor | 🕐 A Fazer |
 | 🔴 Alta | Implementação e Aplicação do Prettier/ESLint (Mínimo 1 Módulo) | Herbert | 🕐 A Fazer |
 | 🟠 Média | Abertura de PRs Individuais (seguindo padrão de branching) | Todos | 🕐 A Fazer |
-| 🟢 Baixa | Revisão Cruzada de Código (Code Review): Cada aluno revisa 1 PR | Todos | 🕐 A Fazer |
+| 🟢 Baixa | Revisão Cruzada de Código (Code Review): Cada membro revisa 1 PR | Todos | 🕐 A Fazer |
 | 🟢 Baixa | Finalização e Merge: Aprovar e realizar o merge dos PRs na main/develop | Denner, Victor | 🕐 A Fazer |
 
 ---
