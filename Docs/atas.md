@@ -126,3 +126,47 @@ seguintes.
 - Criar o esboço do site no front-end a partir do Figma.  
 ---
 
+# Reunião 06 - 08/11/2025
+
+**Participantes:** Natiel e Herbert.  
+**Duração:** 20:00h às 21:00h.  
+**Objetivo:** Alinhar melhorias na estrutura do projeto, organização de código, documentação e planejar próximas entregas.
+
+---
+
+## Tópicos Discutidos
+
+- Avaliação da estrutura atual do projeto (organização de pastas, arquivos e funções).
+- Padronização de nomes para pastas, arquivos e funções.
+- Análise do estado da documentação do projeto.
+- Discussão sobre prazos e datas de entrega das próximas etapas.
+- Possível inclusão de novas bibliotecas para otimização do desenvolvimento.
+- Finalização e ajustes pendentes do frontend.
+
+---
+
+##  Decisões
+
+- Revisar e padronizar toda a estrutura de pastas, arquivos e nomenclatura das funções.
+- Atualizar e complementar a documentação do projeto.
+- Definir prazo para conclusão do frontend.
+- Avaliar e escolher as bibliotecas que podem ser adicionadas ao projeto.
+- Organizar as próximas entregas e dividir responsabilidades.
+
+---
+
+## ⚠️ Pendências
+
+-  Finalizar a organização dos arquivos e funções do projeto.
+-  Atualizar a documentação com as novas definições.
+-  Concluir o frontend conforme alinhado.
+-  Definir e instalar as novas bibliotecas selecionadas.
+-  Registrar os prazos no Trello para acompanhamento da equipe.
+
+---
+
+### 📌 Observações
+A equipe alinhou a necessidade de manter a organização e manutenibilidade do código, priorizando boas práticas para facilitar a evolução do projeto.
+
+---
+
