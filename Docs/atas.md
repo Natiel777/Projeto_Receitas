@@ -155,7 +155,7 @@ seguintes.
 
 ---
 
-## ⚠️ Pendências
+## Pendências
 
 -  Finalizar a organização dos arquivos e funções do projeto.
 -  Atualizar a documentação com as novas definições.
@@ -165,7 +165,7 @@ seguintes.
 
 ---
 
-### 📌 Observações
+### Observações
 A equipe alinhou a necessidade de manter a organização e manutenibilidade do código, priorizando boas práticas para facilitar a evolução do projeto.
 
 ---
