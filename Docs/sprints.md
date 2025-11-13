@@ -53,7 +53,7 @@
 | 🟠 Média    | Implementar fluxo completo (GET + renderização de dados) | Denner          |  ✅ Feito    |
 | 🟠 Média    | Tratar erros com `try/catch` e exibir mensagens de feedback | Natiel        |  ✅ Feito    |
 | 🟢 Baixa    | revisar Pull Requests (PRs) no GitHub         | Victor, Natiel           |  ✅ Feito    |
-| 🟢 Baixa    | Atualizar quadro Trello com tarefas e progresso       | Todos           | ⏳ A Fazer    |
+| 🟢 Baixa    | Atualizar quadro Trello com tarefas e progresso       | Todos           | ✅ Feito       |
 
 
 ## 🏁 Sprint 04 — Migração para React 
@@ -85,11 +85,32 @@
 
 | Prioridade | Tarefa | Responsável | Status |
 |-----------|--------|-------------|--------|
-| 🔴 Alta | Revisão e Padronização de Nomenclaturas (Variáveis, Funções, Arquivos) | Natiel | 🕐 A Fazer |
-| 🔴 Alta | Eliminação de Duplicidade e Refatoração de Funções Grandes | Victor | 🕐 A Fazer |
-| 🔴 Alta | Implementação e Aplicação do Prettier/ESLint (Mínimo 1 Módulo) | Herbert | 🕐 A Fazer |
-| 🟠 Média | Abertura de PRs Individuais (seguindo padrão de branching) | Todos | 🕐 A Fazer |
-| 🟢 Baixa | Revisão Cruzada de Código (Code Review): Cada membro revisa 1 PR | Todos | 🕐 A Fazer |
-| 🟢 Baixa | Finalização e Merge: Aprovar e realizar o merge dos PRs na main/develop | Denner, Victor | 🕐 A Fazer |
+| 🔴 Alta | Revisão e Padronização de Nomenclaturas (Variáveis, Funções, Arquivos) | Natiel | ✅ Feito    |
+| 🔴 Alta | Eliminação de Duplicidade e Refatoração de Funções Grandes | Victor | ✅ Feito    |
+| 🔴 Alta | Implementação e Aplicação do Prettier/ESLint (Mínimo 1 Módulo) | Herbert | ✅ Feito    |
+| 🟠 Média | Abertura de PRs Individuais (seguindo padrão de branching) | Todos |✅ Feito    |
+| 🟢 Baixa | Revisão Cruzada de Código (Code Review): Cada membro revisa 1 PR | Todos | ✅ Feito    |
+| 🟢 Baixa | Finalização e Merge: Aprovar e realizar o merge dos PRs na main/develop | Denner, Victor | ✅ Feito    |
+
+---
+
+## 🏁 Sprint 06 - Rotas no React
+
+**Período:** 04/11/2025 - 11/11/2025  
+**Objetivo da Sprint:** Transformar do projeto em uma Single Page Application (SPA) utilizando React com React Router, adicionando rotas, layout e organização visual.
+
+
+## ✅ Tarefas Planejadas
+
+| Prioridade | Tarefa | Responsável | Status |
+|-----------|--------|-------------|--------|
+| 🔴 Alta | Estruturação das páginas obrigatórias (Home, Sobre, Entidade, Nova Entidade, 404) | Natiel | ⏳ Em andamento |
+| 🔴 Alta | Configuração do React Router + Rotas Aninhadas | Victor | ⏳ Em andamento |
+| 🔴 Alta | Implementação do Layout principal (Navbar + Footer) | Herbert | ⏳ Em andamento |
+| 🟠 Média | Criação do componente ScrollToTop (restauração de scroll) | Denner | 🔜 A fazer |
+| 🟠 Média | Navegação declarativa e imperativa (`Link` e `useNavigate()`) | Natiel | 🔜 A fazer |
+| 🟢 Baixa | Code Splitting com React.lazy() e `<Suspense>` (opcional) | Victor | 🔜 A fazer |
+| 🟢 Baixa | Criação e organização dos cartões no Trello | Todos | ⏳ Em andamento |
+| 🟢 Baixa | Commits e branches seguindo o padrão definido | Todos | ⏳ Em andamento |
 
 ---
