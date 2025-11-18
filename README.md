@@ -5,8 +5,6 @@
 |--------|-------|
 | 1 | **Natiel** |
 | 2 | **Herbert** |
-| 3 | **Victor** |
-| 4 | **Denner** |
 
 
 ---
@@ -40,7 +38,7 @@ Uma aplicação web onde os usuários podem:
 
 | Camada | Responsabilidades | Tecnologias |
 |--------|------------------|--------------|
-| **Front-end** | Interface web para cadastro, busca, visualização e interação com receitas. | HTML / JS / CSS |
+| **Front-end** | Interface web para cadastro, busca, visualização e interação com receitas. | React / JS / TailwindCSS |
 | **Back-end** | Regras de negócio, autenticação, endpoints REST e integração com o banco. | Node.js + Express |
 | **Banco de Dados** | Armazenar usuários, receitas, imagens e avaliações. | SQLite |
 
@@ -48,14 +46,14 @@ Uma aplicação web onde os usuários podem:
 ---
 
 
-## 🗺 Arquitetura do Sistema
+## 🗺 Arquitetura doistema
 
 ```text
 ┌───────────────────────────────┐
 │           FRONT-END           │
-│         (HTML + JS + CSS)        │
+│         (React + JS + TailwindCSS)        │
 │───────────────────────────────│
-│ • Cadastro / Login          │ ← (1)
+│ • Cadastro /           │ ← (1)
 │ • Postar Receita            │ ← (1)
 │ • Buscar Receitas           │ ← (2)
 │ • Visualizar + Avaliar      │ ← (3)
