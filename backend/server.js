@@ -17,20 +17,24 @@ app.use(cookieParser());
 
 app.use("/uploads", express.static("uploads"));
 
-const usuarioRoutes = require("./src/routes/usuarioRoutes");
-const receitaRoutes = require("./src/routes/receitaRoutes");
-const comentarioRoutes = require("./src/routes/comentarioRoutes");
-const avaliacaoRoutes = require("./src/routes/avaliacaoRoutes");
-const tratarErros = require("./src/middlewares/tratarErros");
+const userRoutes = require("./src/routes/userRoutes");
+const recipeRoutes = require("./src/routes/recipeRoutes");
+const commentRoutes = require("./src/routes/commentRoutes");
+const ratingRoutes = require("./src/routes/ratingRoutes");
+const errors = require("./src/middlewares/errors");
 
-app.use("/api/usuarios", usuarioRoutes);
-app.use("/api/receitas", receitaRoutes);
-app.use("/api/comentarios", comentarioRoutes);
-app.use("/api/avaliacoes", avaliacaoRoutes);
+app.use("/api/usuarios", userRoutes);
+app.use("/api/receitas", recipeRoutes);
+app.use("/api/comentarios", commentRoutes);
+app.use("/api/avaliacoes", ratingRoutes);
 
-app.use(tratarErros);
+app.use(errors);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor rodando na porta ${PORT}`);
-});
+if (process.env.NODE_ENV !== "test") {
+  const PORT = process.env.PORT || 3000;
+  app.listen(PORT, () => {
+    console.log(`Servidor rodando na porta ${PORT}`);
+  });
+}
+
+module.exports = app;

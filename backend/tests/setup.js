@@ -1,18 +1,21 @@
-const sqlite3 = require("sqlite3").verbose();
 const path = require("path");
-const app = require("../app");
+const { PrismaClient } = require("@prisma/client");
+const app = require("../server");
 
 const dbPath =
   process.env.NODE_ENV === "test"
-    ? path.resolve("data/test.db")
-    : path.resolve("src/data/receitas.db");
+    ? path.resolve("prisma/test.db")
+    : path.resolve("prisma/dev.db");
 
-const db = new sqlite3.Database(dbPath, (err) => {
-  if (err) {
-    console.error("Erro ao conectar ao banco:", err.message);
-  } else {
-    console.log(`Conectado ao banco de dados: ${dbPath}`);
+process.env.DATABASE_URL = `file:${dbPath}?cache=shared`;
+
+const prisma = new PrismaClient();
+
+async function resetDatabase() {
+  const tablenames = Object.keys(prisma._dmmf.modelMap);
+  for (const name of tablenames) {
+    await prisma[name].deleteMany();
   }
-});
+}
 
-module.exports = { app, db };
+module.exports = { app, prisma, resetDatabase };

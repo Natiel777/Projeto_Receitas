@@ -4,6 +4,7 @@ const { app, db } = require("./setup.js");
 describe("Comentários API", () => {
   let token;
   let receitaId;
+  let comentarioId;
 
   beforeAll(async () => {
     const email = `com_${Date.now()}@mail.com`;
@@ -35,5 +36,34 @@ describe("Comentários API", () => {
 
     expect(res.status).toBe(201);
     expect(res.body.comentario.texto).toBe("Muito bom!");
+    comentarioId = res.body.comentario.id;
+  });
+
+  test("Editar comentário", async () => {
+    const res = await request(app)
+      .put(`/api/comentarios/${comentarioId}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({ texto: "Excelente receita!" });
+
+    expect(res.status).toBe(200);
+    expect(res.body.comentario.texto).toBe("Excelente receita!");
+  });
+
+  test("Excluir comentário", async () => {
+    const res = await request(app)
+      .delete(`/api/comentarios/${comentarioId}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.status).toBe(204);
+
+    const resGet = await request(app)
+      .get(`/api/comentarios/receita/${receitaId}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(resGet.body).toEqual(
+      expect.not.arrayContaining([
+        expect.objectContaining({ id: comentarioId })
+      ])
+    );
   });
 });

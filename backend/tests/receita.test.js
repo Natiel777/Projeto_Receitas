@@ -37,4 +37,30 @@ describe("Receitas API", () => {
     expect(Array.isArray(res.body)).toBe(true);
     expect(res.body.length).toBeGreaterThan(0);
   });
+
+  test("Editar receita", async () => {
+    const res = await request(app)
+      .put(`/api/receitas/${receitaId}`)
+      .set("Authorization", `Bearer ${token}`)
+      .send({ titulo: "Bolo Atualizado", descricao: "Descrição atualizada" });
+
+    expect(res.status).toBe(200);
+    expect(res.body.receita.titulo).toBe("Bolo Atualizado");
+    expect(res.body.receita.descricao).toBe("Descrição atualizada");
+  });
+
+  test("Excluir receita", async () => {
+    const res = await request(app)
+      .delete(`/api/receitas/${receitaId}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.status).toBe(204);
+
+    const resGet = await request(app).get("/api/receitas");
+    expect(resGet.body).toEqual(
+      expect.not.arrayContaining([
+        expect.objectContaining({ id: receitaId })
+      ])
+    );
+  });
 });
