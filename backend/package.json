@@ -5,6 +5,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node server.js",
     "dev": "nodemon server.js",
+    "build": "npx prisma migrate deploy",
     "test:create-db": "dotenv -e .env.test -- prisma db push --accept-data-loss",
     "test": "npm run test:create-db && dotenv -e .env.test -- jest --runInBand",
     "generate": "npx prisma generate",
