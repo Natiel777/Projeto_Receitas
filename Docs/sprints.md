@@ -104,13 +104,42 @@
 
 | Prioridade | Tarefa | Responsável | Status |
 |-----------|--------|-------------|--------|
-| 🔴 Alta | Estruturação das páginas obrigatórias (Home, Sobre, Entidade, Nova Entidade, 404) | Natiel | ⏳ Em andamento |
-| 🔴 Alta | Configuração do React Router + Rotas Aninhadas | Victor | ⏳ Em andamento |
-| 🔴 Alta | Implementação do Layout principal (Navbar + Footer) | Herbert | ⏳ Em andamento |
-| 🟠 Média | Criação do componente ScrollToTop (restauração de scroll) | Denner | 🔜 A fazer |
-| 🟠 Média | Navegação declarativa e imperativa (`Link` e `useNavigate()`) | Natiel | 🔜 A fazer |
-| 🟢 Baixa | Code Splitting com React.lazy() e `<Suspense>` (opcional) | Victor | 🔜 A fazer |
-| 🟢 Baixa | Criação e organização dos cartões no Trello | Todos | ⏳ Em andamento |
-| 🟢 Baixa | Commits e branches seguindo o padrão definido | Todos | ⏳ Em andamento |
+| 🔴 Alta | Estruturação das páginas obrigatórias (Home, Sobre, Entidade, Nova Entidade, 404) | Natiel | ✅ Feito |
+| 🔴 Alta | Configuração do React Router + Rotas Aninhadas | Victor | ✅ Feito |
+| 🔴 Alta | Implementação do Layout principal (Navbar + Footer) | Herbert | ✅ Feito |
+| 🟠 Média | Criação do componente ScrollToTop (restauração de scroll) | Denner | ✅ Feito |
+| 🟠 Média | Navegação declarativa e imperativa (`Link` e `useNavigate()`) | Natiel | ✅ Feito |
+| 🟢 Baixa | Code Splitting com React.lazy() e `<Suspense>` (opcional) | Victor | ✅ Feito |
+| 🟢 Baixa | Criação e organização dos cartões no Trello | Todos | ✅ Feito |
+| 🟢 Baixa | Commits e branches seguindo o padrão definido | Todos | ✅ Feito |
+
 
 ---
+
+
+## 🏁 Sprint 07 - Integração com o Back-end
+
+**Período:** 11/11/2025 - 18/11/2025  
+**Objetivo da Sprint:** Integrar o front-end React com o back-end, consumindo dados reais da API, implementando listagem dinâmica, cadastro via POST e tratamento de estados.
+
+---
+
+## ✅ Tarefas Planejadas
+
+| Prioridade | Tarefa | Responsável | Status |
+|-----------|--------|-------------|--------|
+| 🔴 Alta | Implementação da **listagem dinâmica** consumindo dados reais da API (GET) | Denner | ✅ Feito |
+| 🔴 Alta | Aplicação do **useEffect** para carregar dados automaticamente | Victor | ✅ Feito |
+| 🔴 Alta | Criação do **formulário funcional** para cadastrar registros (POST) | Herbert | ✅ Feito |
+| 🟠 Média | Atualização automática da listagem após cadastro **sem recarregar a página** | Victor | ✅ Feito |
+| 🟠 Média | Tratamento de estados: **Carregando…**, **Erro**, **Nenhum registro encontrado** | Natiel | ✅ Feito |
+| 🟢 Baixa | Testes completos da integração (GET + POST + estados) | Natiel | ✅ Feito |
+| 🟢 Baixa | Revisão final do código + abertura do **Pull Request** para a main | todos | ✅ Feito |
+| 🟢 Baixa | Organização dos cartões no Trello referentes à Sprint 07 | Todos | ✅ Feito |
+| 🟢 Baixa | Commits e branches seguindo o padrão definido | Todos | ✅ Feito |
+
+---
+
+
+
+
