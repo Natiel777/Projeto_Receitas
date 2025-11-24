@@ -1,4 +1,4 @@
-const REACT_APP_API_URL = import.meta.env.REACT_APP_API_URL || "https://suareceita.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api";
 
 export const fetchAPI = async (endpoint, method = "GET", body = null) => {
   const headers = { "Content-Type": "application/json" };
