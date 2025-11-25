@@ -140,6 +140,30 @@
 
 ---
 
+# 🏁 Sprint 08 – Integração do Banco de Dados, CRUD com Prisma e Consumo no Front-end
 
+**Período:** 18/11/2025 - 25/11/2025  
+**Objetivo da Sprint:** Criar a camada de banco de dados usando Prisma + SQLite, desenvolver o primeiro CRUD completo no back-end e integrar o front-end com dados reais. Também organizar o fluxo no Trello e garantir boas práticas no GitHub.
 
+---
 
+## ✅ Tarefas Planejadas
+
+| Prioridade | Tarefa | Responsável | Status |
+|-----------|--------|-------------|--------|
+| 🔴 Alta | Instalar e inicializar o Prisma no projeto | Herbert | 🔜 A fazer |
+| 🔴 Alta | Configurar provider SQLite no `schema.prisma` | Victor | 🔜 A fazer |
+| 🔴 Alta | Criar os *models* iniciais (mín. 2 entidades + relacionamento) | Natiel | 🔜 A fazer |
+| 🔴 Alta | Rodar a primeira migration (`npx prisma migrate dev`) | Herbert | 🔜 A fazer |
+| 🔴 Alta | Implementar CRUD completo para uma entidade usando Prisma Client | Victor | 🔜 A fazer |
+| 🟠 Média | Criar rotas REST: POST, GET, GET/:id, PUT/:id, DELETE/:id | Victor | 🔜 A fazer |
+| 🟠 Média | Garantir que o back-end não utilize mais arrays/mocks | Herbert | 🔜 A fazer |
+| 🟠 Média | Atualizar o front-end (React) para consumir rotas reais com `fetch` | Natiel | 🔜 A fazer |
+| 🟠 Média | Exibir dados reais do banco no front-end | Natiel | 🔜 A fazer |
+| 🟢 Baixa | Verificar dados no Prisma Studio (`npx prisma studio`) | Denner | 🔜 A fazer |
+| 🟢 Baixa | Atualizar Trello com Sprint 08 e criar cartões detalhados | Todos | 🔜 A fazer |
+| 🟢 Baixa | Criar checklist + definição de pronto (DoD) no Trello | Todos | 🔜 A fazer |
+| 🟢 Baixa | Abrir Pull Requests seguindo o padrão GitFlow | Todos | 🔜 A fazer |
+| 🟢 Baixa | Revisão de código + merge para a `main` | Todos | 🔜 A fazer |
+
+---
