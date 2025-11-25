@@ -32,7 +32,7 @@ function SolicitarNotificacao() {
   if (!exibirAviso) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-sm bg-white border border-gray-300 shadow-lg rounded-lg p-4 z-50">
+    <div className="fixed bottom-4 left-4 right-4 sm:left-6 sm:right-auto sm:max-w-sm bg-white border border-gray-300 shadow-lg rounded-lg p-4 z-[999999]">
       <p className="text-sm text-gray-800 mb-3">
         Deseja permitir que este site envie notificações para seu dispositivo?
       </p>
