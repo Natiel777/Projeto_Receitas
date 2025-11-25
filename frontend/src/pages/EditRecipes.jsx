@@ -25,7 +25,7 @@ function EditarReceita() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/receitas/${id}`)
+    fetch(`https://suareceita.onrender.com/api/receitas/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Erro ao buscar receita: ${res.statusText}`);
@@ -61,7 +61,7 @@ ${modoPreparo.trim()}
     if (imagem) formData.append("imagem", imagem);
 
     try {
-      const response = await fetch(`http://localhost:3000/api/receitas/${id}`, {
+      const response = await fetch(`https://suareceita.onrender.com/api/receitas/${id}`, {
         method: "PUT",
         credentials: "include",
         body: formData,
