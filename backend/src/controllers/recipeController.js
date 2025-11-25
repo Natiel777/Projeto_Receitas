@@ -1,15 +1,59 @@
 const prisma = require("../config/prisma");
+const Filter = require("bad-words");
+const filter = new Filter();
+
+const RECIPE_CATEGORIES = [
+  "Aperitivos",
+  "Acompanhamentos",
+  "Assados",
+  "Bebidas",
+  "Bolos e Tortas",
+  "Carnes",
+  "Churrasco",
+  "Comida de Rua",
+  "Comida Internacional",
+  "Confeitaria",
+  "Conservas",
+  "Doces e Sobremesas",
+  "Entradas",
+  "Lanches",
+  "Massas",
+  "Ovos e Laticínios",
+  "Pães e Fermentados",
+  "Peixes e Frutos do Mar",
+  "Pratos de Inverno",
+  "Pratos de Verão",
+  "Pratos Principais",
+  "Refeições Rápidas",
+  "Saladas",
+  "Sanduíches",
+  "Sopas e Caldos",
+  "Vegan",
+  "Vegetariano",
+];
 
 const recipeController = {
   criar: async (req, res, next) => {
     try {
+      const { titulo, descricao, categoria } = req.body;
       const imagem = req.file ? req.file.filename : null;
+
+      if (!RECIPE_CATEGORIES.includes(categoria)) {
+        const isTitleClean = !filter.isProfane(titulo);
+        const isDescriptionClean = !filter.isProfane(descricao);
+
+        if (!isTitleClean || !isDescriptionClean) {
+          return res.status(400).json({
+            mensagem: "Conteúdo censurado. O título ou a descrição contêm palavras impróprias.",
+          });
+        }
+      }
 
       const receita = await prisma.receitas.create({
         data: {
-          titulo: req.body.titulo,
-          descricao: req.body.descricao,
-          categoria: req.body.categoria,
+          titulo,
+          descricao,
+          categoria,
           imagem,
           usuario_id: req.usuarioId,
         },
