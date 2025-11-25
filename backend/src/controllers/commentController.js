@@ -1,6 +1,9 @@
 const prisma = require("../config/prisma");
-const Filter = require('bad-words');
-const filter = new Filter();
+
+const getFilter = async () => {
+    const { default: Filter } = await import('bad-words');
+    return new Filter();
+};
 
 const commentController = {
   criar: async (req, res, next) => {
@@ -14,6 +17,7 @@ const commentController = {
           .json({ erro: "Texto e receita são obrigatórios." });
       }
 
+      const filter = await getFilter();
       texto = filter.clean(texto);
 
       const comentario = await prisma.comentarios.create({
@@ -71,6 +75,7 @@ const commentController = {
           .json({ erro: "Você não pode editar este comentário." });
       }
 
+      const filter = await getFilter();
       texto = filter.clean(texto);
 
       const atualizado = await prisma.comentarios.update({
