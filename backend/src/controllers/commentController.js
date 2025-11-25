@@ -1,9 +1,11 @@
 const prisma = require("../config/prisma");
+const Filter = require('bad-words');
+const filter = new Filter();
 
 const commentController = {
   criar: async (req, res, next) => {
     try {
-      const { texto, receita_id } = req.body;
+      let { texto, receita_id } = req.body;
       const usuarioId = req.usuarioId;
 
       if (!texto || !receita_id) {
@@ -11,6 +13,8 @@ const commentController = {
           .status(400)
           .json({ erro: "Texto e receita são obrigatórios." });
       }
+
+      texto = filter.clean(texto);
 
       const comentario = await prisma.comentarios.create({
         data: {
@@ -54,7 +58,7 @@ const commentController = {
   editar: async (req, res, next) => {
     try {
       const comentarioId = Number(req.params.id);
-      const { texto } = req.body;
+      let { texto } = req.body;
       const usuarioId = req.usuarioId;
 
       const existente = await prisma.comentarios.findUnique({
@@ -66,6 +70,8 @@ const commentController = {
           .status(403)
           .json({ erro: "Você não pode editar este comentário." });
       }
+
+      texto = filter.clean(texto);
 
       const atualizado = await prisma.comentarios.update({
         where: { id: comentarioId },
