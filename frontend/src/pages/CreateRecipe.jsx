@@ -37,7 +37,7 @@ ${modoPreparo.trim()}
     if (imagem) formData.append("imagem", imagem);
 
     try {
-      const response = await fetch(`http://localhost:3000/api/receitas`, {
+      const response = await fetch(`https://suareceita.onrender.com/api/receitas`, {
         method: "POST",
         credentials: "include",
         body: formData,
