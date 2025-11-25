@@ -12,6 +12,15 @@ const userController = {
   registrar: async (req, res, next) => {
     try {
       let { nome, email, senha } = req.body;
+
+      const jaExiste = await prisma.usuarios.findUnique({
+        where: { email }
+      });
+
+      if (jaExiste) {
+        return res.status(400).json({ erro: "Email já cadastrado." });
+      }
+
       if (senha) senha = await bcrypt.hash(senha, 10);
 
       const usuario = await prisma.usuarios.create({
