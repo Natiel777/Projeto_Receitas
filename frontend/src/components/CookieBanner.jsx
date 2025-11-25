@@ -36,7 +36,7 @@ function CookieBanner() {
   if (!visivel) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-neutral-700 text-white text-sm px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-4 z-50">
+    <div className="fixed bottom-0 left-0 right-0 bg-neutral-700 text-white text-sm px-4 py-3 flex flex-col md:flex-row items-center justify-between gap-4 z-100">
       <span>Este site utiliza cookies para melhorar sua experiência.</span>
       <div className="flex gap-2">
         <button
