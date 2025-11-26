@@ -6,12 +6,7 @@ const cors = require("cors");
 
 const app = express();
 
-const corsOptions = {
-  origin: "https://suareceita-wztq.onrender.com",
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
+app.use(cors({ origin: "http://localhost:5173" }));
 app.use(express.json());
 app.use(cookieParser());
 
