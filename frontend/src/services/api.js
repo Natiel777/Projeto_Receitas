@@ -1,5 +1,4 @@
-const API_URL =
-  import.meta.env.VITE_API_URL || "https://suareceita-backend.onrender.com/api";
+const API_URL = "https://suareceita-backend.onrender.com";
 
 export const fetchAPI = async (endpoint, method = "GET", body = null) => {
   const headers = { "Content-Type": "application/json" };
