@@ -6,7 +6,7 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "https://suareceita.onrender.com" }));
 app.use(express.json());
 app.use(cookieParser());
 
