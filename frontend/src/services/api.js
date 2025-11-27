@@ -1,4 +1,4 @@
-const API_URL = "https://suareceitaserver.onrender.com/api";
+const API_URL = "https://suareceitaserver.onrender.com/api/usuarios";
 
 export const fetchAPI = async (endpoint, method = "GET", body = null) => {
   const headers = { "Content-Type": "application/json" };
