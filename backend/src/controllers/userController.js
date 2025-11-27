@@ -133,7 +133,9 @@ const userController = {
         },
       });
 
-      const link = `http://localhost:5173/resetar-senha?token=${token}`;
+      const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
+      const link = `${frontendUrl}/resetar-senha?token=${token}`;
+
 
       await transporter.sendMail({
         from: process.env.EMAIL_USER,
