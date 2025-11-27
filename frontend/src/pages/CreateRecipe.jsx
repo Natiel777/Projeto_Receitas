@@ -75,8 +75,14 @@ ${modoPreparo.trim()}
     }
   };
 
-  if (carregando) return <p>Verificando login...</p>;
-  if (!autenticado) return null;
+  if (erro) return <p className="text-red-500">{erro}</p>;
+  if (carregando) return (
+  <div className="flex justify-center items-center p-4">
+    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-green-500"></div>
+  </div>
+);
+  if (!autenticado) return null; 
+
 
   return (
     <div className="max-w-md mx-auto mt-10 px-6 py-8 rounded-lg shadow-lg bg-white dark:bg-neutral-700 transition-colors duration-500 font-sans">
