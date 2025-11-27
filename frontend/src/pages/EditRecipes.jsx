@@ -25,7 +25,7 @@ function EditarReceita() {
   };
 
   useEffect(() => {
-    fetch(`https://suareceita-backend.onrender.com/api/receitas/${id}`)
+    fetch(`https://suareceita-backend-lk2p.onrender.com//api/receitas/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error(`Erro ao buscar receita: ${res.statusText}`);
