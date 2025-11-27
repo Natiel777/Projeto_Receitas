@@ -4,14 +4,17 @@ function SolicitarNotificacao() {
   const [exibirAviso, setExibirAviso] = useState(false);
 
   useEffect(() => {
-    const jaSolicitou = sessionStorage.getItem("notificacaoSolicitada");
+    const jaSolicitou = localStorage.getItem("notificacaoSolicitada");
 
-    if (
-      "Notification" in window &&
-      Notification.permission === "default" &&
-      !jaSolicitou
-    ) {
-      setExibirAviso(true);
+    if ("Notification" in window) {
+      if (
+        Notification.permission === "default" &&
+        !jaSolicitou
+      ) {
+        setExibirAviso(true);
+      } else if (Notification.permission === "denied") {
+        localStorage.setItem("notificacaoSolicitada", "true");
+      }
     }
   }, []);
 
@@ -20,12 +23,12 @@ function SolicitarNotificacao() {
     if (permissao === "granted") {
       new Notification("Permissão concedida! Você receberá notificações.");
     }
-    sessionStorage.setItem("notificacaoSolicitada", "true");
+    localStorage.setItem("notificacaoSolicitada", "true");
     setExibirAviso(false);
   };
 
   const recusarPermissao = () => {
-    sessionStorage.setItem("notificacaoSolicitada", "true");
+    localStorage.setItem("notificacaoSolicitada", "true");
     setExibirAviso(false);
   };
 
