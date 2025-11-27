@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
-import { getReceitaById, updateReceita } from "../api/api";
+import { fetchAPI, fetchFormData } from "../services/api";
 
 function EditarReceita() {
   const { id } = useParams();
@@ -28,7 +27,7 @@ function EditarReceita() {
   };
 
   useEffect(() => {
-    getReceitaById(id)
+    fetchAPI(`receitas/${id}`)
       .then((data) => {
         setTitulo(data.titulo);
         setCategoria(data.categoria || "");
@@ -58,7 +57,7 @@ ${modoPreparo.trim()}
     if (imagem) formData.append("imagem", imagem);
 
     try {
-      await updateReceita(id, formData);
+      await fetchFormData(`receitas/${id}`, formData, "PUT");
       navigate(`/receitas/${id}`);
     } catch (err) {
       setErro(err.message);
@@ -76,15 +75,19 @@ ${modoPreparo.trim()}
           value={titulo}
           onChange={(e) => setTitulo(e.target.value)}
           required
-          className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-neutral-500 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300"
+          className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-neutral-500 text-gray-900 dark:text-white placeholder-neutral-600 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300"
         />
-        <input
-          placeholder="Categoria"
+        <select
           value={categoria}
           onChange={(e) => setCategoria(e.target.value)}
           required
-          className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-neutral-500 text-gray-900 dark:text-white placeholder-neutral-600 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300"
-        />
+          className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-neutral-500 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300"
+        >
+          <option value="">Selecione a Categoria</option>
+          <option value="Salgado">Salgado</option>
+          <option value="Doce">Doce</option>
+          <option value="Bebida">Bebida</option>
+        </select>
         <textarea
           placeholder="Ingredientes (um por linha)"
           value={ingredientes}
