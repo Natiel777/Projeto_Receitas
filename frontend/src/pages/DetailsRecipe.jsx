@@ -295,7 +295,7 @@ function DetalhesReceita() {
       )}
 
       <img
-        src={`https://suareceita-backend.onrender.com/uploads/${receita.imagem}`}
+        src={`https://suareceita-backend-lk2p.onrender.com/uploads/${receita.imagem}`}
         alt={receita.titulo}
         className="w-full max-w-full h-72 object-cover mb-8 rounded-xl shadow-xl border-4 border-white dark:border-neutral-600"
         onError={(e) => {
