@@ -7,6 +7,8 @@ function EsqueciSenha() {
   const [mensagem, setMensagem] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const successMessage = "Se o e-mail estiver cadastrado, o link de redefinição foi enviado. Verifique sua caixa de entrada.";
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErro("");
@@ -15,11 +17,13 @@ function EsqueciSenha() {
     try {
       setLoading(true);
       await fetchAPI("usuarios/esqueci-senha", "POST", { email });
-      setMensagem(
-        "E-mail de redefinição enviado! Verifique sua caixa de entrada."
-      );
+      
+      setMensagem(successMessage);
+      
     } catch (err) {
-      setErro(err.message || "Erro ao solicitar redefinição de senha.");
+      console.error("Erro ao tentar enviar e-mail de reset:", err);
+      setMensagem(successMessage);
+      
     } finally {
       setLoading(false);
     }
