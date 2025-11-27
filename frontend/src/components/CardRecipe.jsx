@@ -6,7 +6,7 @@ function CardReceita({ receita }) {
   return (
     <div className="border rounded-lg shadow-md p-4 flex flex-col">
       <img
-        src={`http://localhost:3000/uploads/${receita.imagem}`}
+        src={`https://suareceitaserver/uploads/${receita.imagem}`}
         alt={receita.titulo}
         className="w-full h-40 sm:h-48 object-cover rounded mb-3"
       />
