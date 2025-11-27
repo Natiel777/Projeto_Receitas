@@ -42,7 +42,9 @@ function DetalhesReceita() {
     carregarDados();
   }, [id]);
 
-  const media = avaliacoes.length ? (avaliacoes.reduce((s, a) => s + a.nota, 0) / avaliacoes.length).toFixed(1) : "Sem avaliações";
+  const media = avaliacoes.length
+    ? (avaliacoes.reduce((s, a) => s + a.nota, 0) / avaliacoes.length).toFixed(1)
+    : "Sem avaliações";
 
   const renderEstrelas = (nota) => (
     <span className="inline-flex gap-1 text-yellow-500">
@@ -136,9 +138,13 @@ function DetalhesReceita() {
   };
 
   const formatarDescricao = (texto) => {
-    if (!texto || typeof texto !== 'string') return null;
+    if (!texto || typeof texto !== "string") return null;
 
-    const preparoMarker = texto.includes("Modo de Preparo:") ? "Modo de Preparo:" : (texto.includes("Modo de preparo:") ? "Modo de preparo:" : null);
+    const preparoMarker = texto.includes("Modo de Preparo:")
+      ? "Modo de Preparo:"
+      : texto.includes("Modo de preparo:")
+      ? "Modo de preparo:"
+      : null;
 
     let ingredientes = texto;
     let preparo = "";
@@ -146,54 +152,87 @@ function DetalhesReceita() {
     if (preparoMarker) {
       [ingredientes, preparo] = texto.split(preparoMarker);
     } else {
-      console.warn("Marcador 'Modo de Preparo:' não encontrado. Exibindo como texto corrido.");
       return <p className="whitespace-pre-wrap">{texto}</p>;
     }
 
     const formatList = (content, type) => {
-      const lines = content.replace(type === 'ingredientes' ? /Ingredientes:|Ingredientes:\n/i : /Modo de Preparo:|Modo de preparo:/i, "")
+      const lines = content
+        .replace(
+          type === "ingredientes"
+            ? /Ingredientes:|Ingredientes:\n/i
+            : /Modo de Preparo:|Modo de preparo:/i,
+          ""
+        )
         .trim()
-        .split('\n')
-        .filter(Boolean)
-        .map(line => line.trim());
+        .split("\n")
+        .filter(Boolean);
 
-      if (lines.length === 0) return <p className="text-gray-700 italic">Nenhuma informação de {type} disponível.</p>;
-
-      const ListComponent = type === 'ingredientes' ? 'ul' : 'ol';
-      const listStyle = type === 'ingredientes' ? 'list-disc' : 'list-decimal';
+      const ListComponent = type === "ingredientes" ? "ul" : "ol";
+      const listStyle = type === "ingredientes" ? "list-disc" : "list-decimal";
 
       return (
         <ListComponent className={`${listStyle} list-inside space-y-1 ml-5`}>
           {lines.map((item, i) => (
-            <li key={i} className="text-black dark:text-gray-300">{item.replace(/^-\s*/, '').replace(/^\d+\.\s*/, '')}</li>
+            <li
+              key={i}
+              className="text-black dark:text-gray-300"
+            >
+              {item.replace(/^-\s*/, "").replace(/^\d+\.\s*/, "")}
+            </li>
           ))}
         </ListComponent>
       );
-    }
+    };
 
     return (
       <>
-        <h3 className="text-xl font-bold mt-6 mb-3 text-black dark:text-white">Ingredientes</h3>
-        {formatList(ingredientes, 'ingredientes')}
+        <h3 className="text-xl font-bold mt-6 mb-3 text-black dark:text-white">
+          Ingredientes
+        </h3>
+        {formatList(ingredientes, "ingredientes")}
 
-        <h3 className="text-xl font-bold mt-6 mb-3 text-black dark:text-white">Modo de Preparo</h3>
-        {formatList(preparo, 'preparo')}
+        <h3 className="text-xl font-bold mt-6 mb-3 text-black dark:text-white">
+          Modo de Preparo
+        </h3>
+        {formatList(preparo, "preparo")}
       </>
     );
   };
 
-  if (erro) return <p className="text-red-500 font-medium p-4 rounded-lg bg-red-100 dark:bg-red-900 dark:text-red-300 mx-auto max-w-3xl mt-10">{erro}</p>;
-  if (!receita) return <p className="text-center mt-10 text-lg dark:text-white">Carregando...</p>;
+  if (erro)
+    return (
+      <p className="text-red-500 font-medium p-4 rounded-lg bg-red-100 dark:bg-red-900 dark:text-red-300 mx-auto max-w-3xl mt-10">
+        {erro}
+      </p>
+    );
+
+  if (!receita)
+    return (
+      <p className="text-center mt-10 text-lg dark:text-white">
+        Carregando...
+      </p>
+    );
 
   const currentUrl = encodeURIComponent(window.location.href);
-  const shareText = encodeURIComponent(`Confira esta deliciosa receita: ${receita.titulo}`);
-  const shareTextWhatsapp = encodeURIComponent(`${receita.titulo}\n${window.location.href}`);
+  const shareText = encodeURIComponent(
+    `Confira esta deliciosa receita: ${receita.titulo}`
+  );
+  const shareTextWhatsapp = encodeURIComponent(
+    `${receita.titulo}\n${window.location.href}`
+  );
 
   const SocialShare = () => (
     <div className="mt-8 pt-4 border-t border-gray-200 dark:border-gray-700">
-      <h3 className="text-lg font-bold mb-3 text-gray-900 dark:text-white">Compartilhe esta receita!</h3>
+      <h3 className="text-lg font-bold mb-3 text-gray-900 dark:text-white">
+        Compartilhe esta receita!
+      </h3>
       <div className="flex gap-4 items-center">
-        <a href={`https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`} target="_blank" rel="noopener noreferrer" title="Compartilhar no Facebook" className="p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition shadow-md hover:shadow-lg transform hover:scale-105" >
+        <a
+          href={`https://www.facebook.com/sharer/sharer.php?u=${currentUrl}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full transition shadow-md hover:shadow-lg transform hover:scale-105"
+        >
           <FaFacebook size={20} />
         </a>
 
@@ -201,7 +240,6 @@ function DetalhesReceita() {
           href={`https://twitter.com/intent/tweet?text=${shareText}&url=${currentUrl}`}
           target="_blank"
           rel="noopener noreferrer"
-          title="Compartilhar no X"
           className="p-3 bg-gray-900 hover:bg-black text-white rounded-full transition shadow-md hover:shadow-lg transform hover:scale-105 dark:bg-white dark:text-black"
         >
           <FaXTwitter size={20} />
@@ -211,26 +249,13 @@ function DetalhesReceita() {
           href={`https://wa.me/?text=${shareTextWhatsapp}`}
           target="_blank"
           rel="noopener noreferrer"
-          title="Compartilhar no WhatsApp"
           className="p-3 bg-green-500 hover:bg-green-600 text-white rounded-full transition shadow-md hover:shadow-lg transform hover:scale-105"
         >
           <FaWhatsapp size={20} />
         </a>
 
         <button
-          onClick={() => {
-            navigator.clipboard.writeText(window.location.href).then(() => {
-              alert("Link copiado! Você pode colá-lo em suas Stories ou Directs do Instagram.");
-            }).catch(() => {
-              const el = document.createElement('textarea');
-              el.value = window.location.href;
-              document.body.appendChild(el);
-              el.select();
-              document.execCommand('copy');
-              document.body.removeChild(el);
-            });
-          }}
-          title="Copiar Link para Instagram"
+          onClick={() => navigator.clipboard.writeText(window.location.href)}
           className="p-3 bg-pink-500 hover:bg-pink-600 text-white rounded-full transition shadow-md hover:shadow-lg transform hover:scale-105"
         >
           <FaInstagram size={20} />
@@ -245,20 +270,24 @@ function DetalhesReceita() {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
         <div className="bg-white dark:bg-neutral-800 p-6 rounded-xl shadow-2xl max-w-sm w-full m-4 border-t-4 border-red-500">
-          <h3 className="text-xl font-bold mb-4 text-red-500">Confirmação de Exclusão</h3>
+          <h3 className="text-xl font-bold mb-4 text-red-500">
+            Confirmação de Exclusão
+          </h3>
           <p className="mb-6 text-gray-700 dark:text-gray-300">
-            Tem certeza que deseja excluir a receita *{receita.titulo}*? Esta ação não pode ser desfeita.
+            Tem certeza que deseja excluir a receita{" "}
+            <strong>{receita.titulo}</strong>? Esta ação não pode ser desfeita.
           </p>
           <div className="flex justify-end gap-3">
             <button
               onClick={() => setShowDeleteConfirm(false)}
-              className="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg text-sm font-medium transition"
+              className="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-lg text-sm font-medium"
             >
               Cancelar
             </button>
+
             <button
               onClick={handleConfirmDelete}
-              className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium transition shadow-red-500/50"
+              className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm font-medium"
             >
               Excluir
             </button>
@@ -273,6 +302,7 @@ function DetalhesReceita() {
       <h1 className="text-3xl sm:text-4xl font-extrabold mb-4 break-words text-gray-900 dark:text-white">
         {receita.titulo}
       </h1>
+
       <p className="text-sm text-black mb-4 dark:text-white">
         <span className="font-semibold">Categoria:</span> {receita.categoria}
       </p>
@@ -285,6 +315,7 @@ function DetalhesReceita() {
           >
             Excluir Receita
           </button>
+
           <button
             onClick={() => navigate(`/receitas/editar/${receita.id}`)}
             className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-sm font-medium transition shadow-md"
@@ -295,7 +326,7 @@ function DetalhesReceita() {
       )}
 
       <img
-        src={`https://suareceita-backend-lk2p.onrender.com/uploads/${receita.imagem}`}
+        src={`${import.meta.env.VITE_API_URL}/uploads/${receita.imagem}`}
         alt={receita.titulo}
         className="w-full max-w-full h-72 object-cover mb-8 rounded-xl shadow-xl border-4 border-white dark:border-neutral-600"
         onError={(e) => {
@@ -310,8 +341,10 @@ function DetalhesReceita() {
       </div>
 
       <p className="mt-8 mb-4 text-xl font-bold text-gray-900 dark:text-white">
-        Avaliação Média: <span className="text-yellow-500">{media}</span>{" "}
-        {media !== "Sem avaliações" && renderEstrelas(Math.round(media))}
+        Avaliação Média:{" "}
+        <span className="text-yellow-500">{media}</span>{" "}
+        {media !== "Sem avaliações" &&
+          renderEstrelas(Math.round(media))}
       </p>
 
       <Avaliacao
@@ -345,7 +378,7 @@ function DetalhesReceita() {
       {autenticado && (
         <form onSubmit={enviarComentario} className="mt-6 space-y-4">
           <textarea
-            className="w-full border-2 border-gray-300 dark:border-neutral-700 rounded-xl p-3 shadow-inner bg-white dark:bg-neutral-800 text-black dark:text-white placeholder-white focus:outline-none focus:ring-2 focus:ring-yellow-500 transition resize-y min-h-[100px]"
+            className="w-full border-2 border-gray-300 dark:border-neutral-700 rounded-xl p-3 shadow-inner bg-white dark:bg-neutral-800 text-black dark:text-white resize-y min-h-[100px]"
             placeholder="Escreva um comentário..."
             value={novoComentario}
             onChange={(e) => setNovoComentario(e.target.value)}
@@ -353,8 +386,8 @@ function DetalhesReceita() {
           />
           <button
             type="submit"
-            className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl text-base font-medium transition shadow-md"
             disabled={!novoComentario.trim()}
+            className="px-6 py-2 bg-green-600 hover:bg-green-700 text-white rounded-xl text-base font-medium transition shadow-md"
           >
             Comentar
           </button>
