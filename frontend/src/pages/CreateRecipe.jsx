@@ -38,7 +38,7 @@ ${modoPreparo.trim()}
 
     try {
       const response = await fetch(
-        `https://suareceita-backend.onrender.com/api/receitas`,
+        `https://suareceita-backend-lk2p.onrender.com/api/receitas`,
         {
           method: "POST",
           credentials: "include",
