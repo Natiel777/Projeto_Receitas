@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../auth/Auth";
 import { useNavigate } from "react-router-dom";
-
-import { createReceita } from "../api/api";
+import { fetchFormData } from "../services/api";
 
 function CriarReceita() {
   const [titulo, setTitulo] = useState("");
@@ -39,7 +38,7 @@ ${modoPreparo.trim()}
     if (imagem) formData.append("imagem", imagem);
 
     try {
-      await createReceita(formData);
+      await fetchFormData("receitas", formData);
       navigate("/receitas");
     } catch (err) {
       setErro(err.message);
@@ -62,13 +61,17 @@ ${modoPreparo.trim()}
           required
           className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-neutral-600 text-gray-900 dark:text-white placeholder-neutral-600 dark:placeholder-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300"
         />
-        <input
-          placeholder="Categoria"
+        <select
           value={categoria}
           onChange={(e) => setCategoria(e.target.value)}
           required
-          className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-neutral-600 text-gray-900 dark:text-white placeholder-neutral-600 dark:placeholder-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300"
-        />
+          className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-neutral-600 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300"
+        >
+          <option value="">Selecione a Categoria</option>
+          <option value="Salgado">Salgado</option>
+          <option value="Doce">Doce</option>
+          <option value="Bebida">Bebida</option>
+        </select>
         <textarea
           placeholder="Ingredientes (um por linha)"
           value={ingredientes}
@@ -96,7 +99,7 @@ ${modoPreparo.trim()}
           type="submit"
           className="w-full py-2 px-4 rounded-md bg-orange-600 hover:bg-orange-700 text-white font-semibold transition-colors duration-300"
         >
-          Publicar Receita
+          Salvar Receita
         </button>
       </form>
     </div>
