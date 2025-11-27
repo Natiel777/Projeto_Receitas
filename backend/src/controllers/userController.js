@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const prisma = require("../config/prisma");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
+const sendgridTransport = require('nodemailer-sendgrid-transport');
 
 const SALT_ROUNDS = 12;
 
@@ -130,15 +131,11 @@ const userController = {
         data: { resetToken: token, resetExpira: expira },
       });
 
-      const transporter = nodemailer.createTransport({
-        service: "gmail",
+      const transporter = nodemailer.createTransport(sendgridTransport({
         auth: {
-          user: process.env.EMAIL_USER,
-          pass: process.env.EMAIL_PASS,
-        },
-        connectionTimeout: 60000,
-        socketTimeout: 60000,
-      });
+          api_key: process.env.SENDGRID_API_KEY
+        }
+      }));
 
       const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
       const link = `${frontendUrl}/resetar-senha?token=${token}`;
