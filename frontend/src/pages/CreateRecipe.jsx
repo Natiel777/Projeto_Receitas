@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../auth/Auth";
 import { useNavigate } from "react-router-dom";
 
+import { createReceita } from "../api/api";
+
 function CriarReceita() {
   const [titulo, setTitulo] = useState("");
   const [categoria, setCategoria] = useState("");
@@ -37,16 +39,7 @@ ${modoPreparo.trim()}
     if (imagem) formData.append("imagem", imagem);
 
     try {
-      const response = await fetch(
-        `https://suareceita-backend-lk2p.onrender.com/receitas`,
-        {
-          method: "POST",
-          credentials: "include",
-          body: formData,
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.erro);
+      await createReceita(formData);
       navigate("/receitas");
     } catch (err) {
       setErro(err.message);
