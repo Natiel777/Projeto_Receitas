@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BASE_SERVER_URL } from "../services/api";
+import { API_SERVER_URL } from "../services/api";
 
 function CardReceita({ receita }) {
   const nomeDoAutor = receita.usuario?.nome || "Autor Desconhecido";
