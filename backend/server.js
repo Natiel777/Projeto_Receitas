@@ -6,7 +6,7 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(cors({ origin: "https://suareceita.onrender.com" }));
+app.use(cors({ origin: "https://suareceita-wyze.onrender.com" }));
 app.use(express.json());
 app.use(cookieParser());
 
