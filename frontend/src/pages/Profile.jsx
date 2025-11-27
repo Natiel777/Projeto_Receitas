@@ -31,7 +31,11 @@ function Perfil() {
   };
 
   if (erro) return <p className="text-red-500">{erro}</p>;
-  if (!usuario) return <p>Carregando...</p>;
+if (!usuario) return (
+  <div className="flex justify-center items-center p-4">
+    <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-500"></div>
+  </div>
+);
 
   return (
     <div className="max-w-md mx-auto mt-10">
