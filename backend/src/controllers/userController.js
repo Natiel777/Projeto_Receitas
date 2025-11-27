@@ -5,6 +5,8 @@ const prisma = require("../config/prisma");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 
+const SALT_ROUNDS = 12;
+
 const criarToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "1d" });
 
@@ -21,7 +23,7 @@ const userController = {
         return res.status(400).json({ erro: "Email já cadastrado." });
       }
 
-      if (senha) senha = await bcrypt.hash(senha, 10);
+      if (senha) senha = await bcrypt.hash(senha, SALT_ROUNDS);
 
       const usuario = await prisma.usuarios.create({
         data: { nome, email, senha },
@@ -83,7 +85,7 @@ const userController = {
       if (!confereSenha) return res.status(401).json({ erro: "Senha atual incorreta." });
 
       const dadosAtualizar = { nome, email };
-      if (novaSenha && novaSenha.trim() !== "") dadosAtualizar.senha = await bcrypt.hash(novaSenha, 10);
+      if (novaSenha && novaSenha.trim() !== "") dadosAtualizar.senha = await bcrypt.hash(novaSenha, SALT_ROUNDS);
 
       const atualizado = await prisma.usuarios.update({
         where: { id: req.usuarioId },
@@ -115,7 +117,10 @@ const userController = {
     try {
       const { email } = req.body;
       const usuario = await prisma.usuarios.findUnique({ where: { email } });
-      if (!usuario) return res.status(404).json({ erro: "Usuário não encontrado." });
+
+      if (!usuario) {
+        return res.json({ mensagem: "Se o e-mail estiver cadastrado, o link de reset foi enviado." });
+      }
 
       const token = crypto.randomBytes(32).toString("hex");
       const expira = new Date(Date.now() + 1000 * 60 * 15);
@@ -131,6 +136,8 @@ const userController = {
           user: process.env.EMAIL_USER,
           pass: process.env.EMAIL_PASS,
         },
+        connectionTimeout: 60000,
+        socketTimeout: 60000,
       });
 
       const frontendUrl = process.env.FRONTEND_URL || "http://localhost:5173";
@@ -164,7 +171,7 @@ const userController = {
 
       if (!usuario) return res.status(400).json({ erro: "Token inválido ou expirado." });
 
-      const hash = await bcrypt.hash(novaSenha, 10);
+      const hash = await bcrypt.hash(novaSenha, SALT_ROUNDS);
 
       await prisma.usuarios.update({
         where: { id: usuario.id },
