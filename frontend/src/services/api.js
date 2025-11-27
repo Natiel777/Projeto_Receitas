@@ -1,4 +1,4 @@
-export const BASE_SERVER_URL = "https://suareceitaserver.onrender.com";
+export const API_SERVER_URL = "https://suareceitaserver.onrender.com";
 const API_URL = `${BASE_SERVER_URL}/api`;
 
 export const fetchAPI = async (endpoint, method = "GET", body = null) => {
