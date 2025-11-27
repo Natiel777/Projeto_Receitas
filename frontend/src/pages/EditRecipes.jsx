@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
+import { getReceitaById, updateReceita } from "../api/api";
+
 function EditarReceita() {
   const { id } = useParams();
   const [titulo, setTitulo] = useState("");
@@ -9,9 +11,10 @@ function EditarReceita() {
   const [modoPreparo, setModoPreparo] = useState("");
   const [imagem, setImagem] = useState(null);
   const [erro, setErro] = useState("");
+
   const navigate = useNavigate();
 
-    const extrairDescricao = (descricaoCompleta) => {
+  const extrairDescricao = (descricaoCompleta) => {
     const ingredientesRegex = /Ingredientes:\s*([\s\S]*?)\s*Modo de Preparo:/;
     const modoPreparoRegex = /Modo de Preparo:\s*([\s\S]*)/;
 
@@ -25,13 +28,7 @@ function EditarReceita() {
   };
 
   useEffect(() => {
-    fetch(`https://suareceita-backend-lk2p.onrender.com/receitas/${id}`)
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Erro ao buscar receita: ${res.statusText}`);
-        }
-        return res.json();
-      })
+    getReceitaById(id)
       .then((data) => {
         setTitulo(data.titulo);
         setCategoria(data.categoria || "");
@@ -53,24 +50,15 @@ ${ingredientes.trim()}
 Modo de Preparo:
 ${modoPreparo.trim()}
     `.trim();
-    
+
     const formData = new FormData();
     formData.append("titulo", titulo);
     formData.append("categoria", categoria);
-    formData.append("descricao", descricaoFormatada); 
+    formData.append("descricao", descricaoFormatada);
     if (imagem) formData.append("imagem", imagem);
 
     try {
-      const response = await fetch(
-        `https://suareceita-backend-lk2p.onrender.com/receitas/${id}`,
-        {
-          method: "PUT",
-          credentials: "include",
-          body: formData,
-        }
-      );
-      const data = await response.json();
-      if (!response.ok) throw new Error(data.erro);
+      await updateReceita(id, formData);
       navigate(`/receitas/${id}`);
     } catch (err) {
       setErro(err.message);
