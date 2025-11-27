@@ -208,9 +208,9 @@ function DetalhesReceita() {
 
   if (!receita)
     return (
-      <p className="text-center mt-10 text-lg dark:text-white">
-        Carregando...
-      </p>
+      <div className="flex justify-center items-center mt-10">
+        <div className="animate-spin rounded-full h-10 w-10 border-b-4 border-blue-500"></div>
+      </div>
     );
 
   const currentUrl = encodeURIComponent(window.location.href);
