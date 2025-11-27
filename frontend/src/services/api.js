@@ -15,9 +15,9 @@ export const fetchAPI = async (endpoint, method = "GET", body = null) => {
   return data;
 };
 
-export const fetchFormData = async (endpoint, formData) => {
+export const fetchFormData = async (endpoint, formData, method = "POST") => {
   const response = await fetch(`${API_URL}/${endpoint}`, {
-    method: "POST",
+    method,
     credentials: "include",
     body: formData,
   });
