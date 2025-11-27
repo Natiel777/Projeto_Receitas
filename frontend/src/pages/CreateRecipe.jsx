@@ -3,6 +3,36 @@ import { useAuth } from "../auth/Auth";
 import { useNavigate } from "react-router-dom";
 import { fetchFormData } from "../services/api";
 
+const CATEGORIAS_RECEITA = [
+  "Aperitivos",
+  "Acompanhamentos",
+  "Assados",
+  "Bebidas",
+  "Bolos e Tortas",
+  "Carnes",
+  "Churrasco",
+  "Comida de Rua",
+  "Comida Internacional",
+  "Confeitaria",
+  "Conservas",
+  "Doces e Sobremesas",
+  "Entradas",
+  "Lanches",
+  "Massas",
+  "Ovos e Laticínios",
+  "Pães e Fermentados",
+  "Peixes e Frutos do Mar",
+  "Pratos de Inverno",
+  "Pratos de Verão",
+  "Pratos Principais",
+  "Refeições Rápidas",
+  "Saladas",
+  "Sanduíches",
+  "Sopas e Caldos",
+  "Vegan",
+  "Vegetariano",
+];
+
 function CriarReceita() {
   const [titulo, setTitulo] = useState("");
   const [categoria, setCategoria] = useState("");
@@ -68,9 +98,11 @@ ${modoPreparo.trim()}
           className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-neutral-600 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300"
         >
           <option value="">Selecione a Categoria</option>
-          <option value="Salgado">Salgado</option>
-          <option value="Doce">Doce</option>
-          <option value="Bebida">Bebida</option>
+          {CATEGORIAS_RECEITA.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
         </select>
         <textarea
           placeholder="Ingredientes (um por linha)"
