@@ -1,4 +1,4 @@
-const API_URL = "https://suareceita-backend-lk2p.onrender.com";
+const API_URL = "https://suareceitaserver.onrender.com";
 
 export const fetchAPI = async (endpoint, method = "GET", body = null) => {
   const headers = { "Content-Type": "application/json" };
