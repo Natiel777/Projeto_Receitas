@@ -21,17 +21,6 @@ cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
 });
 
-app.get("/uploads/:filename", (req, res) => {
-  const filename = req.params.filename;
-  const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
-  const folder = 'recipe_app_uploads';
-  
-  const imageUrl = `https://res.cloudinary.com/${cloudName}/image/upload/fl_attachment/${folder}/${filename}`;
-
-  return res.redirect(307, imageUrl);
-});
-
-
 const userRoutes = require("./src/routes/userRoutes");
 const recipeRoutes = require("./src/routes/recipeRoutes");
 const commentRoutes = require("./src/routes/commentRoutes");
