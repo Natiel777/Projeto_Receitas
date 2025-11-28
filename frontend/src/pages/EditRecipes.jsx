@@ -39,6 +39,8 @@ function EditarReceita() {
   const [ingredientes, setIngredientes] = useState("");
   const [modoPreparo, setModoPreparo] = useState("");
   const [imagem, setImagem] = useState(null);
+  // **CORREÇÃO: Adicionado estado para a URL da imagem atual**
+  const [imagemAtualUrl, setImagemAtualUrl] = useState("");
   const [erro, setErro] = useState("");
 
   const navigate = useNavigate();
@@ -65,6 +67,16 @@ function EditarReceita() {
         const { ingredientes, modoPreparo } = extrairDescricao(data.descricao);
         setIngredientes(ingredientes);
         setModoPreparo(modoPreparo);
+
+        // **CORREÇÃO: Define a URL da imagem atual (Cloudinary)**
+        // Se 'data.imagem' for o public_id do Cloudinary:
+        const cloudinaryBaseUrl = "https://res.cloudinary.com/seu-cloud-name/image/upload/";
+        const imagemUrl = data.imagem ? `${cloudinaryBaseUrl}w_600,h_400,c_fill/${data.imagem}` : '';
+        setImagemAtualUrl(imagemUrl);
+        
+        // Se 'data.imagem' já for a URL completa do Cloudinary, use:
+        // setImagemAtualUrl(data.imagem || '');
+
       })
       .catch((err) => setErro(err.message));
   }, [id]);
@@ -134,6 +146,19 @@ ${modoPreparo.trim()}
           required
           className="w-full px-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-neutral-500 text-gray-900 dark:text-white placeholder-neutral-600 dark:placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-orange-500 transition-all duration-300"
         />
+        
+        {/* **CORREÇÃO: Adicionado a exibição da imagem atual do Cloudinary** */}
+        {imagemAtualUrl && (
+          <div className="mb-4">
+            <p className="text-sm font-medium mb-2 dark:text-white">Imagem Atual:</p>
+            <img 
+              src={imagemAtualUrl} 
+              alt="Imagem atual da receita" 
+              className="w-full h-auto object-cover rounded-md max-h-48"
+            />
+          </div>
+        )}
+
         <input
           label="Nova Imagem"
           type="file"
