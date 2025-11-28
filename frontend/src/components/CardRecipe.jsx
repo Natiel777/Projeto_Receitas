@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
-import { API_SERVER_URL } from "../services/api";
 
 function CardReceita({ receita }) {
   const nomeDoAutor = receita.usuario?.nome || "Autor Desconhecido";
+  const imageUrl = receita.imagem || "/caminho/para/imagem_default.jpg"; 
 
   return (
     <div className="border rounded-lg shadow-md p-4 flex flex-col">
       <img
-        src={`${API_SERVER_URL}/uploads/${receita.imagem}`}
+        src={imageUrl}
         alt={receita.titulo}
         className="w-full h-40 sm:h-48 object-cover rounded mb-3"
       />
