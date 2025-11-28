@@ -37,13 +37,13 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/registrar" element={<Registrar />} />
           <Route path="/forgot-password" element={<EsqueciSenha />} />
+          <Route path="/resetar-senha" element={<ResetarSenha />} />
 
           <Route element={<PrivateRoute />}>
             <Route path="/criar" element={<CriarReceita />} />
             <Route path="/receitas/editar/:id" element={<EditarReceita />} />
             <Route path="/perfil" element={<Perfil />} />
             <Route path="/editar-usuario" element={<EditarUsuario />} />
-            <Route path="/resetar-senha" element={<ResetarSenha />} />
           </Route>
         </Routes>
       </main>
