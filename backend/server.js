@@ -3,6 +3,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 const cors = require("cors");
+const cloudinary = require('cloudinary').v2;
 
 const app = express();
 
@@ -16,7 +17,21 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-app.use("/uploads", express.static("uploads"));
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+});
+
+app.get("/uploads/:filename", (req, res) => {
+  const filename = req.params.filename;
+  const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+  const folder = 'recipe_app_uploads';
+  
+  const imageUrl = `https://res.cloudinary.com/${cloudName}/image/upload/fl_attachment/${folder}/${filename}`;
+
+  return res.redirect(307, imageUrl);
+});
+
+// A linha 'app.use("/uploads", express.static("uploads"));' foi removida e substituída pela rota acima.
 
 const userRoutes = require("./src/routes/userRoutes");
 const recipeRoutes = require("./src/routes/recipeRoutes");
