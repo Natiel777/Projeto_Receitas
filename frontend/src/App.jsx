@@ -19,7 +19,7 @@ import EditarReceita from "./pages/EditRecipes";
 import Perfil from "./pages/Profile";
 import EditarUsuario from "./pages/EditUser";
 import EsqueciSenha from "./pages/ForgotPassword";
-import ResetarSenha from "./pages/ResetUser"
+import ResetarSenha from "./pages/ResetUser";
 import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
