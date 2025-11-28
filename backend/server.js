@@ -31,7 +31,6 @@ app.get("/uploads/:filename", (req, res) => {
   return res.redirect(307, imageUrl);
 });
 
-// A linha 'app.use("/uploads", express.static("uploads"));' foi removida e substituída pela rota acima.
 
 const userRoutes = require("./src/routes/userRoutes");
 const recipeRoutes = require("./src/routes/recipeRoutes");
