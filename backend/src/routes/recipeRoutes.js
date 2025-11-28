@@ -3,8 +3,7 @@ const router = express.Router();
 const recipeController = require("../controllers/recipeController");
 const auth = require("../middlewares/auth");
 
-const upload = require("../middlewares/cloudinaryConfig"); 
-// A linha 'const multer = require("multer");' e a config 'storage' foram removidas.
+const upload = require("../middlewares/cloudinaryConfig");
 
 router.post("/", auth, upload.single("imagem"), recipeController.criar);
 
