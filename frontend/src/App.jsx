@@ -37,7 +37,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/registrar" element={<Registrar />} />
           <Route path="/forgot-password" element={<EsqueciSenha />} />
-          <Route path="/resetar-senha-email" element={<ResetarSenha />} />
+          <Route path="/resetar-senha" element={<ResetarSenha />} />
 
           <Route element={<PrivateRoute />}>
             <Route path="/criar" element={<CriarReceita />} />
