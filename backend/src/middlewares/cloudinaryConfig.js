@@ -15,7 +15,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: FOLDER_NAME, 
-    format: async (req, file) => 'auto',
+    format: async (req, file) => 'png',
     public_id: (req, file) => {
       const extension = path.extname(file.originalname);
       const filenameBase = path.parse(file.originalname).name;
