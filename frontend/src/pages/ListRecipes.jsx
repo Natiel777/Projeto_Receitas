@@ -41,6 +41,12 @@ function ListarReceitas() {
     }
   }, [termoBusca, receitas]);
 
+  const LoadingSpinner = (
+    <div className="flex justify-center items-center p-4 col-span-full">
+      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+    </div>
+  );
+
   return (
     <div className="max-w-6xl mx-auto px-6 py-10 text-gray-800 dark:text-gray-100 transition-colors duration-500">
       <h2 className="text-3xl font-bold mb-6 text-gray-900 dark:text-white transition-colors">
@@ -48,11 +54,6 @@ function ListarReceitas() {
       </h2>
 
       {erro && <p className="text-red-600 dark:text-red-400 mb-4">{erro}</p>}
-      {loading && (
-        <p className="text-neutral-600 dark:text-neutral-400 mb-4">
-          Carregando receitas...
-        </p>
-      )}
 
       {termoBusca && !loading && (
         <p className="mb-4 text-neutral-700 dark:text-neutral-300 transition-colors">
@@ -64,13 +65,15 @@ function ListarReceitas() {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {!loading && filtradas.length > 0
-          ? filtradas.map((r) => <CardReceita key={r.id} receita={r} />)
-          : !loading && (
-              <p className="text-neutral-600 dark:text-neutral-400 transition-colors">
-                Nenhuma receita encontrada.
-              </p>
-            )}
+        {loading ? (
+          LoadingSpinner
+        ) : filtradas.length > 0 ? (
+          filtradas.map((r) => <CardReceita key={r.id} receita={r} />)
+        ) : (
+          <p className="text-neutral-600 dark:text-neutral-400 transition-colors col-span-full">
+            Nenhuma receita encontrada.
+          </p>
+        )}
       </div>
     </div>
   );
