@@ -35,7 +35,7 @@ function DetalhesReceita() {
         setReceita(r);
         setAvaliacoes(a);
         setComentarios(c);
-      } catch (err) {
+      } catch {
         setErro("Não foi possível carregar os detalhes da receita.");
       }
     };
@@ -64,7 +64,7 @@ function DetalhesReceita() {
       });
       setNovoComentario("");
       setComentarios(await fetchAPI(`comentarios/receita/${id}`));
-    } catch (err) {
+    } catch {
       setErro("Erro ao enviar comentário.");
     }
   };
@@ -77,7 +77,7 @@ function DetalhesReceita() {
       });
       setComentarios(await fetchAPI(`comentarios/receita/${id}`));
       setEditandoComentario(null);
-    } catch (err) {
+    } catch {
       setErro("Erro ao editar comentário.");
     }
   };
@@ -86,7 +86,7 @@ function DetalhesReceita() {
     try {
       await fetchAPI(`comentarios/${idComentario}`, "DELETE");
       setComentarios(await fetchAPI(`comentarios/receita/${id}`));
-    } catch (err) {
+    } catch {
       setErro("Erro ao excluir comentário.");
     }
   };
@@ -96,7 +96,7 @@ function DetalhesReceita() {
     try {
       await fetchAPI("avaliacoes", "POST", { nota, receita_id: id });
       setAvaliacoes(await fetchAPI(`avaliacoes/receita/${id}`));
-    } catch (err) {
+    } catch {
       setErro("Erro ao enviar avaliação. Você já avaliou esta receita?");
     }
   };
@@ -109,7 +109,7 @@ function DetalhesReceita() {
       });
       setAvaliacoes(await fetchAPI(`avaliacoes/receita/${id}`));
       setEditandoAvaliacao(null);
-    } catch (err) {
+    } catch {
       setErro("Erro ao editar avaliação.");
     }
   };
@@ -118,7 +118,7 @@ function DetalhesReceita() {
     try {
       await fetchAPI(`avaliacoes/${idAvaliacao}`, "DELETE");
       setAvaliacoes(await fetchAPI(`avaliacoes/receita/${id}`));
-    } catch (err) {
+    } catch {
       setErro("Erro ao excluir avaliação.");
     }
   };
@@ -128,14 +128,12 @@ function DetalhesReceita() {
     try {
       await fetchAPI(`receitas/${id}`, "DELETE");
       navigate("/receitas");
-    } catch (err) {
+    } catch {
       setErro("Erro ao excluir receita.");
     }
   };
 
-  const excluirReceita = () => {
-    setShowDeleteConfirm(true);
-  };
+  const excluirReceita = () => setShowDeleteConfirm(true);
 
   const formatarDescricao = (texto) => {
     if (!texto || typeof texto !== "string") return null;
@@ -173,10 +171,7 @@ function DetalhesReceita() {
       return (
         <ListComponent className={`${listStyle} list-inside space-y-1 ml-5`}>
           {lines.map((item, i) => (
-            <li
-              key={i}
-              className="text-black dark:text-gray-300"
-            >
+            <li key={i} className="text-black dark:text-gray-300">
               {item.replace(/^-\s*/, "").replace(/^\d+\.\s*/, "")}
             </li>
           ))}
@@ -212,6 +207,10 @@ function DetalhesReceita() {
         <div className="animate-spin rounded-full h-10 w-10 border-b-4 border-blue-500"></div>
       </div>
     );
+
+  const imageUrl = receita.imagem
+    ? `${import.meta.env.VITE_API_URL}/uploads/${receita.imagem}`
+    : "/caminho/para/imagem_default.jpg";
 
   const currentUrl = encodeURIComponent(window.location.href);
   const shareText = encodeURIComponent(
@@ -326,13 +325,12 @@ function DetalhesReceita() {
       )}
 
       <img
-        src={`${import.meta.env.VITE_API_URL}/uploads/${receita.imagem}`}
+        src={imageUrl}
         alt={receita.titulo}
         className="w-full max-w-full h-72 object-cover mb-8 rounded-xl shadow-xl border-4 border-white dark:border-neutral-600"
         onError={(e) => {
           e.target.onerror = null;
-          e.target.src =
-            "https://placehold.co/800x400/1D4ED8/ffffff?text=Imagem+da+Receita";
+          e.target.src = "/caminho/para/imagem_default.jpg";
         }}
       />
 
@@ -341,10 +339,8 @@ function DetalhesReceita() {
       </div>
 
       <p className="mt-8 mb-4 text-xl font-bold text-gray-900 dark:text-white">
-        Avaliação Média:{" "}
-        <span className="text-yellow-500">{media}</span>{" "}
-        {media !== "Sem avaliações" &&
-          renderEstrelas(Math.round(media))}
+        Avaliação Média: <span className="text-yellow-500">{media}</span>{" "}
+        {media !== "Sem avaliações" && renderEstrelas(Math.round(media))}
       </p>
 
       <Avaliacao
