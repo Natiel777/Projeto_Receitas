@@ -4,40 +4,20 @@ const leoProfanity = require("leo-profanity");
 leoProfanity.loadDictionary();
 
 const RECIPE_CATEGORIES = [
-  "Aperitivos",
-  "Acompanhamentos",
-  "Assados",
-  "Bebidas",
-  "Bolos e Tortas",
-  "Carnes",
-  "Churrasco",
-  "Comida de Rua",
-  "Comida Internacional",
-  "Confeitaria",
-  "Conservas",
-  "Doces e Sobremesas",
-  "Entradas",
-  "Lanches",
-  "Massas",
-  "Ovos e Laticínios",
-  "Pães e Fermentados",
-  "Peixes e Frutos do Mar",
-  "Pratos de Inverno",
-  "Pratos de Verão",
-  "Pratos Principais",
-  "Refeições Rápidas",
-  "Saladas",
-  "Sanduíches",
-  "Sopas e Caldos",
-  "Vegan",
-  "Vegetariano",
+  "Aperitivos", "Acompanhamentos", "Assados", "Bebidas", "Bolos e Tortas",
+  "Carnes", "Churrasco", "Comida de Rua", "Comida Internacional", "Confeitaria",
+  "Conservas", "Doces e Sobremesas", "Entradas", "Lanches", "Massas",
+  "Ovos e Laticínios", "Pães e Fermentados", "Peixes e Frutos do Mar",
+  "Pratos de Inverno", "Pratos de Verão", "Pratos Principais",
+  "Refeições Rápidas", "Saladas", "Sanduíches", "Sopas e Caldos",
+  "Vegan", "Vegetariano",
 ];
 
 const recipeController = {
   criar: async (req, res, next) => {
     try {
       const { titulo, descricao, categoria } = req.body;
-      const imagem = req.file ? req.file.filename : null;
+      const imagem = req.file ? req.file.path : null; 
 
       if (!RECIPE_CATEGORIES.includes(categoria)) {
         return res.status(400).json({ mensagem: "Categoria inválida." });
@@ -58,7 +38,7 @@ const recipeController = {
           titulo,
           descricao,
           categoria,
-          imagem,
+          imagem, 
           usuario_id: req.usuarioId,
         },
       });
@@ -111,13 +91,13 @@ const recipeController = {
 
   editar: async (req, res, next) => {
     try {
-      const imagem = req.file ? req.file.filename : req.body.imagem;
+      const imagem = req.file ? req.file.path : req.body.imagem;
 
       const dados = {
         titulo: req.body.titulo,
         descricao: req.body.descricao,
         categoria: req.body.categoria,
-        imagem,
+        imagem, 
       };
 
       const atualizada = await prisma.receitas.update({
