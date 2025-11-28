@@ -208,9 +208,7 @@ function DetalhesReceita() {
       </div>
     );
 
-  const imageUrl = receita.imagem
-    ? `${import.meta.env.VITE_API_URL}/uploads/${receita.imagem}`
-    : "/caminho/para/imagem_default.jpg";
+  const imageUrl = receita.imagem || "/caminho/para/imagem_default.jpg";
 
   const currentUrl = encodeURIComponent(window.location.href);
   const shareText = encodeURIComponent(
