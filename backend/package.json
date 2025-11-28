@@ -26,7 +26,7 @@
     "nodemailer-sendgrid-transport": "^0.2.0",
     "postgresql": "^0.0.1",
     "cloudinary": "^2.11.0",               
-    "multer-storage-cloudinary": "^4.0.0"  
+    "multer-storage-cloudinary": "^5.0.0"  
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.5",
