@@ -34,6 +34,14 @@ app.use("/api/avaliacoes", ratingRoutes);
 
 app.use(errors);
 
+if (process.env.NODE_ENV === "production") {
+  const frontendPath = path.join(__dirname, '..', 'dist');
+  app.use(express.static(frontendPath));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(frontendPath, 'index.html'));
+  });
+}
+
 if (process.env.NODE_ENV !== "test") {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
