@@ -12,13 +12,17 @@ function ResetarSenha() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const tokenUrl = searchParams.get("token");
+    let tokenUrl = searchParams.get("token");
+    if (!tokenUrl) {
+      const altToken = new URLSearchParams(window.location.search).get("token");
+      if (altToken) tokenUrl = altToken;
+    }
     if (!tokenUrl) {
       setErro("Token inválido ou ausente.");
     } else {
       setToken(tokenUrl);
     }
-  }, [searchParams]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,10 +40,9 @@ function ResetarSenha() {
         token,
         novaSenha,
       });
-      setMensagem("Senha redefinida com sucesso! Redirecionando para login");
-      setTimeout(() => {
-        navigate("/login");
-      }, 2000);
+
+      setMensagem("Senha redefinida com sucesso! Redirecionando para login...");
+      setTimeout(() => navigate("/login"), 2000);
     } catch (err) {
       setErro(err.message || "Erro ao redefinir a senha.");
     } finally {
