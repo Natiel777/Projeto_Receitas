@@ -13,4 +13,5 @@
 
 **Descrição do Sistema:**  
 A Plataforma de Receitas Online é uma aplicação web voltada para amantes da culinária, permitindo que usuários criem contas, publiquem suas receitas com fotos, ingredientes e modo de preparo, busquem receitas por nome ou ingrediente, e avaliem receitas de outros usuários. O sistema oferece uma experiência interativa, intuitiva e colaborativa, estimulando o compartilhamento de receitas e a troca de experiências gastronômicas.
-nal, desenvolvido pelos alunos do grupo para fins acadêmicos.
+ 
+**Desenvolvido pelos alunos do grupo para fins acadêmicos.**
